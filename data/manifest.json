@@ -1,6 +1,6 @@
 {
   "version": "0.1.0",
-  "generatedAt": "2026-06-11T17:10:25.355Z",
+  "generatedAt": "2026-06-11T21:25:28.025Z",
   "schemas": {
     "animated_model_data": {
       "id": "data/schemas/def/world/animated_model_data.json",
@@ -48,8 +48,8 @@
       "path": "./data/schemas/def/world/detail_vegetation_data.json",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@c3be3798505830f3d9752b7f7c13f2e4fa1accd9/data/schemas/def/world/detail_vegetation_data.json",
       "metaVersion": "0.1.0",
-      "hash": "sha256:2a50a3aa90f630b36bf7413df50c656ee98a3103e2eb1e5ebeae89c33003bca3",
-      "size": 910,
+      "hash": "sha256:a93318cd37fcfd0df41c1d9bfd5d0e2e09869891be5133b3f3fbfe2d1748ff6e",
+      "size": 909,
       "description": ""
     },
     "detail_vegetation_def": {
@@ -60,6 +60,16 @@
       "metaVersion": "0.1.0",
       "hash": "sha256:eef3d679f96c985b3aad4438cdf7478e757e4cf4462789ddaf03b7ab4279df29",
       "size": 1064,
+      "description": ""
+    },
+    "dynamic_cargo_grab_prop": {
+      "id": "data/schemas/def/world/dynamic_cargo_grab_prop.json",
+      "name": "dynamic_cargo_grab_prop",
+      "path": "./data/schemas/def/world/dynamic_cargo_grab_prop.json",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@df451443f4aa467ca5f13af9e9b5c4a704077192/data/schemas/def/world/dynamic_cargo_grab_prop.json",
+      "metaVersion": "0.1.0",
+      "hash": "sha256:5b5fcc0a3cb85a7d65cf13895bb4df951a3f212a8f977523fdc9e13fa5b42bfe",
+      "size": 1193,
       "description": ""
     }
   }
