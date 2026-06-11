@@ -1,6 +1,6 @@
 {
   "version": "0.1.0",
-  "generatedAt": "2026-06-11T16:55:41.167Z",
+  "generatedAt": "2026-06-11T16:56:39.878Z",
   "schemas": {
     "detail_vegetation_def": {
       "id": "data/schemas/def/world/detail_vegetation_def.json",
@@ -8,8 +8,8 @@
       "path": "./data/schemas/def/world/detail_vegetation_def.json",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@commit/b5ea7a3865ae72d06c2d8652bd14043cd8dda9c5/data/schemas/def/world/detail_vegetation_def.json",
       "metaVersion": "0.1.0",
-      "hash": "sha256:4fd5623c88849b672ea4998776c0d63a7da85a6a6d91d50039c014752cf5db5d",
-      "size": 1115,
+      "hash": "sha256:eef3d679f96c985b3aad4438cdf7478e757e4cf4462789ddaf03b7ab4279df29",
+      "size": 1064,
       "description": ""
     },
     "detail_vegetation_data": {
@@ -18,8 +18,8 @@
       "path": "./data/schemas/def/world/detail_vegetation_data.json",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@commit/b5ea7a3865ae72d06c2d8652bd14043cd8dda9c5/data/schemas/def/world/detail_vegetation_data.json",
       "metaVersion": "0.1.0",
-      "hash": "sha256:82cc457f79d1018215054d81d4e5e3577c09554e9ef69b28395d20173995bc70",
-      "size": 960,
+      "hash": "sha256:2a50a3aa90f630b36bf7413df50c656ee98a3103e2eb1e5ebeae89c33003bca3",
+      "size": 910,
       "description": ""
     },
     "curve_model": {
@@ -28,8 +28,8 @@
       "path": "./data/schemas/def/world/curve_model.json",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@commit/b5ea7a3865ae72d06c2d8652bd14043cd8dda9c5/data/schemas/def/world/curve_model.json",
       "metaVersion": "0.1.0",
-      "hash": "sha256:8408a6f8c9d0263abe61e49b0bc34b424f6643b4357a8de6c5c5bb5b8e444dff",
-      "size": 2900,
+      "hash": "sha256:8066bb573dd48a3585153263fa1f96eadd64aa1009a12a0cee9f5e626d24fe54",
+      "size": 2744,
       "description": ""
     },
     "building_scheme": {
@@ -38,8 +38,8 @@
       "path": "./data/schemas/def/world/building_scheme.json",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@commit/b5ea7a3865ae72d06c2d8652bd14043cd8dda9c5/data/schemas/def/world/building_scheme.json",
       "metaVersion": "0.1.0",
-      "hash": "sha256:409b621b3e8053d901e7380f07e55c709efc2bdbfb95a109022966e86672de70",
-      "size": 1091,
+      "hash": "sha256:fb6fab377fd60cdb992823cb9cd09a08270cd51f1f9e7b63024da107e4d9f8ef",
+      "size": 1034,
       "description": ""
     },
     "building_model": {
@@ -48,8 +48,8 @@
       "path": "./data/schemas/def/world/building_model.json",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@commit/b5ea7a3865ae72d06c2d8652bd14043cd8dda9c5/data/schemas/def/world/building_model.json",
       "metaVersion": "0.1.0",
-      "hash": "sha256:df3a85a92ececea46f92e52af50f5f904cdf3ec78bb8f9f987fabacd93b4455e",
-      "size": 2384,
+      "hash": "sha256:176ebdc9f2d78dc8e79c92d01404a27d16e5b85ec2ff109eebe4aba27f30fe5a",
+      "size": 2261,
       "description": ""
     },
     "animated_model_data": {
@@ -58,8 +58,8 @@
       "path": "./data/schemas/def/world/animated_model_data.json",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@commit/b5ea7a3865ae72d06c2d8652bd14043cd8dda9c5/data/schemas/def/world/animated_model_data.json",
       "metaVersion": "0.1.0",
-      "hash": "sha256:e5bf018bf6394c5261157c7c306ea5ac707ee0c0ed34e3eda09c74dcbd99df9f",
-      "size": 986,
+      "hash": "sha256:76c36a326f2c2523c2569f8e9749f1710567a0a45ee743be0f662b1b1ce69e71",
+      "size": 937,
       "description": ""
     }
   }
