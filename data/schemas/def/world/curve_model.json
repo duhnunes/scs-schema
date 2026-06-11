@@ -1,0 +1,109 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "description": ""
+  },
+  "scope": "curve_model",
+  "key": {
+    "name": {
+      "description": "This is the name from building_schema",
+      "type": [
+        "string"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "model_desc": {
+      "description": "/path/to/file.pmd",
+      "type": ["resource_tie"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "variation": {
+      "description": "",
+      "type": [
+        "fixed"
+      ],
+      "isArray": true,
+      "arrayElementType": ["string"]
+    },
+    "start_part": {
+      "description": "",
+      "type": ["fixed"],
+      "isArray": true,
+      "arrayElementType": [
+        "string"
+      ]
+    },
+    "end_part": {
+      "description": "",
+      "type": [
+        "fixed"
+      ],
+      "isArray": true,
+      "arrayElementType": ["string"]
+    },
+    "dynamic_lod_desc": {
+      "description": "/path/to/file.pmd",
+      "type": [
+        "fixed"
+      ],
+      "isArray": true,
+      "arrayElementType": ["resource_tie"]
+    },
+    "dynamic_lod_dist": {
+      "description": "",
+      "type": ["fixed"],
+      "isArray": true,
+      "arrayElementType": ["fixed", "float"]
+    },
+    "high_tess": {
+      "description": "",
+      "type": ["fixed"],
+      "isArray": true,
+      "arrayElementType": ["token", "string"]
+    },
+    "smooth_surface": {
+      "description": "",
+      "type": ["bool"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "color_variant": {
+      "description": "",
+      "type": ["fixed"],
+      "isArray": true,
+      "arrayElementType": ["string"]
+    },
+    "overlay": {
+      "description": "",
+      "type": ["fixed"],
+      "isArray": true,
+      "arrayElementType": ["string"]
+    },
+    "vegetation": {
+      "description": "",
+      "type": ["fixed"],
+      "isArray": true,
+      "arrayElementType": ["string"]
+    },
+    "fixed_inner_start": {
+      "description": "",
+      "type": ["fixed"],
+      "isArray": true,
+      "arrayElementType": ["token", "string"]
+    },
+    "fixed_inner_end": {
+      "description": "",
+      "type": ["fixed"],
+      "isArray": true,
+      "arrayElementType": ["token", "string"]
+    },
+    "fixed_step": {
+      "description": "",
+      "type": ["float", "fixed"],
+      "isArray": false,
+      "arrayElementType": null
+    }
+  }
+}
