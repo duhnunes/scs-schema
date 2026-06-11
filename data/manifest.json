@@ -1,14 +1,14 @@
 {
-  "version": "6e37002cfd58b26ccfb7f1482fbbc6efafefcd69",
-  "generatedAt": "2026-06-11T00:37:08.142Z",
+  "version": "be50e6833fbfa49f0e976c10343510ac13ee9769",
+  "generatedAt": "2026-06-11T00:37:27.032Z",
   "schemas": {
     "animated_model_data": {
       "id": "schemas/def/world/animated_model_data.json",
       "name": "animated_model_data",
       "path": "./schemas/def/world/animated_model_data.json",
       "url": "",
-      "metaVersion": "0.1.1",
-      "hash": "sha256:ed24474d3ba815192952f6150223dab417e8c3b5b1bfd3744829ba104420a9d3",
+      "metaVersion": "0.1.0",
+      "hash": "sha256:76c36a326f2c2523c2569f8e9749f1710567a0a45ee743be0f662b1b1ce69e71",
       "size": 937,
       "description": ""
     }
