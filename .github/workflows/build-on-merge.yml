@@ -8,9 +8,10 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  issues: write
 
 jobs:
-  build-and-commit:
+  build-and-pr:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -18,29 +19,28 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: true
-      
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
-      
+
       - name: Install pnpm globally and persist path
         run: |
           npm i -g pnpm
           echo "npm bin -g: $(npm bin -g)"
           echo "$(npm bin -g)" >> $GITHUB_PATH
-          # sanity check
           pnpm -v
 
       - name: Install dependencies
         run: pnpm install
-      
+
       - name: Run verify
         run: pnpm verify
 
       - name: Fetch remote branch for diff base
         run: git fetch origin master:refs/remotes/origin/master --depth=1 || true
-      
+
       - name: Check for schema changes
         id: check
         run: |
@@ -48,9 +48,9 @@ jobs:
           if git diff --name-only origin/master..HEAD -- data/schemas | grep -q .; then
             echo "changed=true" >> $GITHUB_OUTPUT
           else
-            echo "change=false" >> $GITHUB_OUTPUT
+            echo "changed=false" >> $GITHUB_OUTPUT
           fi
-      
+
       - name: Bump version (semver)
         if: steps.check.outputs.changed == 'true'
         env:
@@ -58,18 +58,18 @@ jobs:
           BASE_REF: origin/master
           BUMP_TYPE: auto
         run: pnpm node ./scripts/bump.mjs
-      
+
       - name: Configure git user for CI
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-      
+
       - name: Build manifest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BASE_REF: origin/master
         run: pnpm build
-      
+
       - name: Prepare branch and commit changes (if any)
         id: commit
         run: |
@@ -83,19 +83,18 @@ jobs:
             echo "branch=$BRANCH" >> $GITHUB_OUTPUT
             echo "changed=true" >> $GITHUB_OUTPUT
           else
-            echo "changed=false" >> GITHUB_OUTPUT
+            echo "changed=false" >> $GITHUB_OUTPUT
           fi
-      
+
       - name: Create pull request (if manifest changed)
         if: steps.commit.outputs.changed == 'true'
-        uses: peter-evens/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "chore(build): generate minifest and bump version [ci skip]"
+          commit-message: "chore(build): generate manifest and bump version [ci skip]"
           branch: ${{ steps.commit.outputs.branch }}
           title: "chore(build): generate manifest and bump version"
-          body: Generted mnifest and bumped version by workflow
-          labels: manifest, automated
+          body: "Generated manifest and bumped version by workflow."
+          labels: "manifest, automated"
           auto-merge: true
           merge-method: squash
-      
