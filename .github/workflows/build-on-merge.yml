@@ -22,13 +22,8 @@ jobs:
         with:
           node-version: 18
       
-      - name: Enable Corepack and activate pnpm
-        run: |
-          corepack enable
-          corepack prepare pnpm@latest --activate
-      
-      - name: Verify pnpm
-        run: pnpm -v
+      - name: Install pnpm globally
+        run: npm i pnpm
 
       - name: Install dependencies
         run: pnpm install
