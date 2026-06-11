@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "version": "0.0.0",
+    "description": ""
+  },
+  "scope": "dynamic_cargo_grab_prop",
+  "key": {
+    "model": {
+      "description": "/path/to/file.pmd",
+      "type": ["resource_tie"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "model_animation": {
+      "description": "/path/to/file.pma",
+      "type": ["resource_tie"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "bone_a": {
+      "description": "",
+      "type": [
+        "token"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "model_offset": {
+      "description": "",
+      "type": [
+        "float3"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "model_rotation": {
+      "description": "",
+      "type": ["float3"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "radius_time": {
+      "description": "(radius, anim_time) pairs - must be sorted according to radius!",
+      "type": null,
+      "isArray": true,
+      "arrayElementType": ["float2"]
+    },
+    "bone_offset_a": {
+      "description": "",
+      "type": "float3",
+      "isArray": false,
+      "arrayElementType": null
+    }
+  }
+}
