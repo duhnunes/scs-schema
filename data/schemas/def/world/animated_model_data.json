@@ -1,6 +1,6 @@
 {
   "meta": {
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": ""
   },
   "scope": "animated_mode_data",
@@ -8,31 +8,41 @@
     "name": {
       "description": "This is the name from your prefab.",
       "isArray": false,
-      "type": ["string"],
+      "type": [
+        "string"
+      ],
       "arrayElementType": null
     },
     "model": {
       "description": "/path/to/file.pmd",
       "isArray": false,
-      "type": ["resource_tie"],
+      "type": [
+        "resource_tie"
+      ],
       "arrayElementType": null
     },
     "animations": {
       "description": "/path/to/file.pma",
       "isArray": true,
       "type": null,
-      "arrayElementType": ["resource_tie"]
+      "arrayElementType": [
+        "resource_tie"
+      ]
     },
     "probability_day": {
       "description": "",
       "isArray": false,
-      "type": ["float"],
+      "type": [
+        "float"
+      ],
       "arrayElementType": null
     },
     "probability_night": {
       "description": "",
       "isArray": false,
-      "type": ["float"],
+      "type": [
+        "float"
+      ],
       "arrayElementType": null
     }
   }
