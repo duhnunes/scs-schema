@@ -1,6 +1,6 @@
 {
   "version": "0.1.0",
-  "generatedAt": "2026-06-11T12:29:39.293Z",
+  "generatedAt": "2026-06-11T13:12:17.367Z",
   "schemas": {
     "animated_model_data": {
       "id": "schemas/def/world/animated_model_data.json",
@@ -30,6 +30,16 @@
       "metaVersion": "0.1.1",
       "hash": "sha256:a3192793619dc5903796e5de283cffb02601c0fbb3e4ddf7a9f99a9003c515cd",
       "size": 1034,
+      "description": ""
+    },
+    "curve_model": {
+      "id": "schemas/def/world/curve_model.json",
+      "name": "curve_model",
+      "path": "./schemas/def/world/curve_model.json",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@commit/3c92c79462da93a3adfe517d9182206c1434c849/schemas/def/world/curve_model.json",
+      "metaVersion": "0.1.1",
+      "hash": "sha256:f626c9599155cf36e224e2c861dc5bccdeda80afee136410ea73a1564fb6b935",
+      "size": 2744,
       "description": ""
     }
   }
