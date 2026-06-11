@@ -1,0 +1,66 @@
+{
+  "version": "0.1.0",
+  "generatedAt": "2026-06-11T17:10:25.355Z",
+  "schemas": {
+    "animated_model_data": {
+      "id": "data/schemas/def/world/animated_model_data.json",
+      "name": "animated_model_data",
+      "path": "./data/schemas/def/world/animated_model_data.json",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@c3be3798505830f3d9752b7f7c13f2e4fa1accd9/data/schemas/def/world/animated_model_data.json",
+      "metaVersion": "0.1.0",
+      "hash": "sha256:76c36a326f2c2523c2569f8e9749f1710567a0a45ee743be0f662b1b1ce69e71",
+      "size": 937,
+      "description": ""
+    },
+    "building_model": {
+      "id": "data/schemas/def/world/building_model.json",
+      "name": "building_model",
+      "path": "./data/schemas/def/world/building_model.json",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@c3be3798505830f3d9752b7f7c13f2e4fa1accd9/data/schemas/def/world/building_model.json",
+      "metaVersion": "0.1.0",
+      "hash": "sha256:176ebdc9f2d78dc8e79c92d01404a27d16e5b85ec2ff109eebe4aba27f30fe5a",
+      "size": 2261,
+      "description": ""
+    },
+    "building_scheme": {
+      "id": "data/schemas/def/world/building_scheme.json",
+      "name": "building_scheme",
+      "path": "./data/schemas/def/world/building_scheme.json",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@c3be3798505830f3d9752b7f7c13f2e4fa1accd9/data/schemas/def/world/building_scheme.json",
+      "metaVersion": "0.1.0",
+      "hash": "sha256:fb6fab377fd60cdb992823cb9cd09a08270cd51f1f9e7b63024da107e4d9f8ef",
+      "size": 1034,
+      "description": ""
+    },
+    "curve_model": {
+      "id": "data/schemas/def/world/curve_model.json",
+      "name": "curve_model",
+      "path": "./data/schemas/def/world/curve_model.json",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@c3be3798505830f3d9752b7f7c13f2e4fa1accd9/data/schemas/def/world/curve_model.json",
+      "metaVersion": "0.1.0",
+      "hash": "sha256:8066bb573dd48a3585153263fa1f96eadd64aa1009a12a0cee9f5e626d24fe54",
+      "size": 2744,
+      "description": ""
+    },
+    "detail_vegetation_data": {
+      "id": "data/schemas/def/world/detail_vegetation_data.json",
+      "name": "detail_vegetation_data",
+      "path": "./data/schemas/def/world/detail_vegetation_data.json",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@c3be3798505830f3d9752b7f7c13f2e4fa1accd9/data/schemas/def/world/detail_vegetation_data.json",
+      "metaVersion": "0.1.0",
+      "hash": "sha256:2a50a3aa90f630b36bf7413df50c656ee98a3103e2eb1e5ebeae89c33003bca3",
+      "size": 910,
+      "description": ""
+    },
+    "detail_vegetation_def": {
+      "id": "data/schemas/def/world/detail_vegetation_def.json",
+      "name": "detail_vegetation_def",
+      "path": "./data/schemas/def/world/detail_vegetation_def.json",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@c3be3798505830f3d9752b7f7c13f2e4fa1accd9/data/schemas/def/world/detail_vegetation_def.json",
+      "metaVersion": "0.1.0",
+      "hash": "sha256:eef3d679f96c985b3aad4438cdf7478e757e4cf4462789ddaf03b7ab4279df29",
+      "size": 1064,
+      "description": ""
+    }
+  }
+}
