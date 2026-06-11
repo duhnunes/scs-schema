@@ -24,16 +24,37 @@ async function loadManifest() {
 }
 
 function makeKeyFromRel(rel) {
-  return path.basename(rel, '.json'); 
+  return path.basename(rel, '.json');
 }
 
 async function build(ref = null, { doCommit = true } = {}) {
   if (!ref) ref = gitRevParseHead();
 
+  // ensure remote refs available (so BASE_REF like origin/master works)
+  try { execSync('git fetch --no-tags --prune origin', { stdio: 'ignore' }); } catch (e) {}
+
+  // load existing manifest
+  const manifest = await loadManifest();
+
+  // compute changed files relative to BASE_REF
+  const BASE_REF = process.env.BASE_REF || 'origin/master';
+  let changedSet = new Set();
+  try {
+    const diffOut = execSync(`git diff --name-only ${BASE_REF}..HEAD -- ${SCHEMAS_DIR} || true`, { encoding: 'utf8' }).trim();
+    if (diffOut) {
+      diffOut.split('\n').map(s => s.trim()).filter(Boolean).forEach(p => {
+        // normalize to path relative to data dir like rel below (e.g. "schemas/def/.../file.json")
+        const relPath = path.relative(DATA_DIR, path.resolve(p)).replace(/\\/g, '/');
+        changedSet.add(relPath);
+      });
+    }
+  } catch (e) {
+    // ignore; changedSet stays empty
+  }
+
   const pattern = path.join(SCHEMAS_DIR, '**', '*.json').replace(/\\/g, '/');
   const files = await glob(pattern, { nodir: true });
 
-  const manifest = await loadManifest();
   const urlBase = `https://cdn.jsdelivr.net/gh/${REPO_USER}/${REPO_NAME}@commit/${ref}`;
 
   for (const file of files) {
@@ -41,7 +62,7 @@ async function build(ref = null, { doCommit = true } = {}) {
 
     const raw = await fs.readFile(file);
     const parsed = JSON.parse(raw.toString('utf8'));
-    const rel = path.relative(DATA_DIR, file).replace(/\\/g, '/');
+    const rel = path.relative(DATA_DIR, file).replace(/\\/g, '/'); // same format as changedSet entries
     const key = makeKeyFromRel(rel);
     const computedHash = sha256(raw);
     const computedSize = raw.length;
@@ -53,31 +74,34 @@ async function build(ref = null, { doCommit = true } = {}) {
 
     if (!manifest.schemas) manifest.schemas = {};
 
-    // Always overwrite/create the manifest entry and set the URL
+    const existingEntry = manifest.schemas[key];
+    const shouldUpdateUrl = changedSet.has(rel) || !existingEntry || !existingEntry.url;
+    const urlValue = shouldUpdateUrl ? `${urlBase}/${rel}` : (existingEntry && existingEntry.url) || '';
+
     manifest.schemas[key] = {
       id: idField,
       name: nameField,
       path: pathField,
-      url: `${urlBase}/${rel}`,
+      url: urlValue,
       metaVersion,
       hash: computedHash,
       size: computedSize,
       description
     };
 
-    console.log('Prepared manifest entry for', key, '->', manifest.schemas[key].url);
+    console.log('Prepared manifest entry for', key, '->', manifest.schemas[key].url || '(no url)');
   }
 
-  let pkgVersion = null
+  // set manifest.version from env or package.json if present
+  let pkgVersion = null;
   try {
-    const pkg = JSON.parse(await fs.readFile(path.resolve(__dirname, '..', 'package.json'), 'utf8'))
-    pkgVersion = pkg.version
-  } catch (e) {
-  }
+    const pkg = JSON.parse(await fs.readFile(path.resolve(__dirname, '..', 'package.json'), 'utf8'));
+    pkgVersion = pkg.version;
+  } catch (e) {}
 
-  const releaseItVersion = process.env.RELEASE_VERSION || process.env.npm_package_version || null
-  if (releaseItVersion) manifest.version = releaseItVersion
-  else if (pkgVersion) manifest.version = pkgVersion
+  const releaseItVersion = process.env.RELEASE_VERSION || process.env.npm_package_version || null;
+  if (releaseItVersion) manifest.version = releaseItVersion;
+  else if (pkgVersion) manifest.version = pkgVersion;
 
   manifest.generatedAt = new Date().toISOString();
 

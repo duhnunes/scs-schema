@@ -57,6 +57,7 @@ jobs:
       - name: Build manifest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BASE_REF: origin/master
         run: pnpm build
       
       - name: Commit manifest and package.json if changed
