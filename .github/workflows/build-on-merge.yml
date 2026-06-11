@@ -37,17 +37,25 @@ jobs:
         run: pnpm verify
 
       - name: Fetch remote branch for diff base
+        run: git fetch origin master:refs/remotes/origin/master --depth=1 || true
+      
+      - name: Check for schema changes
+        id: check
         run: |
-          git fetch origin master:refs/remotes/origin/master --depth=1 || true
+          git fetch --no-tags --prune origin
+          if git diff --name-only origin/master..HEAD -- data/schemas | grep -q .; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "change=false" >> $GITHUB_OUTPUT
+          fi
       
       - name: Bump version (semver)
+        if: steps.check.outputs.changed == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BASE_REF: origin/master
           BUMP_TYPE: auto
-        run: |
-          git fetch --no-tags --prune origin
-          pnpm node ./scripts/bump.mjs
+        run: pnpm node ./scripts/bump.mjs
       
       - name: Configure git user for CI
         run: |

@@ -112,7 +112,7 @@ async function build(ref = null, { doCommit = true } = {}) {
   if (doCommit) {
     try {
       git(`git add ${OUT}`);
-      git(`git commit -m "chore(manifest): manifest for ${ref}"`);
+      git(`git commit -m "chore(manifest): manifest for ${ref} [ci skip]"`);
       git('git push origin HEAD');
       console.log('Committed and pushed manifest.json');
     } catch (err) {

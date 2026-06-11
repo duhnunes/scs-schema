@@ -57,25 +57,23 @@ function decideBumpFromCommits(commits) {
 }
 
 async function listChangedSchemaFiles(baseRef) {
-  let changed = [];
   try {
-    const out = run(`git diff --name-only ${baseRef}..HEAD -- data/schemas || true`);
-    if (out) changed = out.split('\n').filter(Boolean);
-  } catch {
-    // fallback
-  }
-
-  if (!changed.length) {
-    try {
-      const tracked = run('git ls-files data/schemas || true').split('\n').filter(Boolean);
-      const untracked = run('git ls-files --others --exclude-standard data/schemas || true').split('\n').filter(Boolean);
-      const set = new Set([...tracked, ...untracked]);
-      changed = Array.from(set);
-    } catch (e) {
-      throw new Error('Failed to list schema files: ' + e.message);
+    const out = run('git diff --name-only --diff-filter=AM ${baseRef}..HEAD -- data/schemas || true')
+    if (out) return out.split('\n').filter(Boolean)
+      return []
+  } catch (e) {
+    if (!baseRef) {
+      try {
+        const tracked = run('git ls-files data/schemas || true').split('\n').filter(Boolean)
+        const untracked = run('git ls-files --others --exclude-standard data/schemas || true').split('\n').filter(Boolean)
+        const set = new Set([...tracked, ...untracked])
+        return Array.from(set)
+      } catch (err) {
+        throw new Error('Failed to list schema files: ' + err.message)
+      }
     }
+    return []
   }
-  return changed;
 }
 
 async function main() {
@@ -146,6 +144,10 @@ async function main() {
     const updated = [];
     for (const f of changed) {
       const full = path.resolve(f)
+      if (!full.startsWith(path.resolve('data', 'schemas'))) {
+        console.log('Skipping non-schema file:', f)
+        continue
+      }
       try {
         const fileNewVersion = await bumpFileVersionFromFile(full, bumpType)
         if (fileNewVersion) {
@@ -170,7 +172,7 @@ async function main() {
       run('git config user.name "github-actions[bot]"');
       run('git config user.email "41898282+github-actions[bot]@users.noreply.github.com"');
       run(`git add ${updated.map(f => `"${f}"`).join(' ')}`);
-      run(`git commit -m "chore(schema): bump meta.version to ${newVersion} for ${updated.length} file(s)"`);
+      run(`git commit -m "chore(schema): bump meta.version to ${newVersion} for ${updated.length} file(s) [ci skip]"`);
     } catch (err) {
       console.error('Failed to commit bumped files:', err);
       process.exit(1);

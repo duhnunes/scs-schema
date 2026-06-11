@@ -1,14 +1,14 @@
 {
   "version": "0.1.0",
-  "generatedAt": "2026-06-11T13:19:47.210Z",
+  "generatedAt": "2026-06-11T14:18:04.247Z",
   "schemas": {
     "animated_model_data": {
       "id": "schemas/def/world/animated_model_data.json",
       "name": "animated_model_data",
       "path": "./schemas/def/world/animated_model_data.json",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@commit/84b2c563d85de7c641dec95e0bf3fbdc58c2f8ec/schemas/def/world/animated_model_data.json",
-      "metaVersion": "0.1.1",
-      "hash": "sha256:ed24474d3ba815192952f6150223dab417e8c3b5b1bfd3744829ba104420a9d3",
+      "metaVersion": "0.1.2",
+      "hash": "sha256:cc227923803f66c12f56be6d8074665a8b85674cc8354ff0843444328457d6c2",
       "size": 937,
       "description": ""
     },
@@ -17,8 +17,8 @@
       "name": "building_model",
       "path": "./schemas/def/world/building_model.json",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@commit/84b2c563d85de7c641dec95e0bf3fbdc58c2f8ec/schemas/def/world/building_model.json",
-      "metaVersion": "0.1.1",
-      "hash": "sha256:5451dac78634dcffce488a5db5b1f8f7157c44d3f58aef0d7cee6fdabbbdfbad",
+      "metaVersion": "0.1.2",
+      "hash": "sha256:98b4eaa91a2c83317635e594f3005280326464190b3a611abfc0270fbf8774d0",
       "size": 2261,
       "description": ""
     },
@@ -27,8 +27,8 @@
       "name": "building_scheme",
       "path": "./schemas/def/world/building_scheme.json",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@commit/84b2c563d85de7c641dec95e0bf3fbdc58c2f8ec/schemas/def/world/building_scheme.json",
-      "metaVersion": "0.1.1",
-      "hash": "sha256:a3192793619dc5903796e5de283cffb02601c0fbb3e4ddf7a9f99a9003c515cd",
+      "metaVersion": "0.1.2",
+      "hash": "sha256:dd9c7527af572916fe49ab0dfecbf0b99b7e51f8f00a4ee90a1e0fbb737111d3",
       "size": 1034,
       "description": ""
     },
@@ -37,9 +37,19 @@
       "name": "curve_model",
       "path": "./schemas/def/world/curve_model.json",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@commit/3c92c79462da93a3adfe517d9182206c1434c849/schemas/def/world/curve_model.json",
-      "metaVersion": "0.1.1",
-      "hash": "sha256:f626c9599155cf36e224e2c861dc5bccdeda80afee136410ea73a1564fb6b935",
+      "metaVersion": "0.1.3",
+      "hash": "sha256:8d0dd5c7ee3eaf2fe1f600004d69202581cef96b221f16592aae25e2dbb30d0c",
       "size": 2744,
+      "description": ""
+    },
+    "detail_vegetation_data": {
+      "id": "schemas/def/world/detail_vegetation_data.json",
+      "name": "detail_vegetation_data",
+      "path": "./schemas/def/world/detail_vegetation_data.json",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@commit/af592eeccd35a76541137d3bf17d7cbe599a6224/schemas/def/world/detail_vegetation_data.json",
+      "metaVersion": "0.1.1",
+      "hash": "sha256:d8a8f233a6ad66402e7ee6e428d789f175eb71bcebb6be25bfefae6bc1e06d11",
+      "size": 909,
       "description": ""
     }
   }
