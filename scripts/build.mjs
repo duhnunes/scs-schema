@@ -56,7 +56,7 @@ async function build(ref = null, { doCommit = true } = {}) {
   const pattern = path.join(SCHEMAS_DIR, '**', '*.json').replace(/\\/g, '/');
   const files = await glob(pattern, { nodir: true });
 
-  const urlBase = `https://cdn.jsdelivr.net/gh/${REPO_USER}/${REPO_NAME}@commit/${ref}`;
+  const urlBase = `https://cdn.jsdelivr.net/gh/${REPO_USER}/${REPO_NAME}@${ref}`;
 
   for (const file of files) {
     if (path.resolve(file) === path.resolve(OUT)) continue;
