@@ -1,55 +1,71 @@
 {
   "meta": {
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": ""
   },
   "scope": "building_model",
   "key": {
     "railing_model": {
       "description": "",
-      "type": ["bool"],
+      "type": [
+        "bool"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "follow_curve_dir": {
       "description": "",
-      "type": ["bool"],
+      "type": [
+        "bool"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "model_desc": {
       "description": "/path/to/file.pmd",
-      "type": ["resource_tie"],
+      "type": [
+        "resource_tie"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "lod_desc": {
       "description": "/path/to/file.pmd",
-      "type": ["resource_tie"],
+      "type": [
+        "resource_tie"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "lod_dist": {
       "description": "",
-      "type": ["fixed"],
+      "type": [
+        "fixed"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "look_name": {
       "description": "",
-      "type": ["token"],
+      "type": [
+        "token"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "use_perlin": {
       "description": "",
-      "type": ["bool"],
+      "type": [
+        "bool"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "single_part": {
       "description": "",
-      "type": ["bool"],
+      "type": [
+        "bool"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
@@ -57,35 +73,49 @@
       "description": "",
       "type": null,
       "isArray": true,
-      "arrayElementType": ["token"]
+      "arrayElementType": [
+        "token"
+      ]
     },
     "width": {
       "description": "",
-      "type": ["fixed"],
+      "type": [
+        "fixed"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "sprite_only": {
       "description": "",
-      "type": ["bool"],
+      "type": [
+        "bool"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "min_scale": {
       "description": "",
-      "type": ["fixed", "float"],
+      "type": [
+        "fixed",
+        "float"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "max_scale": {
       "description": "",
-      "type": ["fixed", "float"],
+      "type": [
+        "fixed",
+        "float"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "rand_rot": {
       "description": "",
-      "type": ["fixed"],
+      "type": [
+        "fixed"
+      ],
       "isArray": false,
       "arrayElementType": null
     }
