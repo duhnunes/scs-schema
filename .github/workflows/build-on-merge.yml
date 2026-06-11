@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   build-and-commit:
@@ -16,6 +17,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          persist-credentials: true
       
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -68,16 +70,32 @@ jobs:
           BASE_REF: origin/master
         run: pnpm build
       
-      - name: Commit manifest and package.json if changed
+      - name: Prepare branch and commit changes (if any)
+        id: commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          BRANCH="chore/manifest-${GITHUB_SHA::7}"
+          git checkout -b "$BRANCH"
           git add data/manifest.json package.json package-lock.json || true
           if ! git diff --staged --quiet; then
             git commit -m "chore(build): generate manifest and bump version [ci skip]" || echo "no commit"
-            git push origin HEAD:main
+            echo "branch=$BRANCH" >> $GITHUB_OUTPUT
+            echo "changed=true" >> $GITHUB_OUTPUT
           else
-            echo "No changes to commit"
+            echo "changed=false" >> GITHUB_OUTPUT
           fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Create pull request (if manifest changed)
+        if: steps.commit.outputs.changed == 'true'
+        uses: peter-evens/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: chore(build): generate minifest and bump version [ci skip]
+          branch: ${{ steps.commit.outputs.branch }}
+          title: chore(build): generate manifest and bump version
+          body: Generted mnifest and bumped version by workflow
+          labels: manifest, automated
+          auto-merge: true
+          merge-method: squash
+      
