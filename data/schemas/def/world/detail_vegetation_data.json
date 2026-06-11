@@ -1,0 +1,49 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "description": ""
+  },
+  "scope": "detail_vegetation_data",
+  "key": {
+    "density": {
+      "description": "Value of density to vegetation",
+      "type": [
+        "fixed"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "min_distance": {
+      "description": "",
+      "type": [
+        "float"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "max_distance": {
+      "description": "",
+      "type": [
+        "fixed"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "model_scale_tweak_coef": {
+      "description": "",
+      "type": [
+        "fixed"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "density_tweak_coef": {
+      "description": "",
+      "type": [
+        "fixed"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    }
+  }
+}
