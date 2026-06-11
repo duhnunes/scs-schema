@@ -1,0 +1,53 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "description": ""
+  },
+  "scope": "building_scheme",
+  "key": {
+    "name": {
+      "description": "This is the name from building_schema",
+      "type": [
+        "string"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "models": {
+      "description": "",
+      "type": null,
+      "isArray": true,
+      "arrayElementType": ["token"]
+    },
+    "player_limiter": {
+      "description": "",
+      "type": [
+        "bool"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "color_variant": {
+      "description": "",
+      "type": null,
+      "isArray": true,
+      "arrayElementType": ["string"]
+    },
+    "category": {
+      "description": "",
+      "type": [
+        "string"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "smooth_surface": {
+      "description": "",
+      "type": [
+        "bool"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    }
+  }
+}
