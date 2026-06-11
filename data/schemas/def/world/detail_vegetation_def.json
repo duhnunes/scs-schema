@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "description": ""
+  },
+  "scope": "detail_vegetation_def",
+  "key": {
+    "texture": {
+      "description": "/path/to/file.tobj",
+      "type": [
+        "resource_tie"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "model": {
+      "description": "/path/to/file.pmd",
+      "type": null,
+      "isArray": true,
+      "arrayElementType": ["resource_tie"]
+    },
+    "occurrence": {
+      "description": "",
+      "type": null,
+      "isArray": true,
+      "arrayElementType": ["fixed", "float"]
+    },
+    "density": {
+      "description": "Value of density",
+      "type": [
+        "fixed"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "distribution_tex_gen": {
+      "description": "",
+      "type": [
+        "float2"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "distribution_map_path": {
+      "description": "/path/to/file.dmd",
+      "type": ["resource_tie"],
+      "isArray": false,
+      "arrayElementType": null
+    }
+  }
+}
