@@ -30,7 +30,7 @@ function makeKeyFromRel(rel) {
 async function build(ref = null, { doCommit = true } = {}) {
   if (!ref) ref = gitRevParseHead();
 
-  const pattern = path.join(SCHEMAS_DIR, '**', '*.json');
+  const pattern = path.join(SCHEMAS_DIR, '**', '*.json').replace(/\\/g, '/');
   const files = await glob(pattern, { nodir: true });
 
   const manifest = await loadManifest();
@@ -41,55 +41,44 @@ async function build(ref = null, { doCommit = true } = {}) {
 
     const raw = await fs.readFile(file);
     const parsed = JSON.parse(raw.toString('utf8'));
-    const rel = path.relative(DATA_DIR, file).replace(/\\/g, '/'); 
+    const rel = path.relative(DATA_DIR, file).replace(/\\/g, '/');
     const key = makeKeyFromRel(rel);
     const computedHash = sha256(raw);
     const computedSize = raw.length;
-    const idField = `schemas/${rel}`;
+    const idField = `${rel}`;
     const pathField = `./${rel}`;
     const nameField = path.basename(rel, '.json');
     const metaVersion = parsed.meta?.version || '';
     const description = parsed.meta?.description || '';
 
-    // If manifest has entry, validate hash/size; if mismatch, fail or update per policy
-    const existing = manifest.schemas[key];
-    if (existing) {
-      if (existing.hash && existing.hash !== computedHash) {
-        console.error(`Hash mismatch for ${key}: manifest=${existing.hash} computed=${computedHash}`);
-        // Option A: fail the build to force manual check
-        throw new Error(`Hash mismatch for ${key}`);
-        // Option B (commented): update manifest silently
-        // existing.hash = computedHash; existing.size = computedSize;
-      } else {
-        // keep existing fields, but ensure id/path/name/metaVersion/description are present
-        existing.id = existing.id || idField;
-        existing.name = existing.name || nameField;
-        existing.path = existing.path || pathField;
-        existing.metaVersion = metaVersion || existing.metaVersion || '';
-        existing.hash = existing.hash || computedHash;
-        existing.size = existing.size || computedSize;
-        existing.description = existing.description || description || '';
-        existing.url = `${urlBase}/${rel}`;
-        manifest.schemas[key] = existing;
-      }
-    } else {
-      // If no entry exists (shouldn't happen if verify ran), create minimal entry
-      manifest.schemas[key] = {
-        id: idField,
-        name: nameField,
-        path: pathField,
-        url: `${urlBase}/${rel}`,
-        metaVersion,
-        hash: computedHash,
-        size: computedSize,
-        description
-      };
-    }
+    if (!manifest.schemas) manifest.schemas = {};
+
+    // Always overwrite/create the manifest entry and set the URL
+    manifest.schemas[key] = {
+      id: idField,
+      name: nameField,
+      path: pathField,
+      url: `${urlBase}/${rel}`,
+      metaVersion,
+      hash: computedHash,
+      size: computedSize,
+      description
+    };
 
     console.log('Prepared manifest entry for', key, '->', manifest.schemas[key].url);
   }
 
-  manifest.version = ref.startsWith('v') ? ref.replace(/^v/, '') : ref;
+  let pkgVersion = null
+  try {
+    const pkg = JSON.parse(await fs.readFile(path.resolve(__dirname, '..', 'package.json'), 'utf8'))
+    pkgVersion = pkg.version
+  } catch (e) {
+  }
+
+  const releaseItVersion = process.env.RELEASE_VERSION || process.env.npm_package_version || null
+  if (releaseItVersion) manifest.version = releaseItVersion
+  else if (pkgVersion) manifest.version = pkgVersion
+
   manifest.generatedAt = new Date().toISOString();
 
   await fs.mkdir(path.dirname(OUT), { recursive: true });

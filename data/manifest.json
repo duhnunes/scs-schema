@@ -1,16 +1,5 @@
 {
-  "version": "df10a5d75c3699270e4a6e4216140b83381f4496",
-  "generatedAt": "2026-06-11T00:43:06.678Z",
-  "schemas": {
-    "animated_model_data": {
-      "id": "schemas/def/world/animated_model_data.json",
-      "name": "animated_model_data",
-      "path": "./schemas/def/world/animated_model_data.json",
-      "url": "",
-      "metaVersion": "0.1.0",
-      "hash": "sha256:76c36a326f2c2523c2569f8e9749f1710567a0a45ee743be0f662b1b1ce69e71",
-      "size": 937,
-      "description": ""
-    }
-  }
+  "version": "0.1.0",
+  "generatedAt": "2026-06-11T01:14:13.558Z",
+  "schemas": {}
 }
