@@ -42,9 +42,10 @@ async function build(ref = null, { doCommit = true } = {}) {
   try {
     const diffOut = execSync(`git diff --name-only ${BASE_REF}..HEAD -- ${SCHEMAS_DIR} || true`, { encoding: 'utf8' }).trim();
     if (diffOut) {
+      const repoRoot = path.resolve(__dirname, '..');
       diffOut.split('\n').map(s => s.trim()).filter(Boolean).forEach(p => {
-        // normalize to path relative to data dir like rel below (e.g. "schemas/def/.../file.json")
-        const relPath = path.relative(DATA_DIR, path.resolve(p)).replace(/\\/g, '/');
+        // normalize to path relative to repo root (same format as rel below, e.g. "data/schemas/def/.../file.json")
+        const relPath = path.relative(repoRoot, path.resolve(p)).replace(/\\/g, '/');
         changedSet.add(relPath);
       });
     }
@@ -55,14 +56,15 @@ async function build(ref = null, { doCommit = true } = {}) {
   const pattern = path.join(SCHEMAS_DIR, '**', '*.json').replace(/\\/g, '/');
   const files = await glob(pattern, { nodir: true });
 
-  const urlBase = `https://cdn.jsdelivr.net/gh/${REPO_USER}/${REPO_NAME}@commit/${ref}`;
+  const urlBase = `https://cdn.jsdelivr.net/gh/${REPO_USER}/${REPO_NAME}@${ref}`;
 
   for (const file of files) {
     if (path.resolve(file) === path.resolve(OUT)) continue;
 
     const raw = await fs.readFile(file);
     const parsed = JSON.parse(raw.toString('utf8'));
-    const rel = path.relative(DATA_DIR, file).replace(/\\/g, '/'); // same format as changedSet entries
+    const repoRoot = path.resolve(__dirname, '..');
+    const rel = path.relative(repoRoot, path.resolve(file)).replace(/\\/g, '/');
     const key = makeKeyFromRel(rel);
     const computedHash = sha256(raw);
     const computedSize = raw.length;
@@ -76,8 +78,8 @@ async function build(ref = null, { doCommit = true } = {}) {
 
     const existingEntry = manifest.schemas[key];
     const shouldUpdateUrl = changedSet.has(rel) || !existingEntry || !existingEntry.url;
-    const urlValue = shouldUpdateUrl ? `${urlBase}/${rel}` : (existingEntry && existingEntry.url) || '';
-
+    const urlValue = shouldUpdateUrl ? `${urlBase}/${rel}` : (existingEntry && existingEntry.url) || ''
+    
     manifest.schemas[key] = {
       id: idField,
       name: nameField,
