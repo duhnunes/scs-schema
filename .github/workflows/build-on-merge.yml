@@ -37,7 +37,12 @@ jobs:
         run: pnpm verify
       
       - name: Bump version (create commit)
-        run: pnpm bump
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          NEW_VERSION=$(node -e "const p=require('./package.json'); const s=p.version.split('.').map(Number); s[2] = (s[2]||0)+1; console.log(s.join('.'))")
+          echo "Bumping to $NEW_VERSION"
+          pnpm bump $NEW_VERSION
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
