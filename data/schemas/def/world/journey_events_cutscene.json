@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "description": ""
+  },
+  "scope": "journey_events_cutscene",
+  "key": {
+    "cutscene_tokens": {
+      "description": "",
+      "type": null,
+      "isArray": true,
+      "arrayElementType": ["token"]
+    },
+    "left_width": {
+      "description": "Value in meters",
+      "type": ["fixed", "float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "right_width": {
+      "description": "Value in meters",
+      "type": [
+        "fixed", "float"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "sequence_mode": {
+      "description": "",
+      "type": ["token"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "lane_height": {
+      "description": "",
+      "type": ["float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "align_buildings": {
+      "description": "",
+      "type": ["bool"],
+      "isArray": false,
+      "arrayElementType": null
+    }
+  }
+}
