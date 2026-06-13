@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "description": ""
+  },
+  "scope": "mover_anim",
+  "key": {
+    "model_anim": {
+      "description": "/path/to/file.pma",
+      "type": ["resource_tie"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "group_tags": {
+      "description": "",
+      "type": null,
+      "isArray": true,
+      "arrayElementType": ["token"]
+    },
+    "props": {
+      "description": "",
+      "type": null,
+      "isArray": true,
+      "arrayElementType": ["token"]
+    },
+    "sound_path": {
+      "description": "/path/to/sound/file.bank#id",
+      "type": ["resource_tie"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "anim_type": {
+      "description": "",
+      "type": ["token"],
+      "isArray": false,
+      "arrayElementType": null
+    }
+  }
+}
