@@ -117,6 +117,7 @@ This project only requires that contributed files are valid JSON and follow the 
 1. **Fork** (if needed) and create a descriptive branch: `feat/add-<class_name>`
 2. **Sync your branch**: run `git pull` to update before staging changes.
 3. **Stage and commit**;
+    - `git checkout -b feat/add-<class_name>`
     - `git add .`
     - `git commit -m "feat(schemas): add <class_name>.json"`
       - Use conventional style, e.g. `feat(schema): add <class_name>` or `fix(schema): fix <class_name>`
