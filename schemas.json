@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/duhnunes/scs-schema/schemas.json",
+  "title": "Material definition file",
+  "type": "object",
+  "required": ["meta", "scope", "key"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "description": "Metadata block required for cache validation and file context.\n\nContains version information used to synchronize with manifest.json and a human-readable description of the file. This section must always be present and strictly follow the defined structure.",
+      "required": ["version", "description"],
+      "properties": {
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]\\.[0-9]+$",
+          "description": "Internal metadata version used to ensure cache consistency.\n\nThis value is required in every file and must be \"0.1.0\" when creating a new one. At runtime, tooling compares meta.version against manifest.json:metaVersion to decide whether cached data remains valid or needs refresh. The field is automatically bumped by the build/update process and should not be manually modified."
+        },
+        "description": {
+          "type": "string",
+          "description": "Description used by completion tooling.\n\nProvides contextual information for the key, enabling better suggestions in the extension. This field is required in every file and should contain a concise explanation of the key's purpose."
+        }
+      },
+      "additionalProperties": false
+    },
+    "scope": {
+      "type": "string",
+      "description": "Scope identifier matching the file name.\n\nUsed by completion tooling to reference available class_name definitions from SCS game files. This field must always correspond to the actual file name to ensure proper linking and suggestion accuracy."
+    },
+    "key": {
+      "type": "object",
+      "description": "Represents attribute definitions inside a class_name block of SCS files.\n\nEach entry corresponds to a property of the unit, expressed as key: value pairs within the class_name scope. This section defines the available attributes, their types, and array semantics, enabling completion tooling to provide accurate suggestions and validation.",
+      "minProperties": 0,
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[A-Za-z_]+$": {
+          "type": "object",
+          "description": "Represents the attribute name whitin a class_name block of an SCS file.\n\nKeys must consist only of alphabetic characters and underscores, following the allowed identifier pattern. Each key object describes the attribute's semantics, type constraints, and array behavior, ensuring consistent validation and tooling support.",
+          "required": ["description", "type", "isArray", "arrayElementType"],
+          "properties": {
+            "description": {
+              "type": "string",
+              "description": "Explanation of the attribute.\n\nProvides context for what the key represents within the class_name block of an SCS file. This field should be concise, describing the purpose or semantics of the attribute to aid understanding and validation."
+            },
+            "type": {
+              "description": "Defines the allowed data types for the attribute.\n\nThis field may be null (indicating no explicit type) or an array containing one or more valid type identifiers. Supported types include primitive values (string, float, bool), numeric variants (s16, u32, etc.), and specialized SCS constructs (placements, quaternion, resource_tie). The array must contain at least one entry when not null.\n\nDoc: https://modding.scssoft.com/wiki/Documentation/Engine/Units#Attribute_types",
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "string", "float", "float2", "float3", "float4", "placement", "fixed", "fixed2", "fixed3", "fixed4", "int2", "quaternion", "s16", "s32", "s64", "u16", "u32", "u64", "bool", "token", "owner_ptr", "link_ptr", "resource_tie"
+                    ]
+                  },
+                  "minItems": 1
+                },
+                { "type": "null" }
+              ]
+            },
+            "isArray": {
+              "type": "boolean",
+              "description": "Specifies wether the attribute is defined as an array is SCS file syntax.\n\n- false: the key is scalar, appearing once with a single value (e.g., name:\"value\"\n- true: the key is declared with \"[]\" or repeated multiples times (e.g., \"key[]\" or \"key[N]\"), representing a list of values. In this case, arrayElementType must define the type of each element.\nThis flag ensures correct interpretation of attributes that may occur either s single values or as collections withing class_name blocks."
+            },
+            "arrayElementType": {
+              "description": "Defines the data type of elements when the attribute is declared as an array.\n\nThis field must be specified when \"isArray: true\", and describes the type of ech entry in the list (e.g., string, resource_tie). When \"isArray: false\", the value must be \"null\". Ensures correct typing and validation of array-based attributes in SCS files.\n\nDoc: https://modding.scssoft.com/wiki/Documentation/Engine/Units#Attribute_types",
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "string", "float", "float2", "float3", "float4", "placement", "fixed", "fixed2", "fixed3", "fixed4", "int2", "quaternion", "s16", "s32", "s64", "u16", "u32", "u64", "bool", "token", "owner_ptr", "link_ptr", "resource_tie"
+                    ]
+                  },
+                  "minItems": 1
+                },
+                { "type": "null" }
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": { "properties": { "isArray": { "const": true } } },
+              "then": {
+                "properties": {
+                  "arrayElementType": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "string", "float", "float2", "float3", "float4", "placement", "fixed", "fixed2", "fixed3", "fixed4",
+                        "int2", "quaternion", "s16", "s32", "s64", "u16", "u32", "u64", "bool", "token", "owner_ptr",
+                        "link_ptr", "resource_tie"
+                      ]
+                    },
+                    "minItems": 1
+                  }
+                },
+                "required": ["arrayElementType"]
+              }
+            },
+            {
+              "if": { "properties": { "isArray": { "const": false } } },
+              "then": {
+                "properties": {
+                  "arrayElementType": { "type": "null" }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}
