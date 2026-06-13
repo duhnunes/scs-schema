@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "description": ""
+  },
+  "scope": "mover_action",
+  "key": {
+    "action_name": {
+      "description": "Name from prefab",
+      "type": ["string"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "animation_params": {
+      "description": "",
+      "type": null,
+      "isArray": true,
+      "arrayElementType": ["string"]
+    },
+    "sounds": {
+      "description": "/path/to/sounds/file.bank#id",
+      "type": null,
+      "isArray": true,
+      "arrayElementType": ["resource_tie"]
+    },
+    "sound_params": {
+      "description": "",
+      "type": null,
+      "isArray": true,
+      "arrayElementType": ["string"]
+    },
+    "timer_params": {
+      "description": "",
+      "type": null,
+      "isArray": true,
+      "arrayElementType": ["string"]
+    },
+    "group_tags": {
+      "description": "",
+      "type": null,
+      "isArray": true,
+      "arrayElementType": ["token"]
+    },
+    "type": {
+      "description": "",
+      "type": ["string"],
+      "isArray": false,
+      "arrayElementType": null
+    }
+  }
+}
