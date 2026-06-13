@@ -1,0 +1,51 @@
+{
+ "meta": {
+   "version": "0.1.0",
+   "description": ""
+ },
+ "scope": "mover_model",
+ "key": {
+   "mover_name": {
+     "description": "Name from mover",
+     "type": ["string"],
+     "isArray": false,
+     "arrayElementType":  null
+   },
+   "model_desc": {
+    "description": "/path/to/file.pmd",
+    "type": ["resource_tie"],
+    "isArray": false,
+    "arrayElementType": null
+   },
+   "model_anim": {
+    "description": "/path/to/file.pma",
+    "type": ["resource_tie"],
+    "isArray": false,
+    "arrayElementType": null
+   },
+   "lods": {
+    "description": "/path/to/file.pmd",
+    "type": null,
+    "isArray": true,
+    "arrayElementType": ["resource_tie", "string"]
+   },
+   "lod_dist": {
+    "description": "",
+    "type": null,
+    "isArray": true,
+    "arrayElementType": ["fixed"]
+   },
+   "pedestrian": {
+    "description": "",
+    "type": ["bool"],
+    "isArray": false,
+    "arrayElementType": null
+   },
+   "variants": {
+    "description": "",
+    "type": ["token"],
+    "isArray": false,
+    "arrayElementType": null
+   }
+ }
+}
