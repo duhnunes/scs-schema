@@ -13,29 +13,29 @@ jobs:
   detect-schema-bump:
     runs-on: ubuntu-latest
     steps:
-      - name: Determine changed files ad label bump if meta.version changed
+      - name: Determine changed files and label bump if meta.version changed
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const pr = context.payload.pull_request;
             if (!pr) {
-              core.info('No pull request context found, existing.');
+              core.info('No pull request context found, exiting.');
               return;
             }
 
-            // list all files modified in PR
+            // lista todos os arquivos modificados no PR
             const files = await github.paginate(github.rest.pulls.listFiles, {
               owner: context.repo.owner,
               repo: context.repo.repo,
               pull_number: pr.number
             });
 
-            // filter only JSON files inside data/schemas/
+            // filtra apenas arquivos JSON dentro de data/schemas/
             const schemaFiles = files
               .map(f => f.filename)
-              .filter(f => f.startsWith('data/schemas/') && f.endswith('.json'));
-            
+              .filter(f => f.startsWith('data/schemas/') && f.endsWith('.json'));
+
             if (schemaFiles.length === 0) {
               core.info('No schema JSON files changed.');
               return;
@@ -46,7 +46,7 @@ jobs:
             for (const path of schemaFiles) {
               core.info(`Checking ${path}`);
 
-              // try take content from file in (target)
+              // tenta obter o conteúdo do arquivo na base (target) e na head (source)
               async function getJsonAtRef(filePath, ref) {
                 try {
                   const res = await github.rest.repos.getContent({
@@ -55,11 +55,12 @@ jobs:
                     path: filePath,
                     ref
                   });
-                  // res.data.content is base64
-                  const content = Buffer.from(res.data.content, 'base64').toString('utf8')
-                  return JSON.parse(content)
+                  // res.data.content é base64
+                  const content = Buffer.from(res.data.content, 'base64').toString('utf8');
+                  return JSON.parse(content);
                 } catch (err) {
-                  core.info(`Could not read ${filePath} at ref ${ref}: ${err.message}`)
+                  // arquivo pode não existir em uma das refs (novo/remoção)
+                  core.info(`Could not read ${filePath} at ref ${ref}: ${err.message}`);
                   return null;
                 }
               }
@@ -67,30 +68,31 @@ jobs:
               const baseRef = pr.base.sha;
               const headRef = pr.head.sha;
 
-              const baseJson = await getJsonAtRef(path, baseRef)
-              const headJson = await getJsonAtRef(path, headRef)
+              const baseJson = await getJsonAtRef(path, baseRef);
+              const headJson = await getJsonAtRef(path, headRef);
 
               const baseVersion = baseJson && baseJson.meta && baseJson.meta.version ? String(baseJson.meta.version) : null;
-              const headversion = headJson && headJson.meta && headJson.meta.version ? String(headJson.meta.version) : null;
+              const headVersion = headJson && headJson.meta && headJson.meta.version ? String(headJson.meta.version) : null;
 
               core.info(`baseVersion=${baseVersion} headVersion=${headVersion}`);
 
-              // If version changed
+              // regra: se versão mudou (inclui caso de novo arquivo com version, ou remoção)
               const versionChanged = baseVersion !== headVersion;
 
               if (versionChanged) {
                 core.info(`Version changed for ${path}`);
-                labelsToAdd.add('bump')
+                labelsToAdd.add('bump');
               } else {
                 core.info(`No version change for ${path}`);
               }
             }
 
             if (labelsToAdd.size === 0) {
-              core.info('No labels to add.')
+              core.info('No labels to add.');
               return;
             }
 
+            // verifica labels já presentes para evitar duplicação
             const existing = (pr.labels || []).map(l => l.name);
             const toAdd = Array.from(labelsToAdd).filter(l => !existing.includes(l));
 
@@ -106,4 +108,4 @@ jobs:
               labels: toAdd
             });
 
-            core.info(`Added labels: ${toAdd.join(', ')}`)
+            core.info(`Added labels: ${toAdd.join(', ')}`);
