@@ -33,7 +33,9 @@ This rule helps the extension map schemas to `.sii` files and keeps the DB organ
     - **`isArray`**: `true` if the key is an array (`key[]`), otherwise `false`
     - **`arrayElementType`**: when `isArray: true`, set the element type array (e.g., `["float2"]`); otherwise `null`
 
-**Important**: keep `type` and `arrayElementType` consistent: If a key exists both as scalar and array, reflect both forms (scalar `type` and `isArray: true` with `arrayElementType`).
+> [!IMPORTANT]  
+> **Important**: keep `type` and `arrayElementType` consistent: If a key exists both as scalar and array, reflect both forms (scalar `type` and `isArray: true` with `arrayElementType`).
+
 
 ### Examples
 #### With scalar & not array
@@ -113,12 +115,19 @@ This project only requires that contributed files re valid JSON and follow the s
 
 ## PR workflow
 1. **Fork** (if needed) and create a descriptive branch: `feat/add-<class_name>`
-2. **Commit messages**: use conventional style, e.g. `feat(schema): add <class_name>` or `fix(schema): correct <class_name>`
-  - `git pull` : you **NEED** run `git pull` before `git add .` because repo have auto update `manifest.json` and bump versions from schemas.
+2. **Sync your branch**: run `git pull` to update before staging changes.
+3. **Stage and commit**;
   - `git add .`
   - `git commit -m "feat(schemas): add <class_name>.json"`
-3. **Open PR**: include a short summary, example `.sii` snippets tht justify keys, and the checklist below.
-  - `gh pr create` - and follow terminal
+    - Use conventional style, e.g. `feat(schema): add <class_name>` or `fix(schema): fix <class_name>`
+4. **Open PR**: include a short summary, example `.sii` snippets that justify keys, and the checklist below.
+  - `gh pr create` - and follow the terminal prompts
+
+> [!IMPORTANT]  
+> Always run `git pull` before staging changes (`git add .`).
+> The repository automatically updates `manifest.json` and bumps schema versions after PRs are merged.
+> Runing `git pull` ensures your local branch is up to date and avoids conflicts.
+
 ## Checklist before PR
 - [x] Filename matches `class_name` (e.g., `prefab_model.json)
 - [x] Schema file placed in the same relative path as the game `.sii` (e.g. `data/schemas/def/world/prefab_model.json` for `/def/world/prefab_model.sii`)
