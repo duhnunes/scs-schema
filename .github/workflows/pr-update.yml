@@ -105,7 +105,7 @@ jobs:
           fi
 
       - name: Push changes back to PR branch (if any)
-        if: steps.verify.outputs.manifest_changed == 'true' || steps.bump.outputs.bumped == 'true' || s.built == 'true'
+        if: steps.verify.outputs.manifest_changed == 'true' || steps.bump.outputs.bumped == 'true' || steps.build.outputs.built == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PERSONAGEL_TOKEN: ${{ secrets.PERSONAL_TOKEN || '' }}
