@@ -2,7 +2,7 @@ name: Auto add bump label
 
 on:
   pull_request:
-    types: [opened, reopened, ready_for_review, synchronize]
+    types: [opened, reopened]
 
 permissions:
   contents: write
