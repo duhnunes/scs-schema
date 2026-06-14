@@ -106,22 +106,6 @@ jobs:
         run: |
           git push origin HEAD:${{ steps.get_pr.outputs.head_ref }}
 
-      - name: Remove label BUMP
-        uses: actions-ecosystem/action-remove-labels@v1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          labels: bump
-          number: ${{ steps.get_pr.outputs.pr_number }}
-          repo: ${{ steps.get_pr.outputs.head_repo }}
-
-      - name: Add label BUMPED
-        uses: actions-ecosystem/action-add-labels@v1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          labels: bumped
-          number: ${{ steps.get_pr.outputs.pr_number }}
-          repo: ${{ steps.get_pr.outputs.head_repo }}
-
       - name: Comment on PR with summary
         if: always()
         env:
@@ -153,3 +137,18 @@ jobs:
             -H "Accept: application/vnd.github+json" \
             "$API" \
             -d "$PAYLOAD"
+      - name: Remove label BUMP
+        uses: actions-ecosystem/action-remove-labels@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          labels: bump
+          number: ${{ steps.get_pr.outputs.pr_number }}
+          repo: ${{ steps.get_pr.outputs.head_repo }}
+
+      - name: Add label BUMPED
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          labels: bumped
+          number: ${{ steps.get_pr.outputs.pr_number }}
+          repo: ${{ steps.get_pr.outputs.head_repo }}
