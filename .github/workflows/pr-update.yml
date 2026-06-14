@@ -7,6 +7,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  issues: write
 
 concurrency:
   group: pr-schema-automation-${{ github.event.pull_request.number }}
@@ -101,16 +102,29 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const pr = context.payload.pull_request;
+            // debug: inspect playload and if have github.rest.issue
+            console.log('eventName:' context.eventName);
+            console.log('payload keys:', Object.keys(context.payload || {}));
+            console.log('github.rest exists:', !!github.rest && !!github.rest.issue)
+
+            const prNumber = (context.payload && context.payload.pull_request && context.payload.pull_request.number) || context.issue.number;
+            if (!prNumber) {
+              console.log('No PR number found, skipping comment')
+              return
+            }
+
+            const number = pr.number;
             const changed = [];
             if (process.env.MANIFEST_CHANGED === 'true') changed.push('manifest updated');
             if (process.env.BUMPED === 'true') changed.push('schema versions bumped');
             if (process.env.BUILT === 'true') changed.push('manifest rebuilt with jsDelivr URLs');
+
             const body = `Automated schema check completed. Changes: ${changed.length ? changed.join(', ') : 'no changes needed'}.`;
-            await github.issues.createComment({
+            
+            await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: pr.number,
+              issue_number: prNumber,
               body
             })
         env:
