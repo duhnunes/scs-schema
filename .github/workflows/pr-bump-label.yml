@@ -5,7 +5,8 @@ on:
     types: [opened, reopened, ready_for_review, synchronize]
 
 permissions:
-  contents: read
+  contents: write
+  pull-requests: write
   issues: write
 
 jobs:
@@ -13,50 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.pull_request.draft == false
     steps:
-      - name: Check existing labels
-        id: check_label
-        run: |
-          set -euo pipefail
-          PR_NUMBER=${{ github.event.pull_request.number }}
-          OWNER="${{ github.repository_owner }}"
-          REPO="${{ github.event.repository.name }}"
-          TOKEN="${{ secrets.GITHUB_TOKEN }}"
-
-          labels_json=$(curl -sS -H "Authorization: Bearer $TOKEN" -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/repos/${OWNER}/${REPO}/issues/${PR_NUMBER}/labels")
-
-          labels=$(echo "$labels_json" | jq -r '.[].name' || true)
-          echo "labels=$labels"
-
-          if echo "$labels" | grep -xq "bumped"; then
-            echo "has_bumped=true" >> $GITHUB_OUTPUT
-          else
-            echo "has_bumped=false" >> $GITHUB_OUTPUT
-          fi
-
-          if echo "$labels" | grep -xq "bump"; then
-            echo "has_bump=true" >> $GITHUB_OUTPUT
-          else
-            echo "has_bump=false" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Add bump label when appropriate
-        if: steps.check_label.outputs.has_bumped == 'false' && steps.check_label.outputs.has_bump == 'false'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          OWNER: ${{ github.repository_owner }}
-          REPO: ${{ github.event.repository.name }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-        run: |
-          echo "Adding label 'bump' to PR #${PR_NUMBER}"
-          curl -sS -X POST \
-            -H "Authorization: Bearer $GITHUB_TOKEN" \
-            -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/repos/${OWNER}/${REPO}/issues/${PR_NUMBER}/labels" \
-            -d '{"labels":["bump"]}' \
-            | jq -r '.[]?.name' || true
-
-      - name: Skip adding bump label (already bumped or bump present)
-        if: steps.check_label.outputs.has_bumped == 'true' || steps.check_label.outputs.has_bump == 'true'
-        run: |
-          echo "PR already has 'bumped' or 'bump' label; nothing to do."
+      - name: Add bump label
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          labels: bump
