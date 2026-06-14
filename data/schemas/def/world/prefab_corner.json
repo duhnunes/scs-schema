@@ -52,12 +52,6 @@
       ],
       "isArray": false,
       "arrayElementType": null
-    },
-    "test_pr": {
-      "description": "ok",
-      "type": ["string"],
-      "isArray": false,
-      "arrayElementType": null
     }
   }
 }
