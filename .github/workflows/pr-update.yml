@@ -1,8 +1,8 @@
 name: PR schema automation
 
 on:
-  pull_request_target:
-    types: [labeled]
+  repository_dispatch:
+    types: [bump-label-applied]
 
 permissions:
   contents: write
@@ -21,7 +21,7 @@ jobs:
       - name: Checkout repositry base
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.head.ref }}
+          ref: ${{ github.event.pull_request.head.ref || github.event.client_payload.pr_number }}
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
       
