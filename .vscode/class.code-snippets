@@ -13,7 +13,7 @@
       " \"key\": {",
       "   \"${3:key_name}\": {",
       "     \"description\": \"${4:key_description}\",",
-      "     \"type\": ${5:null},",
+      "     \"type\": ${5:[]},",
       "     \"isArray\": ${6:false},",
       "     \"arrayElementType\": ${7:null}",
       "   }${0}",
