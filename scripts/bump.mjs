@@ -32,7 +32,34 @@ function getLatestTag() {
 }
 
 function getCommitsSince(range) {
-  try { return run(`git log ${range} --pretty=%B`) } catch { return '' }
+  try {
+    // <hash>\x1f<author-name>\x1f<author-email>\x1f<header>x1f<body>\x1e
+    const out = run(`git log ${range} --pretty=format:%H%x1f%an%x1f%ae%x1f%s%x1f%b%x1e`)
+    if (!out) return ''
+    // parse into array
+    const raw = out.split('\x1e').filter(Boolean)
+    const commits = raw.map(r => {
+      const [hash, author, email, header, body] = r.split('\x1f')
+      return { hash, author, email, header, body }
+    })
+    // filter bot commits / automatic commits
+    const filtered = commits.filter(c => {
+      const authorLower = (c.author || '').toLowerCase()
+      const emailLower = (c.email || '').toLowerCase()
+      const header = c.header || ''
+      
+      if (authorLower.includes('github-actions') || emailLower.includes('noreply')) return false
+      if (/chore: bump schema/i.test(header)) return false
+      return true
+    })
+    return filtered.map(c => `${c.header}\n\n${c.body}`).join('\n\n')
+  } catch (e) {
+    try {
+      return run(`git log ${range} --pretty=%B`)
+    } catch (err) {
+      return ''
+    }
+  }
 }
 
 function decideBumpFromCommits(commits) {
