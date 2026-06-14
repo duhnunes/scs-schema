@@ -1,0 +1,45 @@
+{
+ "meta": {
+   "version": "0.1.0",
+   "description": ""
+ },
+ "scope": "prefab_corner",
+ "key": {
+   "name": {
+     "description": "Name from prefab corner",
+     "type": ["string"],
+     "isArray": false,
+     "arrayElementType": null
+   },
+   "model_desc": {
+    "description": "/path/to/file.pmd",
+    "type": ["resource_tie"],
+    "isArray": false,
+    "arrayElementType": null
+   },
+   "prefab_desc": {
+    "description": "/path/to/file.ppd",
+    "type": ["resource_tie"],
+    "isArray": false,
+    "arrayElementType": null
+   },
+   "x_uv_slots": {
+    "description": "",
+    "type": ["fixed"],
+    "isArray": false,
+    "arrayElementType": null
+   },
+   "y_uv_slots": {
+    "description": "/path/to/file.pmd",
+    "type": ["fixed"],
+    "isArray": false,
+    "arrayElementType": null
+   },
+   "random_uv": {
+    "description": "",
+    "type": ["bool"],
+    "isArray": true,
+    "arrayElementType": ["string"]
+   }
+ }
+}
