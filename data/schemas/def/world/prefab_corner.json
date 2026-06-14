@@ -52,6 +52,14 @@
       ],
       "isArray": false,
       "arrayElementType": null
+    },
+    "test": {
+      "description": "",
+      "type": [
+        "bool"
+      ],
+      "isArray": false,
+      "arrayElementType": null
     }
   }
 }
