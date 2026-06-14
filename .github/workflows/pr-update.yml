@@ -102,31 +102,36 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            // debug: inspect playload and if have github.rest.issue
-            console.log('eventName:' context.eventName);
+            // debug
+            console.log('eventName:', context.eventName);
             console.log('payload keys:', Object.keys(context.payload || {}));
-            console.log('github.rest exists:', !!github.rest && !!github.rest.issue)
+            console.log('github.rest.issues exists:', !!github && !!github.rest && !!github.rest.issues);
 
             const prNumber = (context.payload && context.payload.pull_request && context.payload.pull_request.number) || context.issue.number;
             if (!prNumber) {
-              console.log('No PR number found, skipping comment')
-              return
+              console.log('No PR number found, skipping comment');
+              return;
             }
 
-            const number = pr.number;
+            // monta lista de mudanças de forma segura (sem template literals)
             const changed = [];
             if (process.env.MANIFEST_CHANGED === 'true') changed.push('manifest updated');
             if (process.env.BUMPED === 'true') changed.push('schema versions bumped');
             if (process.env.BUILT === 'true') changed.push('manifest rebuilt with jsDelivr URLs');
 
-            const body = `Automated schema check completed. Changes: ${changed.length ? changed.join(', ') : 'no changes needed'}.`;
-            
+            let body;
+            if (changed.length) {
+              body = 'Automated schema check completed. Changes: ' + changed.join(', ') + '.';
+            } else {
+              body = 'Automated schema check completed. Changes: no changes needed.';
+            }
+
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: prNumber,
-              body
-            })
+              body: body
+            });
         env:
           MANIFEST_CHANGED: ${{ steps.verify.outputs.manifest_changed || 'false' }}
           BUMPED: ${{ steps.bump.outputs.bumped || 'false' }}
