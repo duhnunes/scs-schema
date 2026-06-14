@@ -1,0 +1,150 @@
+name: PR schema automation
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: pr-schema-automation-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  update-schemas:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+    steps:
+      - name: Checkout PR branch (full history)
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies (trusted)
+        run: |
+          npm ci
+
+      - name: Compute merge-base for diff
+        id: mergebase
+        run: |
+          git fetch origin ${{ github.event.pull_request.base.ref }}:refs/remotes/origin/${{ github.event.pull_request.base.ref }} || true
+          BASE=$(git merge-base origin/${{ github.event.pull_request.base.ref }} HEAD || true)
+          echo "base_ref=$BASE" >> $GITHUB_OUTPUT
+
+      - name: Detect last commit author
+        id: detect
+        run: |
+          LAST_AUTHOR=$(git log -1 --pretty=format:'%an')
+          LAST_EMAIL=$(git log -1 --pretty=format:'%ae')
+          echo "last_author=$LAST_AUTHOR" >> $GITHUB_OUTPUT
+          echo "last_email=$LAST_EMAIL" >> $GITHUB_OUTPUT
+
+          IS_BOT=false
+          lower_author=$(echo "$LAST_AUTHOR" | tr '[:upper:]' '[:lower:]')
+          lower_email=$(echo "$LAST_EMAIL" | tr '[:upper:]' '[:lower:]')
+          if echo "$lower_author" | grep -q "github-actions" || echo "$lower_email" | grep -q "noreply"; then
+            IS_BOT=true
+          fi
+          echo "is_bot=$IS_BOT" >> $GITHUB_OUTPUT
+
+      - name: Early exit if last commit was from the bot
+        if: ${{ steps.detect.outputs.is_bot == 'true' }}
+        run: |
+          echo "Last commit author appears to be the bot (${ { steps.detect.outputs.last_author } }). Skipping verify/bump/build to avoid loop."
+          exit 0
+
+      - name: Configure git user for automation commits (bot)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Run verify script (update manifest entries for new files)
+        id: verify
+        env:
+          REPO_USER: ${{ secrets.REPO_USER || github.repository_owner }}
+          REPO_NAME: ${{ secrets.REPO_NAME || github.event.repository.name }}
+        run: |
+          node ./scripts/verify.mjs || true
+          git add data/manifest.json || true
+          if ! git diff --staged --quiet; then
+            git commit -m "chore: update data/manifest.json (verify)" || true
+            echo "manifest_changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "manifest_changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run bump script (bump meta.version for edited schemas)
+        id: bump
+        env:
+          BASE_REF: ${{ steps.mergebase.outputs.base_ref }}
+        run: |
+          node ./scripts/bump.mjs || true
+          git add data/schemas || true
+          if ! git diff --staged --quiet; then
+            git commit -m "chore(bump): bump schema meta.version for changed files" || true
+            echo "bumped=true" >> $GITHUB_OUTPUT
+          else
+            echo "bumped=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Build manifest with jsDelivr URLs using current commit SHA
+        id: build
+        run: |
+          REF=$(git rev-parse --verify HEAD)
+          node ./scripts/build.mjs "$REF"
+          git add data/manifest.json || true
+          if ! git diff --staged --quiet; then
+            git commit -m "chore: build manifest with jsDelivr URLs @${REF}" || true
+            echo "built=true" >> $GITHUB_OUTPUT
+          else
+            echo "built=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Push changes back to PR branch (if any)
+        if: ${{ steps.verify.outputs.manifest_changed == 'true' || steps.bump.outputs.bumped == 'true' || steps.build.outputs.built == 'true' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
+
+      - name: Comment on PR with summary
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          MANIFEST_CHANGED: ${{ steps.verify.outputs.manifest_changed || 'false' }}
+          BUMPED: ${{ steps.bump.outputs.bumped || 'false' }}
+          BUILT: ${{ steps.build.outputs.built || 'false' }}
+        run: |
+          PR=${PR_NUMBER}
+          CHANGES=()
+          if [ "$MANIFEST_CHANGED" = "true" ]; then CHANGES+=("manifest updated"); fi
+          if [ "$BUMPED" = "true" ]; then CHANGES+=("schema versions bumped"); fi
+          if [ "$BUILT" = "true" ]; then CHANGES+=("manifest rebuilt with jsDelivr URLs"); fi
+
+          if [ ${#CHANGES[@]} -gt 0 ]; then
+            BODY="Automated schema check completed. Changes: ${CHANGES[*]}."
+          else
+            BODY="Automated schema check completed. Changes: no changes needed."
+          fi
+
+          PAYLOAD=$(jq -nc --arg body "$BODY" '{body:$body}')
+          OWNER="${{ github.repository_owner }}"
+          REPO="${{ github.event.repository.name }}"
+          API="https://api.github.com/repos/${OWNER}/${REPO}/issues/${PR}/comments"
+
+          curl -sS -X POST \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "$API" \
+            -d "$PAYLOAD"
