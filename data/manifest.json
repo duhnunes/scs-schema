@@ -1,6 +1,6 @@
 {
   "version": "0.1.0",
-  "generatedAt": "2026-06-14T13:46:14.863Z",
+  "generatedAt": "2026-06-14T14:16:19.144Z",
   "schemas": {
     "animated_model_data": {
       "id": "data/schemas/def/world/animated_model_data.json",
@@ -236,10 +236,10 @@
       "id": "data/schemas/def/world/prefab_corner.json",
       "name": "prefab_corner",
       "path": "./data/schemas/def/world/prefab_corner.json",
-      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@fe6798bb15b8094f8b3087213b77ea652b035f44/data/schemas/def/world/prefab_corner.json",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@21697d4696c234b8882a7fb3f6d977e862c4ed86/data/schemas/def/world/prefab_corner.json",
       "metaVersion": "0.4.0",
-      "hash": "sha256:9bf0bd3e3d39eab770462dc3ee658eca49bc3318da61fd59aaa82add3ed70e52",
-      "size": 1100,
+      "hash": "sha256:b4cb12995c5b61aff002ea56e330453d7c28c1cd40f5f144ecb21172ebf98f7d",
+      "size": 1062,
       "description": ""
     }
   }
