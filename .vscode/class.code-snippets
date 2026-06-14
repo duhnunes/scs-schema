@@ -1,6 +1,8 @@
 {
   "SCS class_name schema": {
     "prefix": "class-name",
+    "scope": "json",
+    "description": "Create a class_name JSON schema for data/schemas/ (meta, scope, key).",
     "body": [
       "{",
       " \"meta\": {",
@@ -17,7 +19,6 @@
       "   }${0}",
       " }",
       "}"
-    ],
-    "description": "Create a class_name JSON schema for data/schemas/ (meta, scope, key)."
+    ]
   }
 }
