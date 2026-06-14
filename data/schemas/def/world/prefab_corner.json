@@ -1,6 +1,6 @@
 {
   "meta": {
-    "version": "0.4.0",
+    "version": "0.1.0",
     "description": ""
   },
   "scope": "prefab_corner",
@@ -38,7 +38,7 @@
       "arrayElementType": null
     },
     "y_uv_slots": {
-      "description": "/path/to/file.pmd",
+      "description": "",
       "type": [
         "fixed"
       ],
@@ -50,10 +50,8 @@
       "type": [
         "bool"
       ],
-      "isArray": true,
-      "arrayElementType": [
-        "string"
-      ]
+      "isArray": false,
+      "arrayElementType": null
     }
   }
 }
