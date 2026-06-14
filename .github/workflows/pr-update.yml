@@ -57,6 +57,11 @@ jobs:
       - name: Install dependencies
         run: npm i
 
+      # - name: Configure git
+      #   run: |
+      #     git config user.name ${{ github.actor }}
+      #     git config user.email ${{ github.actor }}@users.noreply.github.com
+
       - name: Run verify script (update manifest entries for new files)
         id: verify
         env:
@@ -100,9 +105,13 @@ jobs:
           fi
 
       - name: Push changes back to PR branch (if any)
-        if: steps.verify.outputs.manifest_changed == 'true' || steps.bump.outputs.bumped == 'true' || steps.build.outputs.build == 'true'
+        if: steps.verify.outputs.manifest_changed == 'true' || steps.bump.outputs.bumped == 'true' || steps.build.outputs.built == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PERSONAGEL_TOKEN: ${{ secrets.PERSONAL_TOKEN || '' }}
+          BASE_REPO: ${{ github.repository }}
+          HEAD_REPO: ${{ steps.get_pr.outputs.head_repo }}
+          HEAD_REF: ${{ steps.get_pr.outputs.head_ref }}
         run: |
           git push origin HEAD:${{ steps.get_pr.outputs.head_ref }}
 
@@ -121,7 +130,7 @@ jobs:
           CHANGES=()
           if [ "$MANIFEST_CHANGED" = "true" ]; then CHANGES+=("manifest updated"); fi
           if [ "$BUMPED" = "true" ]; then CHANGES+=("schema versions bumped"); fi
-          if [ "$BUILD" = "true" ]; then CHANGES+=("manifest rebuilt with jsDelivr URLs"); fi
+          if [ "$BUILT" = "true" ]; then CHANGES+=("manifest rebuilt with jsDelivr URLs"); fi
 
           if [ ${#CHANGES[@]} -gt 0 ]; then
             BODY="Automated schema check completed. Changes: ${CHANGES[*]}."
@@ -137,6 +146,7 @@ jobs:
             -H "Accept: application/vnd.github+json" \
             "$API" \
             -d "$PAYLOAD"
+
       - name: Remove label BUMP
         uses: actions-ecosystem/action-remove-labels@v1
         with:
