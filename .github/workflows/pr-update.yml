@@ -94,15 +94,18 @@ jobs:
             const repo = context.repo.repo;
             const sourcePrNumber = context.payload.pull_request.number;
             const releaseBranch = '${{ steps.commit_and_push.outputs.branch }}';
-            
+
+            // Use the original PR title and body unchanged
             const originalTitle = context.payload.pull_request.title || `ci: generated changes (from PR #${sourcePrNumber})`;
             const originalBody = context.payload.pull_request.body || '';
-            
-            let body = `This PR was created by CI to apply generated changes from PR #${sourcePrNumber}.\n\n;
+
+            // Build the body for the generated PR
+            let body = '';
+            body += `This PR was created by CI to apply generated changes from PR #${sourcePrNumber}.\n\n`;
             body += `Source PR: ${context.payload.pull_request.html_url}\n\n`;
             body += `Original PR title: ${originalTitle}\n\n`;
-            body += `Original PR body:\n${originalBody}\n\n;
-            body += `CI bumped schema meta.version where needed and updated data/manifest.json with CDN URLs build from the PR head SHA.`;
+            body += `Original PR body:\n${originalBody}\n\n`;
+            body += `CI bumped schema meta.version where needed and updated data/manifest.json with CDN URLs built from the PR head SHA.`;
 
             // Create PR from release branch into master using the original PR title
             const { data: newPr } = await github.rest.pulls.create({
@@ -114,7 +117,7 @@ jobs:
               body
             });
 
-            // Link the new PR in the original PR as a comment
+            // Comment on the original PR linking the generated PR
             await github.rest.issues.createComment({
               owner,
               repo,
@@ -125,4 +128,3 @@ jobs:
       - name: No changes to commit
         if: steps.commit_and_push.outputs.pushed == 'false'
         run: echo "No generated changes to commit."
-
