@@ -65,16 +65,28 @@ jobs:
           BASE=$(git merge-base origin/master HEAD || true)
           echo "base_ref=$BASE" >> $GITHUB_OUTPUT
 
+      - name: Get last commit author and detect fork PR
+        id: detect
+        run: |
+          LAST_AUTHOR=$(git log -1 --pretty=format:'%an')
+          echo "last_author=$LAST_AUTHOR" >> $GITHUB_OUTPUT
+
+          IS_FORK=false
+          if [ "${{ github.event.pull_request.head.repo.full_name }}" != "${{ github.repository }}"]; then
+            IS_FORK=true
+          fi
+          echo "is_fork=$IS_FORK" >> $GITHUB_OUTPUT
+      
       - name: Run bump script (bump meta.version for edited schemas)
         id: bump
+        if: ${{ steps.detect.outputs.last_author != 'github-actions[bot]' && steps.detect.output.is_fork == 'false' }}
         env:
           BASE_REF: ${{ steps.mergebase.outputs.base_ref }}
         run: |
           node ./scripts/bump.mjs || true
-          # stage any modified schema files
           git add data/schemas || true
           if ! git diff --staged --quiet; then
-            git commit -m "chore: bump schema meta.version for changed files" || true
+            git commit -m "chore(bump): bump schema meta.version for changed files" || true
             echo "bumped=true" >> $GITHUB_OUTPUT
           else
             echo "bumped=false" >> $GITHUB_OUTPUT
@@ -110,7 +122,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
-          MANIFEST_CHANGED: $${{ steps.verify.outputs.manifest_changed || 'false' }}
+          MANIFEST_CHANGED: ${{ steps.verify.outputs.manifest_changed || 'false' }}
           BUMPED: ${{ steps.bump.outputs.bumped || 'false' }}
           BUILT: ${{ steps.build.outputs.built || 'false' }}
         run: |
@@ -139,7 +151,7 @@ jobs:
 
           echo "Posting comment to ${OWNER}/${REPO}#${PR}"
           curl -sS -X POST \
-            -H "Authorization: Baerer $GITHUB_TOKEN" \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
             -H "Accept: application/vnd.github+json" \
             "$API" \
             -d "$PAYLOAD" \
