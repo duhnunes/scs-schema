@@ -7,6 +7,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  issues: write
 
 concurrency:
   group: pr-schema-automation-${{ github.event.pull_request.number }}
@@ -101,13 +102,14 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const pr = context.payload.pull_request;
+            const pr = context.payload.pull_request || { number: contet.issue.number };
+            const number = pr.number;
             const changed = [];
             if (process.env.MANIFEST_CHANGED === 'true') changed.push('manifest updated');
             if (process.env.BUMPED === 'true') changed.push('schema versions bumped');
             if (process.env.BUILT === 'true') changed.push('manifest rebuilt with jsDelivr URLs');
             const body = `Automated schema check completed. Changes: ${changed.length ? changed.join(', ') : 'no changes needed'}.`;
-            await github.issues.createComment({
+            await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: pr.number,
