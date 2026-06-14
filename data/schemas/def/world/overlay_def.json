@@ -1,0 +1,21 @@
+{
+ "meta": {
+   "version": "0.1.0",
+   "description": ""
+ },
+ "scope": "overlay_def",
+ "key": {
+   "city_name": {
+     "description": "Name from cities",
+     "type": null,
+     "isArray": true,
+     "arrayElementType": ["string"]
+   },
+   "road_names": {
+    "description": "",
+    "type": null,
+    "isArray": true,
+    "arrayElementType": ["string"]
+   }
+ }
+}
