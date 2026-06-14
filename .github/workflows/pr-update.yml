@@ -71,9 +71,9 @@ jobs:
           git add data/manifest.json || true
           if ! git diff --staged --quiet; then
             git commit -m "chore(build): build manifest with jsDelivr URLs @${REF} [auto-scs]" || true
-            echo "built=true" >> $GITHUB_OUTPUT
+            echo "build=true" >> $GITHUB_OUTPUT
           else
-            echo "built=false" >> $GITHUB_OUTPUT
+            echo "build=false" >> $GITHUB_OUTPUT
           fi
         
       - name: Push changes back to PR branch (if any)
@@ -83,24 +83,17 @@ jobs:
         run: |
           git push origin HEAD:${{ github.event.pull_request.head.ref }}
         
-      - name: Replace label bump -> bumped
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          OWNER: ${{ github.repository_owner }}
-          REPO: ${{ github.event.repository.name }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-        run: |
-          curl -sS -X DELETE \
-            -H "Authorization: Bearer $GITHUB_TOKEN" \
-            -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/repos/${OWNER}/${REPO}/issues/${PR_NUMBER}/labels/bump" || true
-          
-          # add 'bumped' label
-          curl -sS -X POST \
-            -H "Authorization: Bearer $GITHUB_TOKEN" \
-            -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/repos/${OWNER}/${REPO}/issues/${PR_NUMBER}/labels" \
-            -d '{"labels":["bumped"]}' || true
+      - name: Remove label BUMP
+        uses: actions-ecosystem/action-remove-labels@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          labels: bump
+      
+      - name: Add label BUMPED
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          labels: bumped
           
       - name: Comment on PR with summary
         if: always()
@@ -109,15 +102,15 @@ jobs:
           PR_NUMBER: ${{ github.event.pull_request.number }}
           MANIFEST_CHANGED: ${{ steps.verify.outputs.manifest_changed || 'false' }}
           BUMPED: ${{ steps.bump.outputs.bumped || 'false' }}
-          BUILD: ${{ steps.build.outputs.built || 'false' }}
+          BUILD: ${{ steps.build.outputs.build || 'false' }}
         run: |
           PR=${PR_NUMBER}
           CHANGES=()
           if [ "$MANIFEST_CHANGED" = "true" ]; then CHANGES+=("manifest updated"); fi
           if [ "$BUMPED" = "true" ]; then CHANGES+=("schema versions bumped"); fi
-          if [ "$BULT" = "true" ]; then CHANGES+=("manifest rebuilt with jsDelivr URLs"); fi
+          if [ "$BUILD" = "true" ]; then CHANGES+=("manifest rebuild with jsDelivr URLs"); fi
 
-          if [ ${$CHANGES[@]} -gt 0]; then
+          if [ ${#CHANGES[@]} -gt 0]; then
             BODY="Automated schema check completed. Changes: ${CHANGES[*]}."
           else
             BODY="Automated schema check completed. Changes: no changes needed."
