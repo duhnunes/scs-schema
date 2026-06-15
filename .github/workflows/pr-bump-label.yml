@@ -16,11 +16,14 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       
       - name: Check path files modified
         id: check
         run: |
-          CHANGED=$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
+          git fetch origin ${{ github.event.pull_request.bse.ref }} --depth=1
+          CHANGED=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }} ${{ github.event.pull_request.head.sha }})
           echo "$CHANGED" | grep -q '^data/schemas/' && echo "match=true" >> $GITHUB_OUTPUT || echo "match=false" >> $GITHUB_OUTPUT
       
       - name: Remove label bumped (se existir)
