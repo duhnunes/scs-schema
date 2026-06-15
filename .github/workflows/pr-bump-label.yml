@@ -14,7 +14,17 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.pull_request.draft == false
     steps:
-      - name: Remove label BUMPER (if exist)
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      
+      - name: Check path files modified
+        id: check
+        run: |
+          CHANGED=$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
+          echo "$CHANGED" | grep -q '^data/schemas/' && echo "match=true" >> $GITHUB_OUTPUT || echo "match=false" >> $GITHUB_OUTPUT
+      
+      - name: Remove label bumped (se existir)
+        if: steps.check.outputs.match == 'true'
         uses: actions-ecosystem/action-remove-labels@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -23,6 +33,7 @@ jobs:
           repo: ${{ github.repository }}
       
       - name: Add bump label
+        if: steps.check.outputs.match == 'true'
         uses: actions-ecosystem/action-add-labels@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
