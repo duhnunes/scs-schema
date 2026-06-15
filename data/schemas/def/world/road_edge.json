@@ -1,0 +1,45 @@
+{
+  "meta": {
+    "version": "0.0.0",
+    "description": ""
+  },
+  "scope": "road_edge",
+  "key": {
+    "name": {
+      "description": "Name from read edge",
+      "type": ["string"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "model": {
+      "description": "/path/to/file.pmd",
+      "type": ["resource_tie"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "variant_5": {
+      "description": "",
+      "type": ["token"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "variant_15": {
+      "description": "",
+      "type": ["token"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "look": {
+      "description": "",
+      "type": ["token"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "width": {
+      "description": "",
+      "type": ["fixed", "float"],
+      "isArray": false,
+      "arrayElementType": null
+    }
+  }
+}
