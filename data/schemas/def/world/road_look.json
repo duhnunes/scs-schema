@@ -1,0 +1,207 @@
+{
+  "meta": {
+    "version": "0.0.0",
+    "description": ""
+  },
+  "scope": "road_look",
+  "key": {
+    "name": {
+      "description": "Name from road look",
+      "type": ["string"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "road_size_left": {
+      "description": "",
+      "type": ["fixed", "float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "road_size_right": {
+      "description": "",
+      "type": ["fixed", "float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "road_offset": {
+      "description": "",
+      "type": ["fixed", "float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "tex1_left": {
+      "description": "",
+      "type": ["fixed", "float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "tex0_left": {
+      "description": "",
+      "type": ["fixed", "float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "tex0_right": {
+      "description": "",
+      "type": ["fixed", "float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "tex1_right": {
+      "description": "",
+      "type": ["fixed", "float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "trans_tex0_left": {
+      "description": "",
+      "type": ["fixed", "float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "trans_tex1_left": {
+      "description": "",
+      "type": ["fixed", "float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "trans_tex0_right": {
+      "description": "",
+      "type": ["fixed", "float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "trans_tex1_right": {
+      "description": "",
+      "type": ["fixed", "float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "trans_tex0_center": {
+      "description": "",
+      "type": ["fixed", "float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "trans_tex1_center": {
+      "description": "",
+      "type": ["fixed", "float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "center_line_left_offset": {
+      "description": "",
+      "type": ["fixed", "float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "center_line_right_offset": {
+      "description": "",
+      "type": ["fixed", "float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "center_line_left_width": {
+      "description": "",
+      "type": ["fixed", "float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "center_line_right_width": {
+      "description": "",
+      "type": ["fixed", "float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "center_line_left_style": {
+      "description": "",
+      "type": ["fixed", "float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "center_line_right_style": {
+      "description": "",
+      "type": ["fixed", "float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "inner_line_style": {
+      "description": "",
+      "type": ["fixed"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "outer_line_style": {
+      "description": "",
+      "type": ["fixed"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "lanes_left": {
+      "description": "",
+      "type": null,
+      "isArray": true,
+      "arrayElementType": ["token"]
+    },
+    "lanes_right": {
+      "description": "",
+      "type": null,
+      "isArray": true,
+      "arrayElementType": ["token"]
+    },
+    "shoulder_space_left": {
+      "description": "",
+      "type": ["fixed", "float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "shoulder_space_right": {
+      "description": "",
+      "type": ["fixed", "float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "shoulder_size_right": {
+      "description": "",
+      "type": ["float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "shoulder_tex0_right": {
+      "description": "",
+      "type": ["float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "shoulder_tex1_right": {
+      "description": "",
+      "type": ["float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "shoulder_size_left": {
+      "description": "",
+      "type": ["float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "shoulder_tex0_left": {
+      "description": "",
+      "type": ["float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "shoulder_tex1_left": {
+      "description": "",
+      "type": ["float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "slow_time": {
+      "description": "",
+      "type": ["bool"],
+      "isArray": false,
+      "arrayElementType": null
+    }
+  }
+}
