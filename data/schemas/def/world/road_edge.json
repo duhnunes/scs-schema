@@ -6,7 +6,7 @@
   "scope": "road_edge",
   "key": {
     "name": {
-      "description": "Name from read edge",
+      "description": "Name from road edge",
       "type": ["string"],
       "isArray": false,
       "arrayElementType": null
