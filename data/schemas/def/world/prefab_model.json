@@ -1,0 +1,159 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "description": ""
+  },
+  "scope": "prefab_model",
+  "key": {
+    "name": {
+      "description": "Name from prefab",
+      "type": ["string"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "model_desc": {
+      "description": "/path/to/file.pmd",
+      "type": ["resource_tie"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "prefab_desc": {
+      "description": "/path/to/file.ppd",
+      "type": ["resource_tie"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "use_perlin": {
+      "description": "",
+      "type": ["bool"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "dynamic_lod_desc": {
+      "description": "/path/to/file.pmd",
+      "type": ["fixed"],
+      "isArray": true,
+      "arrayElementType": ["resource_tie"]
+    },
+    "dynamic_lod_dist": {
+      "description": "",
+      "type": ["fixed"],
+      "isArray": true,
+      "arrayElementType": ["fixed"]
+    },
+    "tweak_detail_vegetation": {
+      "description": "",
+      "type": ["bool"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "detail_veg_max_distance": {
+      "description": "",
+      "type": ["fixed"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "allowed_trailer_length": {
+      "description": "",
+      "type": ["fixed"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "category": {
+      "description": "",
+      "type": ["string"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "slow_time": {
+      "description": "",
+      "type": ["bool"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "use_semaphores": {
+      "description": "",
+      "type": ["bool"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "corner0": {
+      "description": "",
+      "type": ["fixed"],
+      "isArray": true,
+      "arrayElementType": ["token", "string"]
+    },
+    "corner1": {
+      "description": "",
+      "type": ["fixed"],
+      "isArray": true,
+      "arrayElementType": ["token", "string"]
+    },
+    "corner2": {
+      "description": "",
+      "type": ["fixed"],
+      "isArray": true,
+      "arrayElementType": ["token", "string"]
+    },
+    "corner3": {
+      "description": "",
+      "type": ["fixed"],
+      "isArray": true,
+      "arrayElementType": ["token", "string"]
+    },
+    "corner4": {
+      "description": "",
+      "type": ["fixed"],
+      "isArray": true,
+      "arrayElementType": ["token", "string"]
+    },
+    "corner5": {
+      "description": "",
+      "type": ["fixed"],
+      "isArray": true,
+      "arrayElementType": ["token", "string"]
+    },
+    "semaphore_profile": {
+      "description": "",
+      "type": null,
+      "isArray": true,
+      "arrayElementType": ["token"]
+    },
+    "traffic_rules_output": {
+      "description": "",
+      "type": null,
+      "isArray": true,
+      "arrayElementType": ["string"]
+    },
+    "traffic_rules_input": {
+      "description": "",
+      "type": null,
+      "isArray": true,
+      "arrayElementType": ["string"]
+    },
+    "gps_avoid": {
+      "description": "",
+      "type": ["bool"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "invisible": {
+      "description": "",
+      "type": ["bool"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "running_timer": {
+      "description": "tip from file: # cca 1week ON + 3weeks OFF",
+      "type": ["fixed2"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "disabled_depot": {
+      "description": "",
+      "type": ["token"],
+      "isArray": false,
+      "arrayElementType": null
+    }
+  }
+}
