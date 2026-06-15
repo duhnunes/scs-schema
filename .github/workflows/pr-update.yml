@@ -2,7 +2,7 @@ name: PR schema automation
 
 on:
   pull_request:
-    types: [opened, closed]
+    types: [opened]
 
 permissions:
   contents: write
