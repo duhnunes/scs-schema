@@ -1,0 +1,57 @@
+{
+  "meta": {
+    "version": "0.0.0",
+    "description": ""
+  },
+  "scope": "railing_model",
+  "key": {
+    "model_desc": {
+      "description": "/path/to/file.pmd",
+      "type": ["resource_tie"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "look_name": {
+      "description": "",
+      "type": ["token"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "bridge": {
+      "description": "",
+      "type": ["bool"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "tunnel": {
+      "description": "",
+      "type": ["bool"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "use_perlin": {
+      "description": "",
+      "type": ["bool"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "lod_desc": {
+      "description": "/path/to/file.pmd",
+      "type": ["resource_tie"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "lod_dist": {
+      "description": "",
+      "type": ["float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "variation_scheme": {
+      "description": "",
+      "type": ["string"],
+      "isArray": false,
+      "arrayElementType": null
+    }
+  }
+}
