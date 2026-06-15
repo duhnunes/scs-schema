@@ -7,13 +7,17 @@
   "key": {
     "name": {
       "description": "This is the name from gate model",
-      "type": ["string"],
+      "type": [
+        "string"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "category": {
       "description": "Category from gate model",
-      "type": ["string"],
+      "type": [
+        "string"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
@@ -27,27 +31,40 @@
     },
     "model_coll": {
       "description": "/path/to/file.pmc",
-      "type": ["resource_tie"],
+      "type": [
+        "resource_tie"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "state_anim": {
       "description": "",
-      "type": ["fixed"],
+      "type": [
+        "fixed"
+      ],
       "isArray": true,
-      "arrayElementType": ["resource_tie", "string"]
+      "arrayElementType": [
+        "string",
+        "resource_tie"
+      ]
     },
     "sounds": {
       "description": "OY|/path/to/file.soundref",
-      "type": null,
+      "type": [],
       "isArray": true,
-      "arrayElementType": ["resource_tie"]
+      "arrayElementType": [
+        "resource_tie"
+      ]
     },
     "interval_overrides": {
       "description": "",
-      "type": ["fixed"],
+      "type": [
+        "fixed"
+      ],
       "isArray": true,
-      "arrayElementType": ["float"]
+      "arrayElementType": [
+        "float"
+      ]
     }
   }
 }

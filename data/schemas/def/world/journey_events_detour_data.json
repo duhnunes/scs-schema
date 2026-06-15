@@ -7,27 +7,35 @@
   "key": {
     "min_game_time_delay": {
       "description": "2400 -> (hours) * 60 (hour2min) * 20 (map scale) / 2 (some time spend in city)",
-      "type": ["fixed"],
+      "type": [
+        "fixed"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "max_game_time_delay": {
       "description": "4800 -> 8 (hours) * 60 (hour2min) * 20 (map scale) / 2 (some time spend in city)",
-      "type": ["fixed"],
+      "type": [
+        "fixed"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "minimal_level": {
       "description": "",
-      "type": ["fixed"],
+      "type": [
+        "fixed"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "disabled_items": {
       "description": "",
-      "type": null,
+      "type": [],
       "isArray": true,
-      "arrayElementType": ["float"]
+      "arrayElementType": [
+        "float"
+      ]
     }
   }
 }

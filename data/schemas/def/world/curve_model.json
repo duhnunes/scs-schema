@@ -68,8 +68,8 @@
       ],
       "isArray": true,
       "arrayElementType": [
-        "fixed",
-        "float"
+        "float",
+        "fixed"
       ]
     },
     "high_tess": {
@@ -79,8 +79,8 @@
       ],
       "isArray": true,
       "arrayElementType": [
-        "token",
-        "string"
+        "string",
+        "token"
       ]
     },
     "smooth_surface": {
@@ -128,8 +128,8 @@
       ],
       "isArray": true,
       "arrayElementType": [
-        "token",
-        "string"
+        "string",
+        "token"
       ]
     },
     "fixed_inner_end": {
@@ -139,8 +139,8 @@
       ],
       "isArray": true,
       "arrayElementType": [
-        "token",
-        "string"
+        "string",
+        "token"
       ]
     },
     "fixed_step": {

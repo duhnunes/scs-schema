@@ -7,21 +7,27 @@
   "key": {
     "max_road_events_count": {
       "description": "",
-      "type": null,
+      "type": [],
       "isArray": true,
-      "arrayElementType": ["fixed"]
+      "arrayElementType": [
+        "fixed"
+      ]
     },
     "min_road_events_distance": {
       "description": "meters // 1500.0",
-      "type": null,
+      "type": [],
       "isArray": true,
-      "arrayElementType": ["float"]
+      "arrayElementType": [
+        "float"
+      ]
     },
     "probability": {
       "description": "",
-      "type": null,
+      "type": [],
       "isArray": true,
-      "arrayElementType": ["float"]
+      "arrayElementType": [
+        "float"
+      ]
     }
   }
 }
