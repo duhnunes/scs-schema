@@ -14,27 +14,13 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true
     steps:
-      - name: Get PR info from payload
+      - name: Get PR info
         id: get_pr
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          OWNER: ${{ github.repository_owner }}
-          REPO: ${{ github.event.repository.name }}
-          PR_NUMBER: ${{ github.event.client_payload.pr_number }}
         run: |
-          set -euo pipefail
-          API="https://api.github.com/repos/${OWNER}/${REPO}/pulls/${PR_NUMBER}"
-          pr_json=$(curl -sS -H "Authorization: Bearer $GITHUB_TOKEN" -H "Accept: application/vnd.github+json" "$API")
-          echo "head_repo=$(echo "$pr_json" | jq -r '.head.repo.full_name')" >> $GITHUB_OUTPUT
-          echo "head_ref=$(echo "$pr_json" | jq -r '.head.ref')" >> $GITHUB_OUTPUT
-          echo "is_draft=$(echo "$pr_json" | jq -r '.draft')" >> $GITHUB_OUTPUT
-          echo "pr_number=${PR_NUMBER}" >> $GITHUB_OUTPUT
-
-      - name: Debug PR info
-        run: |
-          echo "PR_NUMBER=${{ steps.get_pr.outputs.pr_number }}"
-          echo "HEAD_REPO=${{ steps.get_pr.outputs.head_repo }}"
-          echo "HEAD_REF=${{ steps.get_pr.outputs.head_ref }}"
+          echo "head_repo=${{ github.event.pull_request.head.repo.full_name }}" >> $GITHUB_OUTPUT
+          echo "head_ref=${{ github.event.pull_request.head.ref }}" >> $GITHUB_OUTPUT
+          echo "is_draft=${{ github.event.pull_request.draft }}" >> $GITHUB_OUTPUT
+          echo "pr_number=${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
 
       - name: Stop if PR is draft
         if: steps.get_pr.outputs.is_draft == 'true'
@@ -152,7 +138,7 @@ jobs:
         uses: actions-ecosystem/action-remove-labels@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          labels: bump
+          labels: need-bump
           number: ${{ steps.get_pr.outputs.pr_number }}
           repo: ${{ steps.get_pr.outputs.head_repo }}
 

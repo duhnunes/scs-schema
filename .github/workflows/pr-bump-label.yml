@@ -14,18 +14,18 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.pull_request.draft == false
     steps:
+      - name: Remove label BUMPER (if exist)
+        uses: actions-ecosystem/action-remove-labels@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          labels: bumped
+          number: ${{ github.event.pull_request.number }}
+          repo: ${{ github.repository }}
+      
       - name: Add bump label
         uses: actions-ecosystem/action-add-labels@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          labels: bump
-
-      - name: Trigger pr-update workflow
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          curl -sS -X POST \
-            -H "Authorization: Bearer $GITHUB_TOKEN" \
-            -H "Accept: application/vnd.github+json" \
-            https://api.github.com/repos/${{ github.repository }}/dispatches \
-            -d '{"event_type":"bump-label-applied","client_payload":{"pr_number":'${{ github.event.pull_request.number }}'}}'
+          labels: need-bump
+          number: ${{ github.event.pull_request.number }}
+          repo: ${{ github.repository }}
