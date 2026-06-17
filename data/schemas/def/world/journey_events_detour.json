@@ -7,25 +7,33 @@
   "key": {
     "cutscene": {
       "description": "",
-      "type": ["token"],
+      "type": [
+        "token"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "lane_idx": {
       "description": "",
-      "type": ["fixed"],
+      "type": [
+        "fixed"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "lane_count": {
       "description": "",
-      "type": ["fixed"],
+      "type": [
+        "fixed"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "type": {
       "description": "",
-      "type": ["token"],
+      "type": [
+        "token"
+      ],
       "isArray": false,
       "arrayElementType": null
     }

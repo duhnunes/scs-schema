@@ -7,13 +7,17 @@
   "key": {
     "model": {
       "description": "/path/to/file.pmd",
-      "type": ["resource_tie"],
+      "type": [
+        "resource_tie"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "model_animation": {
       "description": "/path/to/file.pma",
-      "type": ["resource_tie"],
+      "type": [
+        "resource_tie"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
@@ -35,19 +39,25 @@
     },
     "model_rotation": {
       "description": "",
-      "type": ["float3"],
+      "type": [
+        "float3"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "radius_time": {
       "description": "(radius, anim_time) pairs - must be sorted according to radius!",
-      "type": null,
+      "type": [],
       "isArray": true,
-      "arrayElementType": ["float2"]
+      "arrayElementType": [
+        "float2"
+      ]
     },
     "bone_offset_a": {
       "description": "",
-      "type": "float3",
+      "type": [
+        "float3"
+      ],
       "isArray": false,
       "arrayElementType": null
     }

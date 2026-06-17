@@ -7,79 +7,116 @@
   "key": {
     "name": {
       "description": "Name from prefab",
-      "type": ["string"],
+      "type": [
+        "string"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "model_desc": {
       "description": "/path/to/file.pmd",
-      "type": ["resource_tie"],
+      "type": [
+        "resource_tie"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "vegetation_model": {
       "description": "",
-      "type": ["token"],
+      "type": [
+        "token"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "auto_compound": {
       "description": "",
-      "type": ["bool"],
+      "type": [
+        "bool"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "dynamic_lod_desc": {
       "description": "",
-      "type": ["fixed"],
+      "type": [
+        "fixed"
+      ],
       "isArray": true,
-      "arrayElementType": ["resource_tie"]
+      "arrayElementType": [
+        "resource_tie"
+      ]
     },
     "dynamic_lod_dist": {
       "description": "",
-      "type": ["fixed"],
+      "type": [
+        "fixed"
+      ],
       "isArray": true,
-      "arrayElementType": ["fixed", "float"]
+      "arrayElementType": [
+        "float",
+        "fixed"
+      ]
     },
     "static_lod_path": {
       "description": "/path/to/file.pmd",
-      "type": ["fixed"],
+      "type": [
+        "fixed"
+      ],
       "isArray": true,
-      "arrayElementType": ["resource_tie"]
+      "arrayElementType": [
+        "resource_tie"
+      ]
     },
     "static_lod_name": {
       "description": "",
-      "type": ["fixed"],
+      "type": [
+        "fixed"
+      ],
       "isArray": true,
-      "arrayElementType": ["string"]
+      "arrayElementType": [
+        "string"
+      ]
     },
     "color_variant": {
       "description": "",
-      "type": ["fixed"],
+      "type": [
+        "fixed"
+      ],
       "isArray": true,
-      "arrayElementType": ["string"]
+      "arrayElementType": [
+        "string"
+      ]
     },
     "distance_scale": {
       "description": "",
-      "type": ["fixed"],
+      "type": [
+        "fixed"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "distance_min": {
       "description": "",
-      "type": ["fixed"],
+      "type": [
+        "fixed"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "distance_max": {
       "description": "",
-      "type": ["fixed"],
+      "type": [
+        "fixed"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "category": {
       "description": "",
-      "type": ["string"],
+      "type": [
+        "string"
+      ],
       "isArray": false,
       "arrayElementType": null
     }

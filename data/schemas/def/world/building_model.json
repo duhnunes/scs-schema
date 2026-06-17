@@ -71,7 +71,7 @@
     },
     "vegetation_model": {
       "description": "",
-      "type": null,
+      "type": [],
       "isArray": true,
       "arrayElementType": [
         "token"
@@ -96,8 +96,8 @@
     "min_scale": {
       "description": "",
       "type": [
-        "fixed",
-        "float"
+        "float",
+        "fixed"
       ],
       "isArray": false,
       "arrayElementType": null
@@ -105,8 +105,8 @@
     "max_scale": {
       "description": "",
       "type": [
-        "fixed",
-        "float"
+        "float",
+        "fixed"
       ],
       "isArray": false,
       "arrayElementType": null

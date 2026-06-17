@@ -7,37 +7,50 @@
   "key": {
     "model_desc": {
       "description": "/path/to/file.pmd",
-      "type": ["resource_tie"],
+      "type": [
+        "resource_tie"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "variants": {
       "description": "",
-      "type": null,
+      "type": [],
       "isArray": true,
-      "arrayElementType": ["token"]
+      "arrayElementType": [
+        "token"
+      ]
     },
     "lods": {
       "description": "/path/to/file.pmd",
-      "type": null,
+      "type": [],
       "isArray": true,
-      "arrayElementType": ["resource_tie", "string"]
+      "arrayElementType": [
+        "string",
+        "resource_tie"
+      ]
     },
     "lod_distances": {
       "description": "",
-      "type": null,
+      "type": [],
       "isArray": true,
-      "arrayElementType": ["fixed"]
+      "arrayElementType": [
+        "fixed"
+      ]
     },
     "group_tags": {
       "description": "",
-      "type": null,
+      "type": [],
       "isArray": true,
-      "arrayElementType": ["token"]
+      "arrayElementType": [
+        "token"
+      ]
     },
     "model_coll": {
       "description": "/path/to/file.pmc",
-      "type": ["resource_tie"],
+      "type": [
+        "resource_tie"
+      ],
       "isArray": false,
       "arrayElementType": null
     }
