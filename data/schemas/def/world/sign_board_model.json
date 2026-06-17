@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "version": "0.0.0",
+    "description": ""
+  },
+  "scope": "sign_board_model",
+  "key": {
+     "board_name": {
+      "description": "Name from sign board",
+      "type": ["string"],
+      "isArray": false,
+      "arrayElementType": null
+     },
+     "model_desc": { 
+      "description": "/path/to/file.pmd",
+      "type": ["resource_tie"],
+      "isArray": false,
+      "arrayElementType": null
+     },
+     "model_coll": {
+      "description": "/path/to/file.pmc",
+      "type": ["resource_tie"],
+      "isArray": false,
+       "arrayElementType": null
+     },
+     "look_name": {
+      "description": "",
+      "type": ["string", "token"],
+      "isArray": false,
+      "arrayElementType": null
+     },
+     "variant_name": {
+      "description": "",
+      "type": ["string", "token"],
+      "isArray": false,
+      "arrayElementType": null
+     },
+     "category": {
+      "description": "",
+      "type": ["string"],
+      "isArray": false,
+      "arrayElementType": null
+     },
+     "mass": {
+      "description": "",
+      "type": ["float", "fixed"],
+      "isArray": false,
+      "arrayElementType": null
+     }
+  }
+}
