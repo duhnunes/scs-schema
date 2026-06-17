@@ -15,15 +15,20 @@
     },
     "model": {
       "description": "/path/to/file.pmd",
-      "type": null,
+      "type": [],
       "isArray": true,
-      "arrayElementType": ["resource_tie"]
+      "arrayElementType": [
+        "resource_tie"
+      ]
     },
     "occurrence": {
       "description": "",
-      "type": null,
+      "type": [],
       "isArray": true,
-      "arrayElementType": ["fixed", "float"]
+      "arrayElementType": [
+        "float",
+        "fixed"
+      ]
     },
     "density": {
       "description": "Value of density",
@@ -43,7 +48,9 @@
     },
     "distribution_map_path": {
       "description": "/path/to/file.dmd",
-      "type": ["resource_tie"],
+      "type": [
+        "resource_tie"
+      ],
       "isArray": false,
       "arrayElementType": null
     }

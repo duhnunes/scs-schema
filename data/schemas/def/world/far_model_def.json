@@ -7,15 +7,21 @@
   "key": {
     "model_desc": {
       "description": "/path/to/file.pmd",
-      "type": ["resource_tie"],
+      "type": [
+        "resource_tie"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "dynamic_lod_desc": {
       "description": "/path/to/file.pmd",
-      "type": ["fixed"],
+      "type": [
+        "fixed"
+      ],
       "isArray": true,
-      "arrayElementType": ["resource_tie"]
+      "arrayElementType": [
+        "resource_tie"
+      ]
     },
     "dynamic_lod_dist": {
       "description": "",

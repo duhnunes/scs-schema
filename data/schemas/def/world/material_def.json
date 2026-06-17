@@ -7,19 +7,25 @@
   "key": {
     "path": {
       "description": "/path/to/file.mat",
-      "type": ["resource_tie"],
+      "type": [
+        "resource_tie"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "color": {
       "description": "",
-      "type": ["float"],
+      "type": [
+        "float"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "name": {
       "description": "",
-      "type": ["string"],
+      "type": [
+        "string"
+      ],
       "isArray": false,
       "arrayElementType": null
     }

@@ -7,223 +7,300 @@
   "key": {
     "layer_cutscenes": {
       "description": "",
-      "type": null,
+      "type": [],
       "isArray": true,
-      "arrayElementType": ["token"]
+      "arrayElementType": [
+        "token"
+      ]
     },
     "layer_min_curve": {
       "description": "degrees",
-      "type": null,
+      "type": [],
       "isArray": true,
-      "arrayElementType": ["float"]
+      "arrayElementType": [
+        "float"
+      ]
     },
     "layer_max_curve": {
       "description": "degrees",
-      "type": null,
+      "type": [],
       "isArray": true,
-      "arrayElementType": ["float"]
+      "arrayElementType": [
+        "float"
+      ]
     },
     "max_length": {
       "description": "meters",
-      "type": ["float"],
+      "type": [
+        "float"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "min_length": {
       "description": "meters",
-      "type": ["float"],
+      "type": [
+        "float"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "min_shoulder_space": {
       "description": "",
-      "type": ["float"],
+      "type": [
+        "float"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "max_shoulder_space": {
       "description": "",
-      "type": ["float"],
+      "type": [
+        "float"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "traffic_block": {
       "description": "",
-      "type": ["bool"],
+      "type": [
+        "bool"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "excluded_lane_types": {
       "description": "",
-      "type": null,
+      "type": [],
       "isArray": true,
-      "arrayElementType": ["token"]
+      "arrayElementType": [
+        "token"
+      ]
     },
     "slow_down_passing": {
       "description": "",
-      "type": ["bool"],
+      "type": [
+        "bool"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "area_tag": {
       "description": "",
-      "type": ["token"],
+      "type": [
+        "token"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "inner_lane_allowed": {
       "description": "",
-      "type": ["bool"],
+      "type": [
+        "bool"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "outer_lane_allowed": {
       "description": "",
-      "type": ["bool"],
+      "type": [
+        "bool"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "weight": {
       "description": "",
-      "type": ["fixed", "float"],
+      "type": [
+        "float",
+        "fixed"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "name": {
       "description": "Name of road event",
-      "type": ["string"],
+      "type": [
+        "string"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "tunnel_forbidden": {
       "description": "",
-      "type": ["bool"],
+      "type": [
+        "bool"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "bridge_forbidden": {
       "description": "",
-      "type": ["bool"],
+      "type": [
+        "bool"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "parents": {
       "description": "",
-      "type": null,
+      "type": [],
       "isArray": true,
-      "arrayElementType": ["token"]
+      "arrayElementType": [
+        "token"
+      ]
     },
     "start_cutscene": {
       "description": "",
-      "type": ["token"],
+      "type": [
+        "token"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "end_cutscene": {
       "description": "",
-      "type": ["token"],
+      "type": [
+        "token"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "signs_cutscenes_outer": {
       "description": "",
-      "type": null,
+      "type": [],
       "isArray": true,
-      "arrayElementType": ["token"]
+      "arrayElementType": [
+        "token"
+      ]
     },
     "signs_cutscenes_inner": {
       "description": "",
-      "type": null,
+      "type": [],
       "isArray": true,
-      "arrayElementType": ["token"]
+      "arrayElementType": [
+        "token"
+      ]
     },
     "signs_distances_outer": {
       "description": "",
-      "type": null,
+      "type": [],
       "isArray": true,
-      "arrayElementType": ["fixed", "float"]
+      "arrayElementType": [
+        "float",
+        "fixed"
+      ]
     },
     "signs_distances_inner": {
       "description": "",
-      "type": null,
+      "type": [],
       "isArray": true,
-      "arrayElementType": ["fixed", "float"]
+      "arrayElementType": [
+        "float",
+        "fixed"
+      ]
     },
     "allowed_lanes_count": {
       "description": "",
-      "type": null,
+      "type": [],
       "isArray": true,
-      "arrayElementType": ["fixed"]
+      "arrayElementType": [
+        "fixed"
+      ]
     },
     "min_duration": {
       "description": "",
-      "type": ["fixed"],
+      "type": [
+        "fixed"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "remove_map_sign": {
       "description": "",
-      "type": ["bool"],
+      "type": [
+        "bool"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "min_time_constraint": {
       "description": "",
-      "type": ["fixed"],
+      "type": [
+        "fixed"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "max_time_constraint": {
       "description": "",
-      "type": ["fixed"],
+      "type": [
+        "fixed"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "allowed_lane_types": {
       "description": "",
-      "type": null,
+      "type": [],
       "isArray": true,
-      "arrayElementType": ["token"]
+      "arrayElementType": [
+        "token"
+      ]
     },
     "excluded_road_looks": {
       "description": "",
-      "type": null,
+      "type": [],
       "isArray": true,
-      "arrayElementType": ["token"]
+      "arrayElementType": [
+        "token"
+      ]
     },
     "allowed_road_looks": {
       "description": "",
-      "type": null,
+      "type": [],
       "isArray": true,
-      "arrayElementType": ["token"]
+      "arrayElementType": [
+        "token"
+      ]
     },
     "centerline_displacement": {
       "description": "",
-      "type": ["bool"],
+      "type": [
+        "bool"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "mirror_cutscenes": {
       "description": "",
-      "type": null,
+      "type": [],
       "isArray": true,
-      "arrayElementType": ["token"]
+      "arrayElementType": [
+        "token"
+      ]
     },
     "mirror_active": {
       "description": "",
-      "type": ["bool"],
+      "type": [
+        "bool"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "center_lane_allowed": {
       "description": "",
-      "type": ["bool"],
+      "type": [
+        "bool"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "set_idx": {
       "description": "",
-      "type": ["fixed"],
+      "type": [
+        "fixed"
+      ],
       "isArray": false,
       "arrayElementType": null
     }

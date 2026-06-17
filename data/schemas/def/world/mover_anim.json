@@ -7,31 +7,41 @@
   "key": {
     "model_anim": {
       "description": "/path/to/file.pma",
-      "type": ["resource_tie"],
+      "type": [
+        "resource_tie"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "group_tags": {
       "description": "",
-      "type": null,
+      "type": [],
       "isArray": true,
-      "arrayElementType": ["token"]
+      "arrayElementType": [
+        "token"
+      ]
     },
     "props": {
       "description": "",
-      "type": null,
+      "type": [],
       "isArray": true,
-      "arrayElementType": ["token"]
+      "arrayElementType": [
+        "token"
+      ]
     },
     "sound_path": {
       "description": "/path/to/sound/file.bank#id",
-      "type": ["resource_tie"],
+      "type": [
+        "resource_tie"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "anim_type": {
       "description": "",
-      "type": ["token"],
+      "type": [
+        "token"
+      ],
       "isArray": false,
       "arrayElementType": null
     }

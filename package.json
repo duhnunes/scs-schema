@@ -3,10 +3,8 @@
   "version": "0.1.0",
   "description": "Static schema data for SCS-Intellisense Systems.",
   "scripts": {
-    "verify": "node ./scripts/verify.mjs",
-    "build": "pnpm i && node ./scripts/build.mjs",
-    "bump": "node ./scripts/bump.mjs",
-    "compile": "pnpm i && pnpm verify && pnpm bump && pnpm build"
+    "format:schemas": "node ./scripts/formatter.mjs",
+    "format:checker": "node ./scripts/formatter.mjs && git diff --exit-code -- data/schemas"
   },
   "author": "DuHNunes",
   "license": "MIT",

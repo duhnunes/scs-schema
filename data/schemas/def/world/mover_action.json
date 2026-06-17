@@ -7,43 +7,57 @@
   "key": {
     "action_name": {
       "description": "Name from prefab",
-      "type": ["string"],
+      "type": [
+        "string"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "animation_params": {
       "description": "",
-      "type": null,
+      "type": [],
       "isArray": true,
-      "arrayElementType": ["string"]
+      "arrayElementType": [
+        "string"
+      ]
     },
     "sounds": {
       "description": "/path/to/sounds/file.bank#id",
-      "type": null,
+      "type": [],
       "isArray": true,
-      "arrayElementType": ["resource_tie"]
+      "arrayElementType": [
+        "resource_tie"
+      ]
     },
     "sound_params": {
       "description": "",
-      "type": null,
+      "type": [],
       "isArray": true,
-      "arrayElementType": ["string"]
+      "arrayElementType": [
+        "string"
+      ]
     },
     "timer_params": {
       "description": "",
-      "type": null,
+      "type": [],
       "isArray": true,
-      "arrayElementType": ["string"]
+      "arrayElementType": [
+        "string"
+      ]
     },
     "group_tags": {
       "description": "",
-      "type": null,
+      "type": [],
       "isArray": true,
-      "arrayElementType": ["token"]
+      "arrayElementType": [
+        "token"
+      ]
     },
     "type": {
       "description": "",
-      "type": ["string"],
+      "type": [
+        "string"
+      ],
       "isArray": false,
       "arrayElementType": null
     }
