@@ -1,8 +1,8 @@
 name: PR schema automation
 
 on:
-  pull_request:
-    types: [opened]
+  repository-dispatch:
+    types: [bump-schemas]
 
 permissions:
   contents: write
@@ -12,7 +12,7 @@ permissions:
 jobs:
   update-schemas:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
+    if: github.event.event == 'repository_dispatch' && !contains(github.event.head_commit.message, '[auto-scs]')
     steps:
       - name: Get PR info
         id: get_pr
@@ -138,7 +138,7 @@ jobs:
         uses: actions-ecosystem/action-remove-labels@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          labels: need-bump
+          labels: bump-schemas
           number: ${{ steps.get_pr.outputs.pr_number }}
           repo: ${{ steps.get_pr.outputs.head_repo }}
 
