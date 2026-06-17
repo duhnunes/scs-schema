@@ -49,6 +49,18 @@ jobs:
           git config user.name ${{ github.actor }}
           git config user.email ${{ github.actor }}@users.noreply.github.com
 
+      - name: Run formatter script (normalize schemas JSONs)
+        id: formatter
+        run: |
+          node ./scripts/formatter.mjs  || true
+          git add data/schemas/**/*.json  || true
+          if ! git diff --staged --quiet; then
+            git commit -m "refactor(schemas): normalize schema JSONs [auto-scs]" || true
+            echo "formatted=true" >> $GITHUB_OUTPUT
+          else
+            echo "formatted=false" >> $GITHUB_OUTPUT
+          fi
+      
       - name: Run verify script (update manifest entries for new files)
         id: verify
         env:
@@ -92,7 +104,7 @@ jobs:
           fi
 
       - name: Push changes back to PR branch (if any)
-        if: steps.verify.outputs.manifest_changed == 'true' || steps.bump.outputs.bumped == 'true' || steps.build.outputs.built == 'true'
+        if: steps.formatter.outputs.formatted == 'true' || steps.verify.outputs.manifest_changed == 'true' || steps.bump.outputs.bumped == 'true' || steps.build.outputs.built == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PERSONAGEL_TOKEN: ${{ secrets.PERSONAL_TOKEN || '' }}
