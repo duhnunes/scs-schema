@@ -1,0 +1,99 @@
+name: Schema checker
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: 'pnpm'
+      
+      - name: Install pnpm
+        run: npm install -g pnpm
+      
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      
+      - name: Run schema validation
+        id: validate
+        run: |
+          set -o pipefail
+          if ! OUTPUT=$(node ./scripts/validate.mjs 2>&1); then
+            echo "invalid=true" >> $GITHUB_OUTPUT
+            echo "output<<EOF" >> $GITHUB_OUTPUT
+            echo "$OUTPUT" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          else
+            echo "invalid=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Comment on PR with errors
+        if: steps.validate.outputs.invalid == 'true'
+        run: |
+          BODY=$(jq -Rs . <<< "${{ steps.validate.outputs.output }}")
+          curl -sS -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            -d '{"body": $BODY}' \
+            "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments"
+
+      - name: Add invalid-schema label
+        if: steps.validate.outputs.invalid == 'true'
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          labels: invalid-schema
+          number: ${{ github.event.pull_request.number }}
+          repo: ${{ github.repository }}
+      
+  add-label:
+    runs-on: ubuntu-latest
+    needs: validate
+    if: github.event.pull_request.draft == false && needs.validate.result == 'success' && (github.event.action == 'opened' || github.event.action == 'reopened')
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Check path files modified
+        id: check
+        run: |
+          git fetch origin ${{ github.event.pull_request.base.ref }} --depth=1
+          CHANGED=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }} ${{ github.event.pull_request.head.sha }})
+          echo "$CHANGED" | grep -q '^data/schemas/' && echo "match=true" >> $GITHUB_OUTPUT || echo "match=false" >> $GITHUB_OUTPUT
+      
+      - name: Remove label bumped (se existir)
+        if: steps.check.outputs.match == 'true'
+        uses: actions-ecosystem/action-remove-labels@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          labels: bumped
+          number: ${{ github.event.pull_request.number }}
+          repo: ${{ github.repository }}
+      
+      - name: Add bump label
+        if: steps.check.outputs.match == 'true'
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          labels: validate
+          number: ${{ github.event.pull_request.number }}
+          repo: ${{ github.repository }}
