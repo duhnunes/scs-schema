@@ -15,7 +15,7 @@
     },
     "animation_params": {
       "description": "",
-      "type": [],
+      "type": null,
       "isArray": true,
       "arrayElementType": [
         "string"
@@ -23,7 +23,7 @@
     },
     "sounds": {
       "description": "/path/to/sounds/file.bank#id",
-      "type": [],
+      "type": null,
       "isArray": true,
       "arrayElementType": [
         "resource_tie"
@@ -31,7 +31,7 @@
     },
     "sound_params": {
       "description": "",
-      "type": [],
+      "type": null,
       "isArray": true,
       "arrayElementType": [
         "string"
@@ -39,7 +39,7 @@
     },
     "timer_params": {
       "description": "",
-      "type": [],
+      "type": null,
       "isArray": true,
       "arrayElementType": [
         "string"
@@ -47,7 +47,7 @@
     },
     "group_tags": {
       "description": "",
-      "type": [],
+      "type": null,
       "isArray": true,
       "arrayElementType": [
         "token"

@@ -71,7 +71,7 @@
     },
     "vegetation_model": {
       "description": "",
-      "type": [],
+      "type": null,
       "isArray": true,
       "arrayElementType": [
         "token"

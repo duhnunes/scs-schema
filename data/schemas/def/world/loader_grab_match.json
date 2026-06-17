@@ -15,7 +15,7 @@
     },
     "grab_types": {
       "description": "",
-      "type": [],
+      "type": null,
       "isArray": true,
       "arrayElementType": [
         "token"
