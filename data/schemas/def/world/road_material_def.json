@@ -1,0 +1,21 @@
+{
+  "meta": {
+    "version": "0.0.0",
+    "description": ""
+  },
+  "scope": "road_material_def",
+  "key": {
+     "path": {
+      "description": "/path/to/file.mat",
+      "type": ["resource_tie"],
+      "isArray": false,
+      "arrayElementType": null
+     },
+     "kerb": { 
+      "description": "/path/to/file.mat",
+      "type": ["resource_tie"],
+      "isArray": false,
+      "arrayElementType": null
+     }
+  }
+}
