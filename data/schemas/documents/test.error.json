@@ -1,5 +1,4 @@
 {
-  "caramujo": "0.0.0",
   "meta": {
     "tests": "Description error"
   },
@@ -7,5 +6,6 @@
     "Im_youAre": {
       "description": "HAHA"
     }
-  }
+  },
+  "caramujo": "0.0.0"
 }
