@@ -98,6 +98,7 @@ jobs:
           if echo "$CHANGED" | grep -q '^data/schemas/'; then
             echo "label=validated" >> $GITHUB_OUTPUT
           elif echo "$CHANGED" | grep -Eq '^(README\.md|CHANGELOG\.md|CONTRIBUTING\.md|CODE_OF_CONDUCT\.md|LICENSE|docs/)$'; then
+            echo "label=document" >> $GITHUB_OUTPUT
           else
             echo "label=system" >> $GITHUB_OUTPUT
           fi
