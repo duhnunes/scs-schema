@@ -30,6 +30,18 @@ jobs:
       
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Run formatter script
+        id: formatter
+        run: |
+          node ./scripts/formatter.mjs  || true
+          git add data/schemas/**/*.json  || true
+          if ! git diff --staged --quiet; then
+            git commit -m "refactor(schemas): normalize schema JSONs [auto-scs]" || true
+            echo "formatted=true" >> $GITHUB_OUTPUT
+          else
+            echo "formatted=false" >> $GITHUB_OUTPUT
+          fi
       
       - name: Run schema validation
         id: validate
