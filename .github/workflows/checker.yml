@@ -79,6 +79,10 @@ jobs:
           number: ${{ github.event.pull_request.number }}
           repo: ${{ github.repository }}
       
+      - name: Fail job if invalid
+        if: steps.validate.outputs.invalid == 'true'
+        run: exit 1
+      
   add-label:
     runs-on: ubuntu-latest
     needs: validate
