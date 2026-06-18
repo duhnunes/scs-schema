@@ -115,12 +115,11 @@ jobs:
 
           echo "labels=$labels" >> $GITHUB_OUTPUT
       
-      - name: Remove label bumped (se existir)
-        if: steps.check.outputs.match == 'true'
+      - name: Remove labels
         uses: actions-ecosystem/action-remove-labels@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          labels: bumped
+          labels: validated,system,documentation
           number: ${{ github.event.pull_request.number }}
           repo: ${{ github.repository }}
       
