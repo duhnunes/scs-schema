@@ -95,12 +95,14 @@ jobs:
           git fetch origin ${{ github.event.pull_request.base.ref }} --depth=1
           CHANGED=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }} ${{ github.event.pull_request.head.sha }})
 
-          if echo "$CHANGED" | grep -Eq '(^|/)(data/schemas/)'; then
-            echo "label=validated" >> $GITHUB_OUTPUT
-          elif echo "$CHANGED" | grep -Eq '^(README\.md|CHANGELOG\.md|CONTRIBUTING\.md|CODE_OF_CONDUCT\.md|LICENSE|docs/)$'; then
-            echo "label=document" >> $GITHUB_OUTPUT
+          if echo "$CHANGED" | grep -vqv '^data/schemas/'; then
+            if echo "$CHANGED" | grep -Eq '^(README\.md|CHANGELOG\.md|CONTRIBUTING\.md|CODE_OF_CONDUCT\.md|LICENSE|docs/)'; then
+              echo "label=documentation" >> $GITHUB_OUTPUT
+            else
+              echo "label=system" >> $GITHUB_OUTPUT
+            fi
           else
-            echo "label=system" >> $GITHUB_OUTPUT
+            echo "label=validated" >> $GITHUB_OUTPUT
           fi
       
       - name: Remove label bumped (se existir)
@@ -112,7 +114,7 @@ jobs:
           number: ${{ github.event.pull_request.number }}
           repo: ${{ github.repository }}
       
-      - name: Add bump label
+      - name: Add label
         uses: actions-ecosystem/action-add-labels@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
