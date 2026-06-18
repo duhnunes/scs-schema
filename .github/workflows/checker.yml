@@ -1,0 +1,136 @@
+name: Schema checker
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: 'pnpm'
+      
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Config Actor
+        run: |
+          git config user.name ${{github.actor}}
+          git config user.email ${{ github.actor }}users.noreply.github.com
+
+      - name: Run formatter script
+        id: formatter
+        run: |
+          node ./scripts/formatter.mjs  || true
+          git add data/schemas/**/*.json  || true
+          if ! git diff --staged --quiet; then
+            git commit -m "refactor(schemas): normalize schema JSONs [skip ci]" || true
+            git push origin HEAD:${{ github.head_ref }} || true
+            echo "formatted=true" >> $GITHUB_OUTPUT
+          else
+            echo "formatted=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Run schema validation
+        id: validate
+        run: |
+          set -o pipefail
+          if ! OUTPUT=$(node ./scripts/validate.mjs 2>&1); then
+            echo "invalid=true" >> $GITHUB_OUTPUT
+            echo "output<<EOF" >> $GITHUB_OUTPUT
+            echo "$OUTPUT" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          else
+            echo "invalid=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Comment on PR with errors
+        if: steps.validate.outputs.invalid == 'true'
+        run: |
+          BODY=$(jq -Rs . <<< "${{ steps.validate.outputs.output }}")
+          curl -sS -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            -d '{"body": $BODY}' \
+            "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments"
+
+      - name: Add invalid-schema label
+        if: steps.validate.outputs.invalid == 'true'
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          labels: invalid-schema
+          number: ${{ github.event.pull_request.number }}
+          repo: ${{ github.repository }}
+      
+      - name: Fail job if invalid
+        if: steps.validate.outputs.invalid == 'true'
+        run: exit 1
+      
+  add-label:
+    runs-on: ubuntu-latest
+    needs: validate
+    if: github.event.pull_request.draft == false && needs.validate.result == 'success'
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Check path files modified
+        id: check
+        run: |
+          git fetch origin ${{ github.event.pull_request.base.ref }} --depth=1
+          CHANGED=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }} ${{ github.event.pull_request.head.sha }})
+
+          labels=""
+
+          if echo "$CHANGED" | grep -q '^data/schemas'; then
+            if ! echo "$CHANGED" | grep -vq '^data/schemas'; then
+              labels="validated"
+            fi
+          fi
+        
+          if echo "$CHANGED" | grep -Eq '^(README\.md|CHANGELOG\.md|CONTRIBUTING\.md|CODE_OF_CONDUCT\.md|LICENSE|docs/)'; then
+            labels="$labels,documentation"
+          fi
+
+          if echo "$CHANGED" | grep | grep -vq '^data/schemas/' && ! echo "$CHANGED" | grep -Eq '^(README\.md|CHANGELOG\.md|CONTRIBUTING\.md|CODE_OF_CONDUCT\.md|LICENSE|docs/)'; then
+            labels="$labels,system"
+          fi
+
+          labels=$(echo "$labels" | sed 's/^,//')
+
+          echo "labels=$labels" >> $GITHUB_OUTPUT
+      
+      - name: Remove labels
+        uses: actions-ecosystem/action-remove-labels@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          labels: validated,system,documentation
+          number: ${{ github.event.pull_request.number }}
+          repo: ${{ github.repository }}
+      
+      - name: Add label
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          labels: ${{ steps.check.outputs.labels }}
+          number: ${{ github.event.pull_request.number }}
+          repo: ${{ github.repository }}

@@ -1,0 +1,188 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "description": ""
+  },
+  "scope": "multimon_config",
+  "key": {
+    "normalized_ui_x": {
+      "description": "",
+      "type": [
+        "float"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "normalize_ui_width": {
+      "description": "",
+      "type": [
+        "float"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "monitors": {
+      "description": "",
+      "type": [
+        "fixed"
+      ],
+      "isArray": true,
+      "arrayElementType": [
+        "owner_ptr"
+      ]
+    },
+    "name": {
+      "description": "",
+      "type": [
+        "token"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "normalized_x": {
+      "description": "",
+      "type": [
+        "float"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "normalize_y": {
+      "description": "",
+      "type": [
+        "float"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "normalized_width": {
+      "description": "",
+      "type": [
+        "float"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "normalized_height": {
+      "description": "",
+      "type": [
+        "float"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "horizontal_fov_relative_offset": {
+      "description": "",
+      "type": [
+        "float"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "vertical_fov_relative_offset": {
+      "description": "",
+      "type": [
+        "float"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "heading_offset": {
+      "description": "",
+      "type": [
+        "float"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "pitch_offset": {
+      "description": "",
+      "type": [
+        "float"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "roll_offset": {
+      "description": "",
+      "type": [
+        "float"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "camera_space_offset": {
+      "description": "",
+      "type": [
+        "float3",
+        "fixed3"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "horizontal_fov_override": {
+      "description": "",
+      "type": [
+        "float"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "vertical_fov_override": {
+      "description": "",
+      "type": [
+        "float"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "frustum_subrect_x": {
+      "description": "",
+      "type": [
+        "float"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "frustum_subrect_y": {
+      "description": "",
+      "type": [
+        "float"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "frustum_subrect_width": {
+      "description": "",
+      "type": [
+        "float"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "frustum_subrec_height": {
+      "description": "",
+      "type": [
+        "float"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "render_interior": {
+      "description": "",
+      "type": [
+        "bool"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "render_exterior": {
+      "description": "",
+      "type": [
+        "bool"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    }
+  }
+}

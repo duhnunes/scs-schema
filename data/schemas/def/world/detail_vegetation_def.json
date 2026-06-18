@@ -15,7 +15,7 @@
     },
     "model": {
       "description": "/path/to/file.pmd",
-      "type": [],
+      "type": null,
       "isArray": true,
       "arrayElementType": [
         "resource_tie"
@@ -23,7 +23,7 @@
     },
     "occurrence": {
       "description": "",
-      "type": [],
+      "type": null,
       "isArray": true,
       "arrayElementType": [
         "float",

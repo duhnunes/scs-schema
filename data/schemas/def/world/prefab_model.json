@@ -112,8 +112,8 @@
       ],
       "isArray": true,
       "arrayElementType": [
-        "token",
-        "string"
+        "string",
+        "token"
       ]
     },
     "corner1": {
@@ -123,8 +123,8 @@
       ],
       "isArray": true,
       "arrayElementType": [
-        "token",
-        "string"
+        "string",
+        "token"
       ]
     },
     "corner2": {
@@ -134,8 +134,8 @@
       ],
       "isArray": true,
       "arrayElementType": [
-        "token",
-        "string"
+        "string",
+        "token"
       ]
     },
     "corner3": {
@@ -145,8 +145,8 @@
       ],
       "isArray": true,
       "arrayElementType": [
-        "token",
-        "string"
+        "string",
+        "token"
       ]
     },
     "corner4": {
@@ -156,8 +156,8 @@
       ],
       "isArray": true,
       "arrayElementType": [
-        "token",
-        "string"
+        "string",
+        "token"
       ]
     },
     "corner5": {
@@ -167,8 +167,8 @@
       ],
       "isArray": true,
       "arrayElementType": [
-        "token",
-        "string"
+        "string",
+        "token"
       ]
     },
     "semaphore_profile": {

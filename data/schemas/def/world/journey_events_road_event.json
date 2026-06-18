@@ -7,7 +7,7 @@
   "key": {
     "layer_cutscenes": {
       "description": "",
-      "type": [],
+      "type": null,
       "isArray": true,
       "arrayElementType": [
         "token"
@@ -15,7 +15,7 @@
     },
     "layer_min_curve": {
       "description": "degrees",
-      "type": [],
+      "type": null,
       "isArray": true,
       "arrayElementType": [
         "float"
@@ -23,7 +23,7 @@
     },
     "layer_max_curve": {
       "description": "degrees",
-      "type": [],
+      "type": null,
       "isArray": true,
       "arrayElementType": [
         "float"
@@ -71,7 +71,7 @@
     },
     "excluded_lane_types": {
       "description": "",
-      "type": [],
+      "type": null,
       "isArray": true,
       "arrayElementType": [
         "token"
@@ -144,7 +144,7 @@
     },
     "parents": {
       "description": "",
-      "type": [],
+      "type": null,
       "isArray": true,
       "arrayElementType": [
         "token"
@@ -168,7 +168,7 @@
     },
     "signs_cutscenes_outer": {
       "description": "",
-      "type": [],
+      "type": null,
       "isArray": true,
       "arrayElementType": [
         "token"
@@ -176,7 +176,7 @@
     },
     "signs_cutscenes_inner": {
       "description": "",
-      "type": [],
+      "type": null,
       "isArray": true,
       "arrayElementType": [
         "token"
@@ -184,7 +184,7 @@
     },
     "signs_distances_outer": {
       "description": "",
-      "type": [],
+      "type": null,
       "isArray": true,
       "arrayElementType": [
         "float",
@@ -193,7 +193,7 @@
     },
     "signs_distances_inner": {
       "description": "",
-      "type": [],
+      "type": null,
       "isArray": true,
       "arrayElementType": [
         "float",
@@ -202,7 +202,7 @@
     },
     "allowed_lanes_count": {
       "description": "",
-      "type": [],
+      "type": null,
       "isArray": true,
       "arrayElementType": [
         "fixed"
@@ -242,7 +242,7 @@
     },
     "allowed_lane_types": {
       "description": "",
-      "type": [],
+      "type": null,
       "isArray": true,
       "arrayElementType": [
         "token"
@@ -250,7 +250,7 @@
     },
     "excluded_road_looks": {
       "description": "",
-      "type": [],
+      "type": null,
       "isArray": true,
       "arrayElementType": [
         "token"
@@ -258,7 +258,7 @@
     },
     "allowed_road_looks": {
       "description": "",
-      "type": [],
+      "type": null,
       "isArray": true,
       "arrayElementType": [
         "token"
@@ -274,7 +274,7 @@
     },
     "mirror_cutscenes": {
       "description": "",
-      "type": [],
+      "type": null,
       "isArray": true,
       "arrayElementType": [
         "token"

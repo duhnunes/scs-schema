@@ -23,7 +23,9 @@
     },
     "animations": {
       "description": "/path/to/file.pma",
-      "type": [],
+      "type": [
+        "resource_tie"
+      ],
       "isArray": true,
       "arrayElementType": [
         "resource_tie"
