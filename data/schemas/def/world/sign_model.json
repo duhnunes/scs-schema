@@ -1,0 +1,111 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "description": ""
+  },
+  "scope": "sign_model",
+  "key": {
+    "sign_name": {
+      "description": "Name from sign",
+      "type": ["string"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "model_desc": {
+      "description": "/path/to/file.pmd",
+      "type": ["resource_tie"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "model_coll": {
+      "description": "/path/to/file.pmc",
+      "type": ["resource_tie"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "look_name": {
+      "description": "",
+      "type": ["token", "string"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "variant_name": {
+      "description": "",
+      "type": ["token", "string"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "category": {
+      "description": "",
+      "type": ["string"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "dynamic": {
+      "description": "",
+      "type": ["bool"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "road_model": {
+      "description": "",
+      "type": ["bool"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "drop_sun_shadows": {
+      "description": "",
+      "type": ["fixed"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "mass": {
+      "description": "",
+      "type": ["float", "fixed"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "dynamic_lod_disc": {
+      "description": "/path/to/file.pmd",
+      "type": ["fixed"],
+      "isArray": true,
+      "arrayElementType": ["resource_tie"]
+    },
+    "dynamic_lod_dist": {
+      "description": "",
+      "type": ["fixed"],
+      "isArray": true,
+      "arrayElementType": ["fixed"]
+    },
+    "stand_classes": {
+      "description": "",
+      "type": ["fixed"],
+      "isArray": true,
+      "arrayElementType": ["token", "string"]
+    },
+    "editable": {
+      "description": "",
+      "type": ["bool"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "boards": {
+      "description": "",
+      "type": ["bool"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "traffic_rule": {
+      "description": "",
+      "type": ["token", "string"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "traffic_rule_lane_count": {
+      "description": "",
+      "type": ["fixed"],
+      "isArray": false,
+      "arrayElementType": null
+    }
+  }
+}
