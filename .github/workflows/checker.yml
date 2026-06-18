@@ -42,7 +42,7 @@ jobs:
           node ./scripts/formatter.mjs  || true
           git add data/schemas/**/*.json  || true
           if ! git diff --staged --quiet; then
-            git commit -m "refactor(schemas): normalize schema JSONs [auto-scs]" || true
+            git commit -m "refactor(schemas): normalize schema JSONs [skip ci]" || true
             git push origin HEAD:${{ github.head_ref }} || true
             echo "formatted=true" >> $GITHUB_OUTPUT
           else
