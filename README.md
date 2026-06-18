@@ -10,7 +10,7 @@ This repo is a curated database of schema files that describe `class_name` block
 
 
 ## Layout
-- **`data/schemas/`** - JSON schema files. Files must mirror the game folder structure (`/def/world/prefab_model.sii` -> `data/schemas/def/world/prefab_model.json` | `/documents/multimon-config.sii` -> `data/schemas/documents/multimon-config.json`)
+- **`data/schemas/`** - JSON schema files. Files must mirror the game folder structure (`/def/world/prefab_model.sii` -> `data/schemas/def/world/prefab_model.json` | `/documents/multimon_config.sii` -> `data/schemas/documents/multimon_config.json`)
 - **`data/manifest.json`** - generated manifest with metadata for each schema.
 - **`scripts/build.mjs`** - manifest generator script used by maintainers/CI to update `data/manifest.json`
 - **`CONTRIBUTING.md`** - contribution guide for adding or editing schema files.
