@@ -95,7 +95,7 @@ jobs:
           git fetch origin ${{ github.event.pull_request.base.ref }} --depth=1
           CHANGED=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }} ${{ github.event.pull_request.head.sha }})
 
-          if echo "$CHANGED" | grep -q '^data/schemas/'; then
+          if echo "$CHANGED" | grep -Eq '(^|/)(data/schemas/)'; then
             echo "label=validated" >> $GITHUB_OUTPUT
           elif echo "$CHANGED" | grep -Eq '^(README\.md|CHANGELOG\.md|CONTRIBUTING\.md|CODE_OF_CONDUCT\.md|LICENSE|docs/)$'; then
             echo "label=document" >> $GITHUB_OUTPUT
