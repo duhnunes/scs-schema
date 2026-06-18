@@ -95,15 +95,25 @@ jobs:
           git fetch origin ${{ github.event.pull_request.base.ref }} --depth=1
           CHANGED=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }} ${{ github.event.pull_request.head.sha }})
 
-          if echo "$CHANGED" | grep -vqv '^data/schemas/'; then
-            if echo "$CHANGED" | grep -Eq '^(README\.md|CHANGELOG\.md|CONTRIBUTING\.md|CODE_OF_CONDUCT\.md|LICENSE|docs/)'; then
-              echo "label=documentation" >> $GITHUB_OUTPUT
-            else
-              echo "label=system" >> $GITHUB_OUTPUT
+          labels=""
+
+          if echo "$CHANGED" | grep -q '^data/schemas'; then
+            if ! echo "$CHANGED" | grep -vq '^data/schemas'; then
+              labels="validated"
             fi
-          else
-            echo "label=validated" >> $GITHUB_OUTPUT
           fi
+        
+          if echo "$CHANGED" | grep -Eq '^(README\.md|CHANGELOG\.md|CONTRIBUTING\.md|CODE_OF_CONDUCT\.md|LICENSE|docs/)'; then
+            labels="$labels,documentation"
+          fi
+
+          if echo "$CHANGED" | grep | grep -vq '^data/schemas/' && ! echo "$CHANGED" | grep -Eq '^(README\.md|CHANGELOG\.md|CONTRIBUTING\.md|CODE_OF_CONDUCT\.md|LICENSE|docs/)'; then
+            labels="$labels,system"
+          fi
+
+          labels=$(echo "$labels" | sed 's/^,//')
+
+          echo "labels=$labels" >> $GITHUB_OUTPUT
       
       - name: Remove label bumped (se existir)
         if: steps.check.outputs.match == 'true'
@@ -118,6 +128,6 @@ jobs:
         uses: actions-ecosystem/action-add-labels@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          labels: ${{ steps.check.outputs.label }}
+          labels: ${{ steps.check.outputs.labels }}
           number: ${{ github.event.pull_request.number }}
           repo: ${{ github.repository }}
