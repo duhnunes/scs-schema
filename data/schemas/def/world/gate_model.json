@@ -50,7 +50,7 @@
     },
     "sounds": {
       "description": "OY|/path/to/file.soundref",
-      "type": [],
+      "type": null,
       "isArray": true,
       "arrayElementType": [
         "resource_tie"

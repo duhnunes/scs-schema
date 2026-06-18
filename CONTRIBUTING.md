@@ -5,26 +5,28 @@ Thanks for helping improve the schema database used by the <a href="https://gith
 ---
 
 ## Quick rules (must follow)
-- **Filename**: must be `class_name.json`, where `class_name` exactly matches the `class_name` used in the game `.sii` files.
-- **Scope**: the file must contains a `scope` field equal to the `class_name` (same as the filename)
+- **Filename**: must equal the `class_name`
+    - This avoids duplication when multiple game files share the same class but have different filenames.
+    - Examples: all `gate_model.*.sii` variations -> schema file `gate_model.json`.
+- **Scope**: the file must contains a `scope` field equal to the `class_name`.
 - **Required top-level fields**: `meta`, `scope`, `key`
 - **Versioning**: start with `meta.version: 0.1.0`
 
 ## File location and path structure
 **Files must mirror the game's folder structure.**  
-Place each `class_name.json` under `data/schemas/` using the same relative path used by the game `.sii` files.
+Place each schema under `data/schemas/` using the same relative path used by the game files.
 
-- Example: the game file `/def/world/prefab_model.sii` -> schema file `data/schemas/def/world/prefab_model.json`.
+- Example: `/def/world/prefab_model.sii` -> `data/schemas/def/world/prefab_model.json`.
 - Example: `/def/world/curve_model.sii` -> `data/schemas/def/world/curve_model.json`
 
-This rule helps the extension map schemas to `.sii` files and keeps the DB organized.
+This rule helps the extension map schemas to game files and keeps the DB organized.
 
 ## File format and field rules
 - **meta**
   - **`version`**: semantic version string (start `0.1.0`)
   - **`description`**: short summary of the class.
 - **scope**
-  - Must equal the `class_name` in the game `.sii` files.
+  - Must equal the `class_name` in the game files (e.g. `prefab_model`).
 - **key**
   - Each property under `key` represents a possible key in the `class_name` block.
   - For each key include:
@@ -107,31 +109,38 @@ SiiNunit {
 }
 ```
 
-## Validation (what expect from contributors)
-This project only requires that contributed files are valid JSON and follow the structure described above. Before opening a PR:
-- Make sure the file pth mirrors the gme path (see File loction nd path structure)
-- Ensure scope mtches the filename (bsename whtout .json)
-- No additional tooling or build steps are required for content-only contributions.
+## Validation
+Before opening a PR:
+- Ensure the file path mirrors the game path.
+- Run local validation:
+```bash
+pnpm validate
+```
+###### This command checks your JSON schemas against the project rules.
+
+> Automated checks will also run on every PR:
+> - JSON formatting is normalized automatically.
+> - Schema validation runs and comments on the PR if errors are found.
 
 ## PR workflow
 1. **Fork** (if needed) and create a descriptive branch: `feat/add-<class_name>`
-2. **Sync your branch**: run `git pull` to update before staging changes.
+2. **Sync your branch**: run `git pull origin master` to update before staging changes.
 3. **Stage and commit**;
     - `git checkout -b feat/add-<class_name>`
     - `git add .`
-    - `git commit -m "feat(schemas): add <class_name>.json"`
-      - Use conventional style, e.g. `feat(schema): add <class_name>` or `fix(schema): fix <class_name>`
+    - `git commit -m "feat(schemas): add <file_name>.json"`
+      - Use conventional style,(`feat(schema): add <file_name>` or `fix(schema): fix <file_name>`)
 4. **Open PR**: include a short summary (with [GH CLI](https://cli.github.com/))
     - `gh pr create` - and follow the terminal prompts
 
 > [!IMPORTANT]  
-> Always run `git pull` before staging changes (`git add .`).
-> The repository automatically updates `manifest.json` and bumps schema versions after PRs are merged.
-> Runing `git pull` ensures your local branch is up to date and avoids conflicts.
+> Always run `git pull origin master` before staging changes.
+> The repository automatically updates `manifest.json` and bumps schema versions **after PRs are merged**.
+> Running `git pull origin master` ensures your local branch is up to date and avoids conflicts.
 
 ## Checklist before PR
-- [x] Filename matches `class_name` (e.g., `prefab_model.json)
-- [x] Schema file placed in the same relative path as the game `.sii` (e.g. `data/schemas/def/world/prefab_model.json` for `/def/world/prefab_model.sii`)
-- [x] `meta.version` set (stat with `"0.1.0"`)
+- [x] Filename equals the class_name.
+- [x] Schema file placed in the same relative path as the game file
+- [x] `meta.version` set (start with `"0.1.0"`)
 - [x] `scope` equals `class_name`
 - [x] Every `key` has `description`, `type`, `isArray`, `arrayElementType`

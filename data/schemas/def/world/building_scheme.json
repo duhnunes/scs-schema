@@ -15,7 +15,7 @@
     },
     "models": {
       "description": "",
-      "type": [],
+      "type": null,
       "isArray": true,
       "arrayElementType": [
         "token"
@@ -31,7 +31,7 @@
     },
     "color_variant": {
       "description": "",
-      "type": [],
+      "type": null,
       "isArray": true,
       "arrayElementType": [
         "string"

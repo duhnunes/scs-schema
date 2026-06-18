@@ -36,7 +36,7 @@ function orderObject(obj, desiredOrder = []) {
 }
 
 function normalizeToArray(val) {
-  if (val === null || val === undefined) return [];
+  if (val === null || val === undefined) return val;
   if (Array.isArray(val)) return val.slice();
   return [String(val)];
 }
@@ -64,8 +64,12 @@ function reorderSchema(schema) {
         let orderedField = orderObject(field, KEY_FIELD_ORDER);
 
         if (Object.prototype.hasOwnProperty.call(orderedField, 'type')) {
-          const t = normalizeToArray(orderedField.type);
-          orderedField.type = sortTypeArray(t);
+          if (orderedField.type === null || orderedField.type === undefined) {
+            orderedField.type = null
+          } else {
+            const t = normalizeToArray(orderedField.type);
+            orderedField.type = sortTypeArray(t);
+          }
         }
 
         if (Object.prototype.hasOwnProperty.call(orderedField, 'arrayElementType')) {

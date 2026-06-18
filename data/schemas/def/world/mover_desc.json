@@ -15,7 +15,7 @@
     },
     "variants": {
       "description": "",
-      "type": [],
+      "type": null,
       "isArray": true,
       "arrayElementType": [
         "token"
@@ -23,7 +23,7 @@
     },
     "lods": {
       "description": "/path/to/file.pmd",
-      "type": [],
+      "type": null,
       "isArray": true,
       "arrayElementType": [
         "string",
@@ -32,7 +32,7 @@
     },
     "lod_distances": {
       "description": "",
-      "type": [],
+      "type": null,
       "isArray": true,
       "arrayElementType": [
         "fixed"
@@ -40,7 +40,7 @@
     },
     "group_tags": {
       "description": "",
-      "type": [],
+      "type": null,
       "isArray": true,
       "arrayElementType": [
         "token"

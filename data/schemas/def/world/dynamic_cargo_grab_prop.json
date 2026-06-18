@@ -47,7 +47,7 @@
     },
     "radius_time": {
       "description": "(radius, anim_time) pairs - must be sorted according to radius!",
-      "type": [],
+      "type": null,
       "isArray": true,
       "arrayElementType": [
         "float2"

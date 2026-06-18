@@ -15,7 +15,7 @@
     },
     "group_tags": {
       "description": "",
-      "type": [],
+      "type": null,
       "isArray": true,
       "arrayElementType": [
         "token"
@@ -23,7 +23,7 @@
     },
     "props": {
       "description": "",
-      "type": [],
+      "type": null,
       "isArray": true,
       "arrayElementType": [
         "token"
