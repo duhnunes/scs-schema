@@ -1,0 +1,160 @@
+name: Merger
+
+on:
+  schedule:
+    - cron: "0 0 * * *"  # all day 00:00 UTC
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  updater:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: 'pnpm'
+      
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      
+      - name: Configure git
+        run: |
+          git config user.name ${{ github.actor }}
+          git config user.email ${{ github.actor }}@users.noreply.github.com
+        
+      - name: List PRs validated
+        id: prs
+        run: |
+          PRS=$(curl -s \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{github.repository}}/pulls?state=open&per_page=100" \
+          | jq -r '.[] | select(.draft==false and (.labels[].name=="validated")) | .number' | tr '\n' ' ')
+          echo "numbers=$PRS" >> $GITHUB_OUTPUT
+      
+      - name: Run verify script
+        id: verify
+        env:
+          REPO_USER: ${{ secrets.REPO_USER || github.repository_owner }}
+          REPO_NAME: ${{ secrets.REPO_NAME || github.event.repository.name }}
+        run: |
+          node ./scripts/verify.mjs
+          git add data/manifest.json
+          if ! git diff --staged --quiet; then
+            git commit -m "update(verify): update data/manifest.json [skip ci]"
+            echo "manifest_changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "manifest_changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run bump script
+        id: bump
+        env:
+          BASE_REF: origin/master
+        run: |
+          node ./scripts/bump.mjs
+          git add data/manifest.json
+          if ! git diff --staged --quiet; then
+            git commit -m "update(bump): bump schema meta.version for changed files [skip ci]"
+            echo "bumped=true" >> $GITHUB_OUTPUT
+          else
+            echo "bumped=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Build manifest with jsDelivr URLs using current commit SHA
+        id: build
+        run: |
+          REF=$(git rev-parse HEAD)
+          node ./scripts/build.mjs "$REF"
+          git add data/manifest.json
+          if ! git diff --staged --quiet; then
+            git commit -m "update(build): build manifest with jsDelivr URLs @${REF} [skip ci]"
+            echo "built=true" >> $GITHUB_OUTPUT
+          else
+            echo "built=false" >> $GITHUB_OUTPUT
+          fi
+        
+      - name: Push changes back to PR branch
+        if: steps.verify.outputs.manifest_changed == 'true' || steps.bump.outputs.bumped == 'true' || steps.build.outputs.built == 'true'
+        run: |
+          for pr in ${{ steps.prs.outputs.numbers }}; do
+            DATA=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \ "https://api.github.com/repos/${{ github.repository }}/pulls/$pr")
+            HEAD_REPO=$(echo "$DATA" | jq -r '.head.repo.full_name')
+            HEAD_REF=$(echo "$DATA" | jq -r '.head.ref')
+            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$HEAD_REPO HEAD:$HEAD_REF
+          done
+
+      - name: Comment on PR with summary
+        if: always()
+        run: |
+          for pr in ${{ steps.prs.outputs.numbers }}; do
+            CHANGES=()
+            if [ "${{ steps.verify.outputs.manifest_changed }}" = "true" ]; then CHANGES+=("manifest updated"); fi
+            if [ "${{ steps.bump.outputs.bumped }}" = "true" ]; then CHANGES+=("schema versions bumped"); fi
+            if [ "${{ steps.build.outputs.built }}" = "true" ]; then CHANGES+=("manifest rebuilt with jsDelivr URLs"); fi
+
+            if [ ${#CHANGES[@]} -gt 0 ]; then
+              BODY="Automated schema check completed. Changes:\n ${CHANGES[*]}."
+            else
+              BODY="Automated schema check completed. No changes needed."
+            fi
+
+            PAYLOAD=$(jq -nc --arg body "$BODY" '{body:$body}')
+            API="https://api.github.com/repos/${{ github.repository }}/issues/$pr/comments"
+
+            curl -sS -X POST \
+              -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+              -H "Accept: application/vnd.github+json" \
+              -d "$PAYLOAD" \
+              "$API"
+          done
+
+      - name: Add ready-for-merge label
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          labels: ready-for-merge
+          number: ${{ steps.prs.outputs.numbers }}
+          repo: ${{ github.repository }}
+
+  merger:
+    runs-on: ubuntu-latest
+    needs: updater
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: List PRs with label ready-for-merge
+        id: prs
+        run: |
+          PRS=$(curl -s \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/pulls?state=open&per_page=100" \
+          | jq -r '.[] | select(.labels[].name=="ready-for-merge") | .number' | tr '\n' ' ')
+          echo "numbers=$PRS" >> $GITHUB_OUTPUT
+      
+      - name: Merge PRs com squash
+        if: steps.prs.outputs.numbers != ''
+        run: |
+          for pr in ${{ steps.prs.outputs.numbers }}; do
+            echo "Squash merge PR #$pr"
+            curl -X PUT \
+              -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+              -H "Accept: application/vnd.github+json" \
+              https://api.github.com/repos/${{ github.repository }}/pulls/$pr/merge \
+              -d '{"merge_method":"squash"}'
+          done
