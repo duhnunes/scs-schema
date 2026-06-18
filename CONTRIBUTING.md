@@ -5,7 +5,9 @@ Thanks for helping improve the schema database used by the <a href="https://gith
 ---
 
 ## Quick rules (must follow)
-- **Filename**: must match the original game file name.
+- **Filename**: must equal the `class_name`
+    - This avoids duplication when multiple game files share the same class but have different filenames.
+    - Examples: all `gate_model.*.sii` variations -> schema file `gate_model.json`.
 - **Scope**: the file must contains a `scope` field equal to the `class_name`.
 - **Required top-level fields**: `meta`, `scope`, `key`
 - **Versioning**: start with `meta.version: 0.1.0`
@@ -137,7 +139,7 @@ pnpm validate
 > Running `git pull origin master` ensures your local branch is up to date and avoids conflicts.
 
 ## Checklist before PR
-- [x] Filename matches the original game file.
+- [x] Filename equals the class_name.
 - [x] Schema file placed in the same relative path as the game file
 - [x] `meta.version` set (start with `"0.1.0"`)
 - [x] `scope` equals `class_name`
