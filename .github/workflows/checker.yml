@@ -31,6 +31,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Config Actor
+        run: |
+          git config user.name ${{github.actor}}
+          git config user.email ${{ github.actor }}users.noreply.github.com
+
       - name: Run formatter script
         id: formatter
         run: |
@@ -38,6 +43,7 @@ jobs:
           git add data/schemas/**/*.json  || true
           if ! git diff --staged --quiet; then
             git commit -m "refactor(schemas): normalize schema JSONs [auto-scs]" || true
+            git push origin HEAD:${{ github.head_ref }} || true
             echo "formatted=true" >> $GITHUB_OUTPUT
           else
             echo "formatted=false" >> $GITHUB_OUTPUT
