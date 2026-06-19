@@ -129,7 +129,7 @@ pnpm validate
     - `git checkout -b feat/add-<class_name>`
     - `git add .`
     - `git commit -m "feat(schemas): add <file_name>.json"`
-      - Use conventional style,(`feat(schema): add <file_name>` or `fix(schema): fix <file_name>`)
+      - Use conventional style (`feat(schema): add <file_name>` or `fix(schema): fix <file_name>`)
 4. **Open PR**: include a short summary (with [GH CLI](https://cli.github.com/))
     - `gh pr create` - and follow the terminal prompts
 
