@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "description": ""
+  },
+  "scope": "sign_stand_model",
+  "key": {
+    "stand_name": {
+      "description": "Name from sign stand",
+      "type": ["string"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "category": {
+      "description": "",
+      "type": ["string"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "stand_class": {
+      "description": "",
+      "type": ["token", "string"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "model_desce": {
+      "description": "/path/to/file.pmd",
+      "type": ["resource_tie"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "model_coll": {
+      "description": "/path/to/file.pmc",
+      "type": ["resource_tie"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "variant_name": {
+      "description": "",
+      "type": ["token", "string"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "dynamic": {
+      "description": "",
+      "type": ["bool"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "mass": {
+      "description": "",
+      "type": ["float", "fixed"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "look_name": {
+      "description": "",
+      "type": ["token", "string"],
+      "isArray": false,
+      "arrayElementType": null
+    }
+  }
+}
