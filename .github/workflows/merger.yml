@@ -95,6 +95,9 @@ jobs:
             HEAD_REF=$(echo "$DATA" | jq -r '.head.ref')
             echo "HEAD_REPO=$HEAD_REPO"
             echo "HEAD_REF=$HEAD_REF"
+
+            git fetch https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$HEAD_REPO $HEAD_REF
+            git rebase FETCH_HEAD
             git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$HEAD_REPO HEAD:$HEAD_REF
           done
 
