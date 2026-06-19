@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "description": ""
+  },
+  "scope": "sound_item_data",
+  "key": {
+    "name": {
+      "description": "Name from sound",
+      "type": ["string"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "sound_path": {
+      "description": "/path/to/sound/file.bank#id",
+      "type": ["resource_tie"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "sound_sfx": {
+      "description": "/path/to/sound/file.bank#id",
+      "type": ["resource_tie"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "sfx_count": {
+      "description": "",
+      "type": ["fixed"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "max_dist": {
+      "description": "",
+      "type": ["fixed"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "item_color": {
+      "description": "Item color: 0xAABBGGRR (hexadecimal) - AA = opacity (max AA - ff = full opcity; min AA = 20 - max. transparency)",
+      "type": ["string"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "reverb": {
+      "description": "",
+      "type": ["token"],
+      "isArray": false,
+      "arrayElementType": null
+    }
+  }
+}
