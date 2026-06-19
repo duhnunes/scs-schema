@@ -124,7 +124,7 @@ jobs:
         run: |
           labels=$(curl -sS -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/labels" \
-            | jq -r '.[].name' | paste -sd, -)
+            | jq -r '.[].name' | paste -sd "," -)
           echo "labels=$labels" >> $GITHUB_OUTPUT
           
       - name: Remove labels
