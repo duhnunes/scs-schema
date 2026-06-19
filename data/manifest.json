@@ -1,6 +1,6 @@
 {
   "version": "0.1.0",
-  "generatedAt": "2026-06-14T15:31:59.696Z",
+  "generatedAt": "2026-06-19T15:54:59.958Z",
   "schemas": {
     "animated_model_data": {
       "id": "data/schemas/def/world/animated_model_data.json",
@@ -8,8 +8,8 @@
       "path": "./data/schemas/def/world/animated_model_data.json",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@f8ac5f6bc2d6fbc7cbabe8f0c8de781bcb506b4e/data/schemas/def/world/animated_model_data.json",
       "metaVersion": "0.1.0",
-      "hash": "sha256:c871a7b142517a81be60ddb1379ff89ced584ee9426bfcfe8eafd87ea238cdf1",
-      "size": 857,
+      "hash": "sha256:9557963811a51209512418a7a0ac15e97463807ebbdb5de284e4e0be79030f89",
+      "size": 965,
       "description": ""
     },
     "building_model": {
@@ -18,7 +18,7 @@
       "path": "./data/schemas/def/world/building_model.json",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@c3be3798505830f3d9752b7f7c13f2e4fa1accd9/data/schemas/def/world/building_model.json",
       "metaVersion": "0.1.0",
-      "hash": "sha256:176ebdc9f2d78dc8e79c92d01404a27d16e5b85ec2ff109eebe4aba27f30fe5a",
+      "hash": "sha256:a5ee8e3f6d559b8115b89a0fe811d6351be93bcf53bfa7df4b2253ab447c800c",
       "size": 2261,
       "description": ""
     },
@@ -38,7 +38,7 @@
       "path": "./data/schemas/def/world/curve_model.json",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@c3be3798505830f3d9752b7f7c13f2e4fa1accd9/data/schemas/def/world/curve_model.json",
       "metaVersion": "0.1.0",
-      "hash": "sha256:8066bb573dd48a3585153263fa1f96eadd64aa1009a12a0cee9f5e626d24fe54",
+      "hash": "sha256:bb0608f0ccfe16b92732019a27974ede863096cee6a077c57e648ccb2877756a",
       "size": 2744,
       "description": ""
     },
@@ -58,8 +58,8 @@
       "path": "./data/schemas/def/world/detail_vegetation_def.json",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@c3be3798505830f3d9752b7f7c13f2e4fa1accd9/data/schemas/def/world/detail_vegetation_def.json",
       "metaVersion": "0.1.0",
-      "hash": "sha256:eef3d679f96c985b3aad4438cdf7478e757e4cf4462789ddaf03b7ab4279df29",
-      "size": 1064,
+      "hash": "sha256:299437e2372f8017597b0a542c84bb00ce77c258c8b6ef4ad613e957c051e181",
+      "size": 1120,
       "description": ""
     },
     "dynamic_cargo_grab_prop": {
@@ -68,8 +68,8 @@
       "path": "./data/schemas/def/world/dynamic_cargo_grab_prop.json",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@ffc2dc0a331546816ad91d0c4c382dc9b28b3c55/data/schemas/def/world/dynamic_cargo_grab_prop.json",
       "metaVersion": "0.1.0",
-      "hash": "sha256:5b5fcc0a3cb85a7d65cf13895bb4df951a3f212a8f977523fdc9e13fa5b42bfe",
-      "size": 1193,
+      "hash": "sha256:cbe5777bee243b5df595eeec1591ea376ed1c16c63320dedaaaa7c3b1f339874",
+      "size": 1275,
       "description": ""
     },
     "far_model_def": {
@@ -78,8 +78,8 @@
       "path": "./data/schemas/def/world/far_model_def.json",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@3b3ed36bf34434e9f8e8866631ed632fee6eca5a/data/schemas/def/world/far_model_def.json",
       "metaVersion": "0.1.0",
-      "hash": "sha256:2dd60808fcff24dcc0cee43b7aafda9b0246566367ed80c266133bdfcb6fcd69",
-      "size": 585,
+      "hash": "sha256:1f96fe0663663cebd1779f7d398b9b346f287c2500d7eba5fbecb5e968044209",
+      "size": 633,
       "description": ""
     },
     "find_dialog_non_visual_item": {
@@ -88,8 +88,8 @@
       "path": "./data/schemas/def/world/find_dialog_non_visual_item.json",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@bb882c7e720e9b616b5e80d94e81f119aaed2bc8/data/schemas/def/world/find_dialog_non_visual_item.json",
       "metaVersion": "0.1.0",
-      "hash": "sha256:ef0a2328a2083d4050ee26b9e6aa1921d65dc3519c36960c18c36771d5f8f5e5",
-      "size": 1207,
+      "hash": "sha256:ff0efd4f389d9be57dea799e73865c1c17e4db40978cf7baaec516f353a7c552",
+      "size": 1320,
       "description": ""
     },
     "gate_model": {
@@ -98,8 +98,8 @@
       "path": "./data/schemas/def/world/gate_model.json",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@bb882c7e720e9b616b5e80d94e81f119aaed2bc8/data/schemas/def/world/gate_model.json",
       "metaVersion": "0.1.0",
-      "hash": "sha256:8b2af282d39347642be5b0aac4dcade6d71ead7e556533ca7a8a277273474175",
-      "size": 1204,
+      "hash": "sha256:d2762c2861b5aba79d21b7b93aef138f26c32f58b6aa523f53e91673994b66c1",
+      "size": 1340,
       "description": ""
     },
     "journey_events_cutscene": {
@@ -108,8 +108,8 @@
       "path": "./data/schemas/def/world/journey_events_cutscene.json",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@bb882c7e720e9b616b5e80d94e81f119aaed2bc8/data/schemas/def/world/journey_events_cutscene.json",
       "metaVersion": "0.1.0",
-      "hash": "sha256:e3783ad220766b572990371937bcd639579e707896feb7173634f6048c49885b",
-      "size": 988,
+      "hash": "sha256:04187bec77b2c776fa01a158e9a8776f00fb1a6145a8826dd705c69ca9d4c707",
+      "size": 1084,
       "description": ""
     },
     "journey_events_detour": {
@@ -118,8 +118,8 @@
       "path": "./data/schemas/def/world/journey_events_detour.json",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@bb882c7e720e9b616b5e80d94e81f119aaed2bc8/data/schemas/def/world/journey_events_detour.json",
       "metaVersion": "0.1.0",
-      "hash": "sha256:50c04bec6b033ef9d8ad1b76eca5f8061315418018e547becb3cd66c16a1398d",
-      "size": 635,
+      "hash": "sha256:ffb6fdfe95a64b50cf0589521475c2111737a8475931e8541dc4ebe8169951af",
+      "size": 699,
       "description": ""
     },
     "journey_events_detour_data": {
@@ -128,8 +128,8 @@
       "path": "./data/schemas/def/world/journey_events_detour_data.json",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@bb882c7e720e9b616b5e80d94e81f119aaed2bc8/data/schemas/def/world/journey_events_detour_data.json",
       "metaVersion": "0.1.0",
-      "hash": "sha256:eaeaaad72df3dc7f024f13c407df1cb3fb738bae8117716623192f4d2c8a086c",
-      "size": 832,
+      "hash": "sha256:fe77f74924d2be6fe1ecf1537fe7c84d79f5ceb234dc6a36f2dc0f10a7439c0d",
+      "size": 896,
       "description": ""
     },
     "journey_events_road_event": {
@@ -138,8 +138,8 @@
       "path": "./data/schemas/def/world/journey_events_road_event.json",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@bb882c7e720e9b616b5e80d94e81f119aaed2bc8/data/schemas/def/world/journey_events_road_event.json",
       "metaVersion": "0.1.0",
-      "hash": "sha256:656acb32fd956715058f6cb1cbdd6e88edf264310b579d91eea135a563693594",
-      "size": 5253,
+      "hash": "sha256:15eda479de3ebf50b7f91054cc76c15bdae73ab20a88940f74f4abf5a050360b",
+      "size": 5869,
       "description": ""
     },
     "journey_events_road_event_data": {
@@ -148,8 +148,8 @@
       "path": "./data/schemas/def/world/journey_events_road_event_data.json",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@bb882c7e720e9b616b5e80d94e81f119aaed2bc8/data/schemas/def/world/journey_events_road_event_data.json",
       "metaVersion": "0.1.0",
-      "hash": "sha256:ebb6fc883226f9f60673c1dc03f94b91bef8429287206beb8206740b1d1a3d4b",
-      "size": 561,
+      "hash": "sha256:db32a2e429bb8fc4f227ed876a8746d00e0f9de6ee35ccc4bc546d5b44cdd881",
+      "size": 609,
       "description": ""
     },
     "loader_grab_match": {
@@ -158,8 +158,8 @@
       "path": "./data/schemas/def/world/loader_grab_match.json",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@bb882c7e720e9b616b5e80d94e81f119aaed2bc8/data/schemas/def/world/loader_grab_match.json",
       "metaVersion": "0.1.0",
-      "hash": "sha256:d54e2605b6783455a4ba530de5338048f7e3bc843a41f749210c1fa8b53ab523",
-      "size": 372,
+      "hash": "sha256:e5eba933d2643a923aa71fcbb3c92570ffee96727c95deb5e57b058eaa4a78c2",
+      "size": 404,
       "description": ""
     },
     "material_def": {
@@ -168,8 +168,8 @@
       "path": "./data/schemas/def/world/material_def.json",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@bb882c7e720e9b616b5e80d94e81f119aaed2bc8/data/schemas/def/world/material_def.json",
       "metaVersion": "0.1.0",
-      "hash": "sha256:17299ae69e3c30a825281fd4871ec7bfc129261f74d8359848d2ade24bce64cd",
-      "size": 512,
+      "hash": "sha256:b6caa79cbf93aa41d42d749b7dc487ac30515125721535afe14713995b83bda7",
+      "size": 560,
       "description": ""
     },
     "model_def": {
@@ -178,8 +178,8 @@
       "path": "./data/schemas/def/world/model_def.json",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@bb882c7e720e9b616b5e80d94e81f119aaed2bc8/data/schemas/def/world/model_def.json",
       "metaVersion": "0.1.0",
-      "hash": "sha256:90bc2100cab01905b9bd4c1c0f03a10f15739fb9051a2e69324f2dcbe035e684",
-      "size": 1958,
+      "hash": "sha256:015279947aefdf45efe8e4867ea055a61b45d6b28e53a7db2c2c99a8171968db",
+      "size": 2254,
       "description": ""
     },
     "mover_action": {
@@ -188,8 +188,8 @@
       "path": "./data/schemas/def/world/mover_action.json",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@ebeef3b3908cc3298a439601d990aed9a351514d/data/schemas/def/world/mover_action.json",
       "metaVersion": "0.1.0",
-      "hash": "sha256:9ebcdc73c087969d4cd22a7e1eed60072cae801f3f584f9a86c858b1f6e2e64c",
-      "size": 1084,
+      "hash": "sha256:f844d977b5a270afc605746d18e88d4efbcba3587d20a231f2f9f9a3ca28c12c",
+      "size": 1196,
       "description": ""
     },
     "mover_anim": {
@@ -198,8 +198,8 @@
       "path": "./data/schemas/def/world/mover_anim.json",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@56be31f5ce208c27b85d2d81642bd733e7352abf/data/schemas/def/world/mover_anim.json",
       "metaVersion": "0.1.0",
-      "hash": "sha256:ca9db6a54e0fcc68eb1ce244243ae45c60a686ad44bc0757eafddd79d1558449",
-      "size": 816,
+      "hash": "sha256:6d8e01e0dcd4f8c7325753ffc0d87858f77e7738b449481a004780bd49413437",
+      "size": 896,
       "description": ""
     },
     "mover_desc": {
@@ -208,8 +208,8 @@
       "path": "./data/schemas/def/world/mover_desc.json",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@56be31f5ce208c27b85d2d81642bd733e7352abf/data/schemas/def/world/mover_desc.json",
       "metaVersion": "0.1.0",
-      "hash": "sha256:0dc588b381b65fb624ffd653fd1b5707d194acc3ad78869e3501fa0729acc05a",
-      "size": 971,
+      "hash": "sha256:9e6aa1334538efb9150844158cd64d9b28ae3192a8cfee7a76f9455a4f16d3dc",
+      "size": 1075,
       "description": ""
     },
     "mover_model": {
@@ -218,8 +218,8 @@
       "path": "./data/schemas/def/world/mover_model.json",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@56be31f5ce208c27b85d2d81642bd733e7352abf/data/schemas/def/world/mover_model.json",
       "metaVersion": "0.1.0",
-      "hash": "sha256:eada1a3a1d1717fc4826e1e6b853aed6f41e6d2505da2c0db8827c4cdddb537c",
-      "size": 1044,
+      "hash": "sha256:a604739f06b5ec7e86bc70f6da1cc4ab04b06ede44628bcdd7be5bab294f106e",
+      "size": 1236,
       "description": ""
     },
     "overlay_def": {
@@ -228,8 +228,8 @@
       "path": "./data/schemas/def/world/overlay_def.json",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@48b0dbfcc6049b9e84b152a493da90a5feed654c/data/schemas/def/world/overlay_def.json",
       "metaVersion": "0.1.0",
-      "hash": "sha256:f1ae4dec9216afaa963ed181783c2e28459ff4e2556688226376a86bfacbf6b5",
-      "size": 363,
+      "hash": "sha256:51f98060b499b5d069657d1175229ea7580536a1c750c729cbf6d7fb9e9809b3",
+      "size": 418,
       "description": ""
     },
     "prefab_corner": {
@@ -240,6 +240,26 @@
       "metaVersion": "0.1.0",
       "hash": "sha256:3198c7ea42f9097dcf4dccee6a5ab8c54946b30add34b2f0cc527d5f6fb6f2d1",
       "size": 1062,
+      "description": ""
+    },
+    "prefab_model": {
+      "id": "data/schemas/def/world/prefab_model.json",
+      "name": "prefab_model",
+      "path": "./data/schemas/def/world/prefab_model.json",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@329304cc625c6bd171614508bf1fa30e75a90588/data/schemas/def/world/prefab_model.json",
+      "metaVersion": "0.1.0",
+      "hash": "sha256:86740173edd2e2639bd9344d554cf23836bb97f00293109080577e0120468df9",
+      "size": 4261,
+      "description": ""
+    },
+    "multimon_config": {
+      "id": "data/schemas/documents/multimon_config.json",
+      "name": "multimon_config",
+      "path": "./data/schemas/documents/multimon_config.json",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@329304cc625c6bd171614508bf1fa30e75a90588/data/schemas/documents/multimon_config.json",
+      "metaVersion": "0.1.0",
+      "hash": "sha256:6d0d8059228f5a312c572135afd122d79a2ab2906711cf84c00fc9a60df8aa68",
+      "size": 3553,
       "description": ""
     }
   }
