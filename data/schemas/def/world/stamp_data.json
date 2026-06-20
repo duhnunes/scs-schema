@@ -1,0 +1,21 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "description": ""
+  },
+  "scope": "stamp_data",
+  "key": {
+    "stamp_name": {
+      "description": "Name from stamp",
+      "type": ["string"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "stamp_path": {
+      "description": "/path/to/file.btf",
+      "type": ["resource_tie"],
+      "isArray": false,
+      "arrayElementType": null
+    }
+  }
+}
