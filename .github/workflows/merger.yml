@@ -114,14 +114,17 @@ jobs:
           prsNumbers="${{ steps.prs.outputs.number }}"
           for pr in $prsNumbers; do
             CHANGES=()
-            if [ "${{ steps.verify.outputs.manifest_changed }}" = "true" ]; then CHANGES+=("manifest updated"); fi
-            if [ "${{ steps.bump.outputs.bumped }}" = "true" ]; then CHANGES+=("schema versions bumped"); fi
-            if [ "${{ steps.build.outputs.built }}" = "true" ]; then CHANGES+=("manifest rebuilt with jsDelivr URLs"); fi
+            if [ "${{ steps.verify.outputs.manifest_changed }}" = "true" ]; then CHANGES+=("📄 Manifest updated"); fi
+            if [ "${{ steps.bump.outputs.bumped }}" = "true" ]; then CHANGES+=("🔼 Schema versions bumped"); fi
+            if [ "${{ steps.build.outputs.built }}" = "true" ]; then CHANGES+=("🔗 Manifest rebuilt with jsDelivr URLs"); fi
 
             if [ ${#CHANGES[@]} -gt 0 ]; then
-              BODY="Automated schema check completed. Changes:\n ${CHANGES[*]}."
+              BODY="### ✅ Automated schema check completed.\n\n **Changes applied:**\n"
+              for change in "${CHANGES[@]}"; do
+                BODY="$BODY- $change\n"
+              done
             else
-              BODY="Automated schema check completed. No changes needed."
+              BODY="### ✅ Automated schema check completed.\n\nNo changes needed."
             fi
 
             PAYLOAD=$(jq -nc --arg body "$BODY" '{body:$body}')
@@ -163,7 +166,7 @@ jobs:
           | jq -r '.[] | select(.labels[].name=="ready-for-merge") | .number' | tr '\n' ' ')
           echo "numbers=$PRS" >> $GITHUB_OUTPUT
       
-      - name: Merge PRs com squash
+      - name: Merge PRs with squash
         if: steps.prs.outputs.numbers != ''
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
