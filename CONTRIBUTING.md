@@ -1,4 +1,4 @@
-# Contributing to SCS Schema Database
+# Contributing to SCS Schemas Database
 
 Thanks for helping improve the schema database used by the <a href="https://github.com/duhnunes/scs-intellisense">SCS IntelliSense</a> VSCode extension. This document explains how to add or edit JSON schema files under `data/schemas/`. This guide is only for contributions that add or edit `.json` files inside `data/schemas/`.
 
@@ -17,9 +17,14 @@ Thanks for helping improve the schema database used by the <a href="https://gith
 Place each schema under `data/schemas/` using the same relative path used by the game files.
 
 - Example: `/def/world/prefab_model.sii` -> `data/schemas/def/world/prefab_model.json`.
-- Example: `/def/world/curve_model.sii` -> `data/schemas/def/world/curve_model.json`
+- Example: `/base/ui/cargo_load_screen.sii` -> `data/schemas/base/ui/cargo_load_screen.sii`
+- Example: `C:\Users\<user_name>\Documents\American Truck Simulator/multimon_config.sii` -> `data/schemas/documents/multimon_config.json`
 
 This rule helps the extension map schemas to game files and keeps the DB organized.
+> [!IMPORTANT]
+> The folder `data/schemas/` is the **root of the schema database**.
+> Every JSON schema file must be placed inside this folder, following the game's path structure.
+> This ensures the extension can correctly map schemas to game files and keeps the database organized.
 
 ## File format and field rules
 - **meta**
@@ -36,8 +41,10 @@ This rule helps the extension map schemas to game files and keeps the DB organiz
     - **`arrayElementType`**: when `isArray: true`, set the element type array (e.g., `["float2"]`); otherwise `null`
 
 > [!IMPORTANT]  
-> **Important**: keep `type` and `arrayElementType` consistent: If a key exists both as scalar and array, reflect both forms (scalar `type` and `isArray: true` with `arrayElementType`).
-
+> Keep `type` and `arrayElementType` consistent:
+> - If a key exists both as scalar and array, you must reflect **both forms**.
+>   - Scalar: set `type` accordingly.
+>   - Array: set `isArray: true` and define `arrayElementType`
 
 ### Examples
 #### With scalar & not array
@@ -123,20 +130,49 @@ pnpm validate
 > - Schema validation runs and comments on the PR if errors are found.
 
 ## PR workflow
-1. **Fork** (if needed) and create a descriptive branch: `feat/add-<class_name>`
-2. **Sync your branch**: run `git pull origin master` to update before staging changes.
-3. **Stage and commit**;
-    - `git checkout -b feat/add-<class_name>`
-    - `git add .`
-    - `git commit -m "feat(schemas): add <file_name>.json"`
-      - Use conventional style (`feat(schema): add <file_name>` or `fix(schema): fix <file_name>`)
-4. **Open PR**: include a short summary (with [GH CLI](https://cli.github.com/))
-    - `gh pr create` - and follow the terminal prompts
+1. **Fork the repository**
+    - Click **Fork** in the top-right corner of GitHub to create a copy under your account.
+2. **Clone your fork locally**
+```bash
+git clone https://github.com/<your-username>/<fork-name>.git
+cd <fork-name>
+```
+3. Configure upstream (to keep your fork in sync with the original repository)
+```bash
+git remote add upstream https://github.com/duhnunes/scs-schema.git
+git fetch upstream
+git checkout master
+git merge upstream/master
+```
+4. Create a descriptive branch
+```bash
+git checkout -b feat/add-<class_name>
+```
+5. Stage and commit your changes
+```bash
+git add .
+git commit -m "feat(schemas): add <class_name>"
+```
+> Use conventional commit style: `feat(schemas): add <class_name>` or `fix(schemas): fix <class_name>`
+6. Push to your fork
+```bash
+git push origin feat/add-<class_name>
+```
+7. Open a Pull Request
+- Go to your fork on GitHub and click **Compare & pull request**
+- Or use the [GH CLI](https://cli.github.com/)
+```bash
+gh pr create --repo duhnunes/scs-schema \
+  --head <your-username>:feat/add-<class_name> \
+  --base master \
+  --title "feat(schemas): add <class_name>" \
+  --body "Clear description of the change"
+```
 
 > [!IMPORTANT]  
-> Always run `git pull origin master` before staging changes.
-> The repository automatically updates `manifest.json` and bumps schema versions **after PRs are merged**.
-> Running `git pull origin master` ensures your local branch is up to date and avoids conflicts.
+> Always sync your fork with `upstream/master` before opening a PR.
+> The repository automatically updates `manifest.json` and bumps schema versions after PRs are merged.
+> Keeping your fork up to date avoids conflicts.
 
 ## Checklist before PR
 - [x] Filename equals the class_name.
