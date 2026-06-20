@@ -1,6 +1,6 @@
 {
   "version": "0.1.0",
-  "generatedAt": "2026-06-19T15:54:59.958Z",
+  "generatedAt": "2026-06-20T03:42:20.982Z",
   "schemas": {
     "animated_model_data": {
       "id": "data/schemas/def/world/animated_model_data.json",
@@ -260,6 +260,16 @@
       "metaVersion": "0.1.0",
       "hash": "sha256:6d0d8059228f5a312c572135afd122d79a2ab2906711cf84c00fc9a60df8aa68",
       "size": 3553,
+      "description": ""
+    },
+    "sign_model": {
+      "id": "data/schemas/def/world/sign_model.json",
+      "name": "sign_model",
+      "path": "./data/schemas/def/world/sign_model.json",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@59298bc62edfcdce967f22da281ec87cf73c58f9/data/schemas/def/world/sign_model.json",
+      "metaVersion": "0.1.0",
+      "hash": "sha256:9953784565fb2a61861a1c3e8d5b97d867bebb01940f8c8a83e0645f41b582fc",
+      "size": 2514,
       "description": ""
     }
   }

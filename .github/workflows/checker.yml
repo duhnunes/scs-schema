@@ -119,13 +119,24 @@ jobs:
 
           echo "labels=$labels" >> $GITHUB_OUTPUT
       
+      - name: Get current labels
+        id: current-labels
+        run: |
+          labels=$(curl -sS -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/labels" \
+            | jq -r '.[].name' | xargs)
+          echo "labels=$labels" >> $GITHUB_OUTPUT
+          
       - name: Remove labels
-        uses: actions-ecosystem/action-remove-labels@v1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          labels: validated,system,documentation
-          number: ${{ github.event.pull_request.number }}
-          repo: ${{ github.repository }}
+        if: steps.current-labels.outputs.labels != ''
+        run: |
+          for label in ${{ steps.current-labels.outputs.labels }}; do
+            echo "Removing $label"
+            curl -sS -X DELETE \
+              -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+              -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/labels/$label"
+          done
       
       - name: Add label
         uses: actions-ecosystem/action-add-labels@v1

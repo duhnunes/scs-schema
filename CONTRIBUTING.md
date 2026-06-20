@@ -123,20 +123,49 @@ pnpm validate
 > - Schema validation runs and comments on the PR if errors are found.
 
 ## PR workflow
-1. **Fork** (if needed) and create a descriptive branch: `feat/add-<class_name>`
-2. **Sync your branch**: run `git pull origin master` to update before staging changes.
-3. **Stage and commit**;
-    - `git checkout -b feat/add-<class_name>`
-    - `git add .`
-    - `git commit -m "feat(schemas): add <file_name>.json"`
-      - Use conventional style,(`feat(schema): add <file_name>` or `fix(schema): fix <file_name>`)
-4. **Open PR**: include a short summary (with [GH CLI](https://cli.github.com/))
-    - `gh pr create` - and follow the terminal prompts
+1. **Fork the repository**
+    - Click **Fork** in the top-right corner of GitHub to create a copy under your account.
+2. **Clone your fork locally**
+```bash
+git clone https://github.com/<your-username>/<fork-name>.git
+cd <fork-name>
+```
+3. Configure upstream (to keep your fork in sync with the original repository)
+```bash
+git remote add upstream https://github.com/duhnunes/scs-schema.git
+git fetch upstream
+git checkout master
+git merge upstream/master
+```
+4. Create a descriptive branch
+```bash
+git checkout -b feat/add-<class_name>
+```
+5. Stage and commit your changes
+```bash
+git add .
+git commit -m "feat(schemas): add <file_name>.json"
+```
+> Use conventional commit style: `feat(schemas): add <file_name>` or `fix(schemas): fix <file_name>`
+6. Push to your fork
+```bash
+git push origin feat/add-<class_name>
+```
+7. Open a Pull Request
+- Go to your fork on GitHub and click **Compare & pull request**
+- Or use the [GH CLI](https://cli.github.com/)
+```bash
+gh pr create --repo duhnunes/scs-schema \
+  --head <your-username>:feat/add-<class_name> \
+  --base master \
+  --title "feat(schemas): add <file_name>.json" \
+  --body "Clear description of the change"
+```
 
 > [!IMPORTANT]  
-> Always run `git pull origin master` before staging changes.
-> The repository automatically updates `manifest.json` and bumps schema versions **after PRs are merged**.
-> Running `git pull origin master` ensures your local branch is up to date and avoids conflicts.
+> Always sync your fork with `upstream/master` before opening a PR.
+> The repository automatically updates `manifest.json` and bumps schema versions after PRs are merged.
+> Keeping your fork up to date avoids conflicts.
 
 ## Checklist before PR
 - [x] Filename equals the class_name.
