@@ -1,0 +1,111 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "description": ""
+  },
+  "scope": "sound_item_reverb",
+  "key": {
+    "name": {
+      "description": "",
+      "type": ["string"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "max_dist": {
+      "description": "",
+      "type": ["fixed"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "item_color": {
+      "description": "Item color: 0xAABBGGRR (hexadecimanl) - AA = opacity (max A = FF - full; min AA = 20 - max. transparency)",
+      "type": ["string"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "decay_time": {
+      "description": "Reverberation decay time at low-frequencies in milliseconds. Ranges from 100.0 to 20000.0. Default is 1500.",
+      "type": ["float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "early_delay": {
+      "description": "Delay time of first reflection in milliseconds. Ranges from 0.0 to 300.0. Default is 20.",
+      "type": ["float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "late_delay": {
+      "description": "Late reverberation delay time relative to first reflection in milliseconds. Ranges from 0.0 to 100.0. Default is 40",
+      "type": ["float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "hf_reference": {
+      "description": "Reference frequency for high-frequency decay in Hz. Ranges from 20.0 to 20000.0. Default is 5000",
+      "type": ["float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "hf_decay_ration": {
+      "description": "High-frequency decay time relative to decay time in percent. Ranges from 10.0 to 100.0. Default is 50.",
+      "type": ["float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "diffusion": {
+      "description": "Reverberation diffusion (echo density) in percent. Ranges from 0.0 to 100.0. Default is 100.",
+      "type": ["string"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "density": {
+      "description": "Reverberation density (modal density) in percent. Ranges from 0.0 to 100.0. Default is 100",
+      "type": ["float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "low_shelf_frequency": {
+      "description": "Transition frequency of low-shelf filter in Hz.Ranges from 20.0 to 1000.0.\nDefault is 250.",
+      "type": ["float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "low_shelf_gain": {
+      "description": "Gain of low-shelf filter in dB. Ranges from -36.0 to 1.0.\nDefault is 0",
+      "type": ["float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "high_cut": {
+      "description": "Cutoff frequency of low-pass filter in Hz. Ranges from 20.0 to 20000.0.\nDefault is 20000.",
+      "type": ["float", "fixed"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "early_late_mix": {
+      "description": "Blend ratio of late reverb to early reflections in percent.\nRanges from 0.0 to 100.0. Default is 50.",
+      "type": ["float", "fixed"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "wet_level": {
+      "description": "Reverb signal level in dB.\nRanges from -80.0 to 20.0. Default is -6",
+      "type": ["float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "dry_level": {
+      "description": "Dry signal level in dB.\nRanges from -80.0 to 20.0. Default is 0",
+      "type": ["float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "ceiling": {
+      "description": "",
+      "type": ["bool"],
+      "isArray": false,
+      "arrayElementType": null
+    }
+  }
+}
