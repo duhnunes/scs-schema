@@ -55,6 +55,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: proxy-pr-${{ env.PR_NUMBER }}
+          base: master
           title: "Proxy of PR #${{ env.PR_NUMBER }} by @${{ env.PR_AUTHOR }}"
           body: |
             This PR was automatically created by a bot.
