@@ -65,12 +65,16 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           labels: proxied
-          number: ${{ steps.create-pr.outputs.pull_request_number }}
+          number: ${{ steps.create-pr.outputs.pull-request-number }}
           repo: ${{ github.repository }}
 
       - name: Close original PR
         run: |
-          gh pr comment $PR_NUMBER --body "## PR was proxied and closed!\n\nSee the new PR: ${{ steps.create-pr.outputs.pull_request_number }}\n\n##About\nOriginal author: @$PR_AUTHOR\nOriginal PR: #$PR_NUMBER"
+          gh pr comment $PR_NUMBER --body "## PR was proxied and closed!
+          See the new PR: #${{ steps.create-pr.outputs.pull-request-number }}
+          ##About
+          Original author: @$PR_AUTHOR
+          Original PR: #$PR_NUMBER"
           gh pr close $PR_NUMBER
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
