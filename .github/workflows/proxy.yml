@@ -44,7 +44,7 @@ jobs:
           git fetch ${{ github.event.pull_request.head.repo.clone_url }} \
             ${{ github.event.pull_request.head.ref }}:fork-pr-$PR_NUMBER
           git merge --no-ff fork-pr-$PR_NUMBER
-          git commit --ammend --author="$PR_AUTHOR <${PR_AUTHOR_EMAIL>" --no-edit
+          git commit --amend --author="$PR_AUTHOR <$PR_AUTHOR_EMAIL>" --no-edit
 
       - name: Open new PR
         uses: peter-evans/create-pull-request@v8
