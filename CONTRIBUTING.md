@@ -1,3 +1,4 @@
+OK, TESTING AUTO_PR
 # Contributing to SCS Schemas Database
 
 Thanks for helping improve the schema database used by the <a href="https://github.com/duhnunes/scs-intellisense">SCS IntelliSense</a> VSCode extension. This document explains how to add or edit JSON schema files under `data/schemas/`. This guide is only for contributions that add or edit `.json` files inside `data/schemas/`.
