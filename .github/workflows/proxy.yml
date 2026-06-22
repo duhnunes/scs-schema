@@ -2,7 +2,7 @@ name: Proxy Fork PRs
 
 on:
   pull_request_target:
-    types: [opened, reopened]
+    types: [opened, reopened, synchronize, ready_for_review]
 
 permissions:
   contents: write
@@ -34,11 +34,6 @@ jobs:
           git fetch ${{ github.event.pull_request.head.repo.clone_url }} \
             ${{ github.event.pull_request.head.ref }}:fork-pr-$PR_NUMBER
 
-      # - name: Create new branch with author attribution
-      #   run: |
-      #     git merge --no-ff fork-pr-$PR_NUMBER
-      #     git commit --amend --author="$PR_AUTHOR <$PR_AUTHOR_EMAIL>" --no-edit
-
       - name: Merge fork branch with author attribution
         run: |
           git fetch ${{ github.event.pull_request.head.repo.clone_url }} \
@@ -50,13 +45,13 @@ jobs:
         uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          branch: proxy-pr-${{ github.event.pull_request.number }}
+          branch: pr${{ github.event.pull_request.number }}
           base: master
-          title: "Proxy of PR #${{ github.event.pull_request.number }} by @${{ github.event.pull_request.user.login }}"
+          title: "PR #${{ github.event.pull_request.number }} by @${{ github.event.pull_request.user.login }}"
           body: |
             This PR was automatically created by a bot.
             Original PR: #${{ github.event.pull_request.number }}
-            Original author: @$${{ github.event.pull_request.user.login }}
+            Original author: @${{ github.event.pull_request.user.login }}
 
       - name: Close original PR
         run: |
