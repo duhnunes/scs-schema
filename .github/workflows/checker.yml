@@ -12,7 +12,7 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.draft == false && github.event.pull_request.user.login == 'github-actions[bot]'
+    if: github.event.pull_request.draft == false && contains(github.event.pull_request.user.login, 'github-actions[bot]')
     steps:
       - uses: actions/checkout@v7
         with:
@@ -31,7 +31,7 @@ jobs:
 
       - name: Config Actor
         run: |
-          git config user.name ${{github.actor}}
+          git config user.name ${{ github.actor }}
           git config user.email ${{ github.actor }}users.noreply.github.com
 
       - name: Run formatter script
