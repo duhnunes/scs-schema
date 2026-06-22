@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "description": ""
+  },
+  "scope": "terrain_color",
+  "key": {
+    "material": {
+      "description": "",
+      "arrayElementType": null,
+      "isArray": false,
+      "type": ["token"]
+    },
+    "names": {
+      "type": null,
+      "isArray": true,
+      "arrayElementType": ["string"],
+      "description": ""
+    },
+    "colors":{
+      "description": "",
+      "type": null,
+      "isArray": true,
+      "arrayElementType": ["float3"]
+    }
+  }
+}
