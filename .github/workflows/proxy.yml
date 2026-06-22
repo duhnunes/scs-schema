@@ -54,12 +54,12 @@ jobs:
           PR_AUTHOR: ${{ github.event.pull_request.user.login }}
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          branch: proxy-pr-${PR_NUMBER}
-          title: "Proxy of PR #${PR_NUMBER} by @${PR_AUTHOR}"
+          branch: proxy-pr-${{ env.PR_NUMBER }}
+          title: "Proxy of PR #${{ env.PR_NUMBER }} by @${{ env.PR_AUTHOR }}"
           body: |
             This PR was automatically created by a bot.
-            Original PR: #${PR_NUMBER}
-            Original author: @${PR_AUTHOR}
+            Original PR: #${{ env. PR_NUMBER }}
+            Original author: @${{ env.PR_AUTHOR }}
 
       - name: Close original PR
         run: |
