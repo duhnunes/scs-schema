@@ -70,7 +70,6 @@ jobs:
           gh pr comment $PR_NUMBER --body "## PR was proxied and closed!
           See the new PR: #${{ steps.create-pr.outputs.pull-request-number }}
           From: Author: @$PR_AUTHOR
-          ---
           Original PR: #$PR_NUMBER"
           gh pr close $PR_NUMBER
         env:
