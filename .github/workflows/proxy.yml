@@ -57,9 +57,7 @@ jobs:
             Original author: @${{ github.event.pull_request.user.login }}
             
             <details><summary>Body message:</summary>
-            >  
             > ${{ github.event.pull_request.body }}
-            >  
             </details>
 
       - name: Add proxied label
@@ -78,7 +76,7 @@ jobs:
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github+json" \
             -d '{"ref":"master","inputs": {"pr_number": "${{ steps.create-pr.outputs.pull-request-number }}","pr_author":"${{ github.event.pull_request.user.login }}"}}' \
-            https://api.github.com/repos/${{ github.repository }}/actions/workflows/checker.yml/disptches
+            https://api.github.com/repos/${{ github.repository }}/actions/workflows/.github/workflows/checker.yml/dispatches
 
       - name: Close original PR
         run: |
