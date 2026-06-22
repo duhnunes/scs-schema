@@ -30,17 +30,26 @@ jobs:
           echo "PR_AUTHOR_EMAIL=${{ github.event.pull_request.user.login }}@users.noreply.github.com" >> $GITHUB_ENV
           echo "PR_TITLE=${{ github.event.pull_request.title }}"
 
+      - name: Create new branch
+        run: |
+          git checkout -b pr$PR_NUMBER origin/${{ github.base_ref }}
+
       - name: Fetch fork branch
         run: |
           git fetch ${{ github.event.pull_request.head.repo.clone_url }} \
-            ${{ github.event.pull_request.head.ref }}:pr$PR_NUMBER
+            ${{ github.event.pull_request.head.ref }} --depth=100
 
-      - name: Merge fork branch with author attribution
+      - name: Cherry-pick commits with original author
         run: |
-          git fetch ${{ github.event.pull_request.head.repo.clone_url }} \
-            ${{ github.event.pull_request.head.ref }}:pr$PR_NUMBER
-          git merge --no-ff pr$PR_NUMBER
-          git commit --amend --author="$PR_AUTHOR <$PR_AUTHOR_EMAIL>" --no-edit
+          COMMITS=$(git log FETCH_HEAD --pretty=format:"%H")
+          for c in $COMMITS; do
+            git cherry-pic $c || true
+            git commit --amend --author="$PR_AUTHOR <$PR_AUTHOR_EMAIL>" --no-edit || true
+          done
+
+      - name: Push branch
+        run: |
+          git push origin pr$PR_NUMBER --force
 
       - name: Open new PR
         id: create-pr
@@ -68,15 +77,6 @@ jobs:
           labels: proxied
           number: ${{ steps.create-pr.outputs.pull-request-number }}
           repo: ${{ github.repository }}
-
-      - name: Auto review
-        if: steps.create-pr.outputs.pull-request-number != ''
-        run: |
-          curl -sS -X POST \
-            -H "Authorization: Bearer ${{ secrets.GH_PAT }}" \
-            -H "Accept: application/vnd.github+json" \
-            -d '{"event": "APPROVE","body":"Auto-approved by proxy bot"}' \
-            https://api.github.com/repos/${{ github.repository }}/pulls/${{ steps.create-pr.outputs.pull-request-number }}/reviews
 
       - name: Close original PR
         run: |
