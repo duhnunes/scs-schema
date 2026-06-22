@@ -27,8 +27,8 @@ jobs:
       - name: Create new branch with author attribution
         run: |
           git checkout -b proxy-pr-$PR_NUMBER
-          git merge --no-ff fork-pr-$PR_NUMBER \
-            --commit --author="$PR_AUTHOR <$PR_AUTHOR_EMAIL>"
+          git merge --no-ff fork-pr-$PR_NUMBER 
+          git commit --amend --author="$PR_AUTHOR <$PR_AUTHOR_EMAIL>" --no-edit
 
       - name: Push new branch
         run: |
