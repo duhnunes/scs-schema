@@ -49,7 +49,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: pr${{ github.event.pull_request.number }}
           base: master
-          title: "${{ github.event.pull_request.title}} - PR #${{ github.event.pull_request.number }} by @${{ github.event.pull_request.user.login }}"
+          title: "${{ github.event.pull_request.title}} | PR #${{ github.event.pull_request.number }} by @${{ github.event.pull_request.user.login }}"
           body: |
             ## Auto-generated PR.
             Original PR: #${{ github.event.pull_request.number }}
@@ -57,8 +57,9 @@ jobs:
             
             Body message:
             ---
-            > ${{ github.event.pull_request.body }}
-            >
+
+            ${{ github.event.pull_request.body }}
+
       
       - name: Output from fork?
         run: |
@@ -79,7 +80,7 @@ jobs:
           curl -sS -X POST \
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github+json" \
-            -d '{"event": "APPROVE","body":"Auto-approved by proxy bot"}'
+            -d '{"event": "APPROVE","body":"Auto-approved by proxy bot"}' \
             https://api.github.com/repos/${{ github.repository }}/pulls/${{ steps.create-pr.outputs.pull-request-number }}/reviews
 
       - name: Close original PR
