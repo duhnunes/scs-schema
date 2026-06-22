@@ -57,9 +57,9 @@ jobs:
             Original author: @${{ github.event.pull_request.user.login }}
             
             <details><summary>Body message:</summary>
-            >
+            >  
             > ${{ github.event.pull_request.body }}
-            >
+            >  
             </details>
 
       - name: Add proxied label
@@ -70,6 +70,15 @@ jobs:
           labels: proxied
           number: ${{ steps.create-pr.outputs.pull-request-number }}
           repo: ${{ github.repository }}
+
+      - name: Trigger checker workflow
+        if: steps.create-pr.outputs.pull-request-number != ''
+        run: |
+          curl -sS -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            -d '{"ref":"master","inputs": {"pr_number": "${{ steps.create-pr.outputs.pull-request-number }}","pr_author":"${{ github.event.pull_request.user.login }}"}}' \
+            https://api.github.com/repos/${{ github.repository }}/actions/workflows/checker.yml/disptches
 
       - name: Close original PR
         run: |
