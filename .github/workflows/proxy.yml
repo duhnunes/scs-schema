@@ -41,7 +41,7 @@ jobs:
           git commit --amend --author="$PR_AUTHOR <$PR_AUTHOR_EMAIL>" --no-edit
 
       - name: Open new PR
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: proxy-pr-$PR_NUMBER
