@@ -1,7 +1,7 @@
 name: Schema checker
 
 on:
-  pull_request_target:
+  pull_request:
     types: [opened, reopened, synchronize, ready_for_review]
 
 permissions:
@@ -12,7 +12,7 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.draft == false && github.event.pull_request.user.login == 'github-actions[bot]'
+    if: github.event.pull_request.draft == false && contains(join(github.event.pull_request.labels.*.name), 'proxied')
     steps:
       - uses: actions/checkout@v7
         with:
