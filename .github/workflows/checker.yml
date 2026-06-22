@@ -12,7 +12,7 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.draft == false && startsWith(github.event.pull_request.head.ref, 'pr') && github.event.pull_request.user.login == 'github-action[bot]'
+    if: github.event.pull_request.draft == false && startsWith(github.event.pull_request.head.ref, 'pr') && github.event.pull_request.user.login == 'github-actions[bot]'
     steps:
       - uses: actions/checkout@v7
         with:
