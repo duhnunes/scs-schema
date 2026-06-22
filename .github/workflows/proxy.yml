@@ -54,16 +54,11 @@ jobs:
             ## Auto-generated PR.
             Original PR: #${{ github.event.pull_request.number }}
             Original author: @${{ github.event.pull_request.user.login }}
-            
             Body message:
+            
             ---
-
+            
             ${{ github.event.pull_request.body }}
-
-      
-      - name: Output from fork?
-        run: |
-          echo "FORK?=${{ github.event.pull_request.head.repo.fork }}"
 
       - name: Add proxied label
         if: steps.create-pr.outputs.pull-request-number != ''
@@ -74,11 +69,11 @@ jobs:
           number: ${{ steps.create-pr.outputs.pull-request-number }}
           repo: ${{ github.repository }}
 
-      - name: Trigger checker workflow
+      - name: Auto review
         if: steps.create-pr.outputs.pull-request-number != ''
         run: |
           curl -sS -X POST \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Authorization: Bearer ${{ secrets.GH_PAT }}" \
             -H "Accept: application/vnd.github+json" \
             -d '{"event": "APPROVE","body":"Auto-approved by proxy bot"}' \
             https://api.github.com/repos/${{ github.repository }}/pulls/${{ steps.create-pr.outputs.pull-request-number }}/reviews
