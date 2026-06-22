@@ -1,3 +1,7 @@
+## TEST
+PR Automation Testing...
+laga loga
+
 # scs-schema
 
 Static schema data and manifest generator for <a href="https://github.com/duhnunes/scs-intellisense">SCS-Intellisense</a> extension.
