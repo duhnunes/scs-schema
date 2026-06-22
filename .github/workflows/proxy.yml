@@ -44,13 +44,13 @@ jobs:
         uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          branch: proxy-pr-$PR_NUMBER
+          branch: proxy-pr-${{ github.event.pull_request.number }}
           base: master
-          title: "Proxy of PR #$PR_NUMBER by @$PR_AUTHOR"
+          title: "Proxy of PR #${{ github.event.pull_request.number }} by @${{ github.event.pull_request.user.login }}"
           body: |
             This PR was automatically created by a bot.
-            Original PR: #$PR_NUMBER
-            Original author: @$PR_AUTHOR
+            Original PR: #${{ github.event.pull_request.number }}
+            Original author: @$${{ github.event.pull_request.user.login }}
 
       - name: Close original PR
         run: |
