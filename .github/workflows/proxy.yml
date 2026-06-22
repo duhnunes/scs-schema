@@ -56,8 +56,10 @@ jobs:
             Original PR: #${{ github.event.pull_request.number }}
             Original author: @${{ github.event.pull_request.user.login }}
             
-            <details><summary>Body message</summary>
-            ${{ github.event.pull_request.body }}
+            <details><summary>Body message:</summary>
+            >
+            > ${{ github.event.pull_request.body }}
+            >
             </details>
 
       - name: Add proxied label
@@ -74,10 +76,7 @@ jobs:
           gh pr comment $PR_NUMBER --body "## PR was proxied and closed!
           See the new PR: #${{ steps.create-pr.outputs.pull-request-number }}
           Original Author: @$PR_AUTHOR
-          Original PR: #$PR_NUMBER
-          
-          body:
-            <details><summary>Body</summary>${{ github.event.pull_request.body }}</details>"
+          Original PR: #$PR_NUMBER"
           gh pr close $PR_NUMBER
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
