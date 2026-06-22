@@ -53,6 +53,7 @@ jobs:
           PR_NUMBER: ${{ github.event.pull_request.number }}
           PR_AUTHOR: ${{ github.event.pull_request.user.login }}
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           branch: proxy-pr-${PR_NUMBER}
           title: "Proxy of PR #${PR_NUMBER} by @${PR_AUTHOR}"
           body: |
