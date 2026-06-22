@@ -54,17 +54,19 @@ jobs:
             Original PR: #${{ github.event.pull_request.number }}
             Original author: @${{ github.event.pull_request.user.login }}
 
-      - name: Close original PR
-        run: |
-          gh pr comment $PR_NUMBER --body "This PR was proxied to a new PR by the bot. Original author: @$PR_AUTHOR"
-          gh pr close $PR_NUMBER
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
       - name: Add proxied label
+        if: steps.create-pr.outputs.pull_request_number != ''
         uses: actions-ecosystem/action-add-labels@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           labels: proxied
           number: ${{ steps.create-pr.outputs.pull_request_number }}
           repo: ${{ github.repository }}
+
+      - name: Close original PR
+        run: |
+          gh pr comment $PR_NUMBER --body "This PR was proxied to a new PR by the bot. Original author: @$PR_AUTHOR"
+          gh pr close $PR_NUMBER
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
