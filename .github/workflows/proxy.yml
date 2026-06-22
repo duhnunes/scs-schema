@@ -16,6 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
+          ref: ${{ github.base_ref }}
           fetch-depth: 0
 
       - name: GitHub Actor
@@ -28,17 +29,18 @@ jobs:
           echo "PR_NUMBER=${{ github.event.pull_request.number }}" >> $GITHUB_ENV
           echo "PR_AUTHOR=${{ github.event.pull_request.user.login }}" >> $GITHUB_ENV
           echo "PR_AUTHOR_EMAIL=${{ github.event.pull_request.user.login }}@users.noreply.github.com" >> $GITHUB_ENV
+          echo "PR_TITLE=${{ github.event.pull_request.title }}"
 
       - name: Fetch fork branch
         run: |
           git fetch ${{ github.event.pull_request.head.repo.clone_url }} \
-            ${{ github.event.pull_request.head.ref }}:fork-pr-$PR_NUMBER
+            ${{ github.event.pull_request.head.ref }}:pr$PR_NUMBER
 
       - name: Merge fork branch with author attribution
         run: |
           git fetch ${{ github.event.pull_request.head.repo.clone_url }} \
-            ${{ github.event.pull_request.head.ref }}:fork-pr-$PR_NUMBER
-          git merge --no-ff fork-pr-$PR_NUMBER
+            ${{ github.event.pull_request.head.ref }}:pr$PR_NUMBER
+          git merge --no-ff pr$PR_NUMBER
           git commit --amend --author="$PR_AUTHOR <$PR_AUTHOR_EMAIL>" --no-edit
 
       - name: Open new PR
@@ -48,16 +50,11 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: pr${{ github.event.pull_request.number }}
           base: master
-          title: "PR #${{ github.event.pull_request.number }} by @${{ github.event.pull_request.user.login }}"
+          title: "${{ github.event.pull_request.title}} - PR #${{ github.event.pull_request.number }} by @${{ github.event.pull_request.user.login }}"
           body: |
             ## Auto-generated PR.
             Original PR: #${{ github.event.pull_request.number }}
             Original author: @${{ github.event.pull_request.user.login }}
-
-      - name: Debug outputs
-        run: |
-          echo "Number: ${{ steps.create-pr.outputs.pull-request-number }}"
-          echo "URL: ${{ steps.create-pr.outputs.pull-request-url }}"
             
       - name: Add proxied label
         if: steps.create-pr.outputs.pull-request-number != ''
@@ -72,8 +69,8 @@ jobs:
         run: |
           gh pr comment $PR_NUMBER --body "## PR was proxied and closed!
           See the new PR: #${{ steps.create-pr.outputs.pull-request-number }}
-          ##About
-          Original author: @$PR_AUTHOR
+          From: Author: @$PR_AUTHOR
+          ---
           Original PR: #$PR_NUMBER"
           gh pr close $PR_NUMBER
         env:
