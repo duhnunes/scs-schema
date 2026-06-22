@@ -12,7 +12,7 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.draft == false && contains(join(github.event.pull_request.labels.*.name), 'proxied')
+    if: github.event.pull_request.draft == false && github.event.pull_request.head.repo.fork == false
     steps:
       - uses: actions/checkout@v7
         with:
