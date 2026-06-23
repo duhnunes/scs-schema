@@ -61,18 +61,18 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          pr_number=$(gh pr create \
-            --base ${{ github.base_ref }} \
-            --head pr$PR_NUMBER \
-            --title "$PR_TITLE | PR #$PR_NUMBER by @$PR_AUTHOR" \
-            --body "## Auto-generated PR
+          pr_number=$(gh api repos/${{ github.repository }}/pulls \
+            -f base=${{ github.base_ref }} \
+            -f head=pr$PR_NUMBER \
+            -f title="$PR_TITLE | PR #$PR_NUMBER by @$PR_AUTHOR" \
+            -f body="## Auto-generated PR
           Original PR: #$PR_NUMBER
           Original Author: @$PR_AUTHOR
 
           ---
 
           ${{ github.event.pull_request.body }}" \
-            --json number -q .number)
+            --jq '.number')
           echo "NEW_PR_NUMBER=$pr_number" >> $GITHUB_ENV
           echo "NEW_PR_NUMBER=$pr_number" >> $GITHUB_OUTPUT
           
