@@ -52,9 +52,9 @@ jobs:
         run: |
           git am --committer-date-is-author-date --3way /tmp/patches/*.patch
 
-      - name: Push branch
-        run: |
-          git push origin pr$PR_NUMBER --force
+      # - name: Push branch
+      #   run: |
+      #     git push origin pr$PR_NUMBER --force
 
       - name: LOG
         run: |
