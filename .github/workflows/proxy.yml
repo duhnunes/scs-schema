@@ -17,6 +17,7 @@ jobs:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
+          ref: ${{ github.base_ref }}
 
       - name: GitHub Actor
         run: |
@@ -34,6 +35,10 @@ jobs:
         run: |
           git checkout -b pr$PR_NUMBER origin/${{ github.base_ref }}
 
+      - name: Update base branch
+        run: |
+          git fetch origin ${{ github.base_ref }} --depth=100
+          
       - name: Fetch fork branch
         run: |
           git fetch ${{ github.event.pull_request.head.repo.clone_url }} \
