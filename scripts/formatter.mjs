@@ -10,6 +10,7 @@ const __dirname = path.dirname(__filename);
 const SCHEMAS_GLOB = 'data/schemas/**/*.json';
 
 const ROOT_ORDER = ['meta', 'scope', 'key'];
+const META_FIELD_ORDER = ['version', 'description']
 const KEY_FIELD_ORDER = ['description', 'type', 'isArray', 'arrayElementType'];
 
 const TYPE_PRIORITY = [
@@ -55,6 +56,10 @@ function sortTypeArray(arr) {
 
 function reorderSchema(schema) {
   let ordered = orderObject(schema, ROOT_ORDER);
+
+  if (ordered.meta && typeof ordered.meta === 'object' && !Array.isArray(ordered.meta)) {
+    ordered.meta = orderObject(ordered.meta, META_FIELD_ORDER)
+  }
 
   if (ordered.key && typeof ordered.key === 'object' && !Array.isArray(ordered.key)) {
     const newKey = {};

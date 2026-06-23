@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "description": ""
+  },
+  "scope": "terrain_profile",
+  "key": {
+    "name": {
+      "description": "",
+      "type": ["string"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "height": {
+      "description": "",
+      "type": null,
+      "isArray": true,
+      "arrayElementType": ["fixed", "float"]
+    },
+    "step": {
+      "description": "",
+      "type": null,
+      "isArray": true,
+      "arrayElementType": ["fixed", "float"]
+    }
+  }
+}
