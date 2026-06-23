@@ -2,10 +2,7 @@ name: Schema checker
 
 on:
   pull_request:
-    types: [synchronize, ready_for_review]
-  workflow_run:
-    workflows: ["Proxy Fork PRs"]
-    types: [completed]
+    types: [opened, labeled, synchronize, ready_for_review]
   
 permissions:
   contents: write
@@ -15,6 +12,7 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    if: contains(join(github.event.pull_request.labels.name), 'proxied')
     steps:
       - uses: actions/checkout@v7
         with:
