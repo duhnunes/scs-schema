@@ -61,17 +61,20 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh pr create \
+          pr_number=$(gh pr create \
             --base ${{ github.base_ref }} \
             --head pr$PR_NUMBER \
-            --title "$PR_TITLE | PR #$PR_NUMBER" by @$PR_AUTHOR \
-            --body "## Auto-generated
+            --title "$PR_TITLE | PR #$PR_NUMBER by @$PR_AUTHOR" \
+            --body "## Auto-generated PR
           Original PR: #$PR_NUMBER
           Original Author: @$PR_AUTHOR
 
           ---
-          
-          ${{ github.event.pull_request.body }}"
+
+          ${{ github.event.pull_request.body }}" \
+            --json number -q .number)
+          echo "NEW_PR_NUMBER=$pr_number" >> $GITHUB_ENV
+          echo "NEW_PR_NUMBER=$pr_number" >> $GITHUB_OUTPUT
           
       # - name: Open new PR
       #   id: create-pr
@@ -92,18 +95,18 @@ jobs:
       #       ${{ github.event.pull_request.body }}
 
       - name: Add proxied label
-        if: steps.create-pr.outputs.pull-request-number != ''
+        if: steps.create-pr.outputs.NEW_PR_NUMBER != ''
         uses: actions-ecosystem/action-add-labels@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           labels: proxied
-          number: ${{ steps.create-pr.outputs.pull-request-number }}
+          number: ${{ steps.create-pr.outputs.NEW_PR_NUMBER }}
           repo: ${{ github.repository }}
 
       - name: Close original PR
         run: |
           gh pr comment $PR_NUMBER --body "## PR was proxied and closed!
-          See the new PR: #${{ steps.create-pr.outputs.pull-request-number }}
+          See the new PR: #${{ steps.create-pr.outputs.NEW_PR_NUMBER }}
           Original Author: @$PR_AUTHOR
           Original PR: #$PR_NUMBER"
           gh pr close $PR_NUMBER
