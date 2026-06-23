@@ -2,7 +2,10 @@ name: Schema checker
 
 on:
   pull_request:
-    types: [labeled, synchronize, ready_for_review]
+    types: [synchronize, ready_for_review]
+  workflow_run:
+    workflows: ["Proxy Fork PRs"]
+    types: [completed]
   
 permissions:
   contents: write
@@ -12,7 +15,12 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    if: contains(join(github.event.pull_request.labels.name), 'proxied')
+    outputs:
+      PR_NUMB: ${{ steps.get-pr.outputs.PR_NUMB }}
+      BASE_REF: ${{ steps.get-pr.outputs.BASE_REF }}
+      HEAD_SHA: ${{ steps.get-pr.outputs.HEAD_SHA }}
+      HEAD_REF: ${{ steps.get-pr.outputs.HEAD_REF }}
+      IS_DRAFT: ${{ steps.get-pr.outputs.IS_DRAFT }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -29,6 +37,20 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Get proxied PR number
+        id: get-pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          pr_number=$(gh api repos/${{ github.repository }}/pulls \
+            --jq 'map(select(.labels[].name == "proxied")) | .[0].number')
+          echo "PR_NUMB=$pr_number" >> $GITHUB_OUTPUT
+          pr_json=$(gh api repos/${{ github.repository }}/pulls/$pr_number)
+          echo "BASE_REF=$(echo $pr_json | jq -r .base.ref)" >> $GITHUB_OUTPUT
+          echo "HEAD_SHA=$(echo $pr_json | jq -r .head.sha)" >> $GITHUB_OUTPUT
+          echo "HEAD_REF=$(echo $pr_json | jq -r .head.ref)" >> $GITHUB_OUTPUT
+          echo "IS_DRAFT=$(echo $pr_json | jq -r .draft)" >> $GITHUB_OUTPUT
+          
       - name: Config Actor
         run: |
           git config user.name ${{ github.actor }}
@@ -37,7 +59,7 @@ jobs:
       - name: Run formatter script
         id: formatter
         env:
-          HEAD_REF: ${{ github.head_ref }}
+          HEAD_REF: ${{ steps.get-pr.outputs.HEAD_REF }}
         run: |
           node ./scripts/formatter.mjs  || true
           git add data/schemas/**/*.json  || true
@@ -67,14 +89,13 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
-          PR_NUMB: ${{ github.event.pull_request.number }}
         run: |
           BODY=$(jq -Rs . <<< "${{ steps.validate.outputs.output }}")
           curl -sS -X POST \
             -H "Authorization: Bearer ${GH_TOKEN}" \
             -H "Accept: application/vnd.github+json" \
-            -d '{"body": $BODY}' \
-            "https://api.github.com/repos/${REPO}/issues/${PR_NUMB}/comments"
+            -d "{\"body\": $BODY}" \
+            "https://api.github.com/repos/${REPO}/issues/${{ steps.get-pr.outputs.PR_NUMB }}/comments"
 
       - name: Add invalid-schema label
         if: steps.validate.outputs.invalid == 'true'
@@ -82,7 +103,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           labels: invalid-schema
-          number: ${{ github.event.pull_request.number }}
+          number: ${{ steps.get-pr.outputs.PR_NUMB }}
           repo: ${{ github.repository }}
       
       - name: Fail job if invalid
@@ -92,7 +113,7 @@ jobs:
   add-label:
     runs-on: ubuntu-latest
     needs: validate
-    if: github.event.pull_request.draft == false && needs.validate.result == 'success'
+    if: needs.validate.outputs.IS_DRAFT == 'false' && needs.validate.result == 'success'
     steps:
       - uses: actions/checkout@v7
         with:
@@ -101,8 +122,8 @@ jobs:
       - name: Check path files modified
         id: check
         env:
-          BASE_REF: ${{ github.event.pull_request.base.ref }}
-          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          BASE_REF: ${{ needs.validate.outputs.BASE_REF }}
+          HEAD_SHA: ${{ needs.validate.outputs.HEAD_SHA }}
         run: |
           git fetch origin ${BASE_REF} --depth=1
           CHANGED=$(git diff --name-only origin/${BASE_REF} ${HEAD_SHA})
@@ -132,10 +153,9 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
-          PR_NUMB: ${{ github.event.pull_request.number }}
         run: |
           labels=$(curl -sS -H "Authorization: Bearer ${GH_TOKEN}" \
-            "https://api.github.com/repos/${REPO}/issues/${PR_NUMB}/labels" \
+            "https://api.github.com/repos/${REPO}/issues/${{ needs.validate.outputs.PR_NUMB }}/labels" \
             | jq -r '.[].name' | xargs)
           echo "labels=$labels" >> $GITHUB_OUTPUT
           
@@ -144,7 +164,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
-          PR_NUMB: ${{ github.event.pull_request.number }}
         run: |
           labels="${{ steps.current-labels.outputs.labels }}"
           for label in $labels; do
@@ -152,7 +171,7 @@ jobs:
             curl -sS -X DELETE \
               -H "Authorization: Bearer ${GH_TOKEN}" \
               -H "Accept: application/vnd.github+json" \
-              "https://api.github.com/repos/${REPO}/issues/${PR_NUMB}/labels/$label"
+              "https://api.github.com/repos/${REPO}/issues/${{ needs.validate.outputs.PR_NUMB }}/labels/$label"
           done
       
       - name: Add label
@@ -160,5 +179,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           labels: ${{ steps.check.outputs.labels }}
-          number: ${{ github.event.pull_request.number }}
+          number: ${{ needs.validate.outputs.PR_NUMB }}
           repo: ${{ github.repository }}
