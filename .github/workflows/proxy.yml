@@ -76,11 +76,12 @@ jobs:
           echo "NEW_PR_NUMBER=$pr_number" >> $GITHUB_ENV
           echo "NEW_PR_NUMBER=$pr_number" >> $GITHUB_OUTPUT
 
-      - name: Debug PR repo info
+      - name: Debug new PR repo info
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "Fork? ${{ github.event.pull_request.head.repo.fork }}"
-          echo "Head repo: ${{ github.event.pull_request.head.repo.full_name }}"
-          echo "Base repo: ${{ github.event.pull_request.base.repo.full_name }}"
+          gh api repos/${{ github.repository }}/pulls/$NEW_PR_NUMBER \
+            --jq '.head.repo.full_name, .head.repo.fork, .base.repo.full_name'
 
       - name: Add proxied label
         if: steps.create-pr.outputs.NEW_PR_NUMBER != ''
