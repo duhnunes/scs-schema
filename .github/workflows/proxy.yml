@@ -39,13 +39,13 @@ jobs:
           git fetch ${{ github.event.pull_request.head.repo.clone_url }} \
             ${{ github.event.pull_request.head.ref }} --depth=100
 
-      - name: Cherry-pick commits with original author
+      - name: Generate patches from fork
         run: |
-          COMMITS=$(git log FETCH_HEAD --pretty=format:"%H")
-          for c in $COMMITS; do
-            git cherry-pick $c || true
-            git commit --amend --author="$PR_AUTHOR <$PR_AUTHOR_EMAIL>" --no-edit || true
-          done
+          git format-patch origin/${{ github.base_ref }}..FETCH_HEAD -o /tmp/patches
+
+      - name: Apply patches with original author
+        run: |
+          git am --committer-date-is-author-date --3way /tmp/patches/*.patch
 
       - name: Push branch
         run: |
