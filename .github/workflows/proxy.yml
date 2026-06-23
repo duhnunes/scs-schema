@@ -52,45 +52,61 @@ jobs:
         run: |
           git am --committer-date-is-author-date --3way /tmp/patches/*.patch
 
-      # - name: Push branch
-      #   run: |
-      #     git push origin pr$PR_NUMBER --force
-
-      - name: LOG
+      - name: Push branch
         run: |
-          git log --oneline origin/master..HEAD
-          
+          git push origin pr$PR_NUMBER --force
+
       - name: Open new PR
         id: create-pr
-        uses: peter-evans/create-pull-request@v8
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          branch: pr${{ github.event.pull_request.number }}
-          base: master
-          title: "${{ github.event.pull_request.title}} | PR #${{ github.event.pull_request.number }} by @${{ github.event.pull_request.user.login }}"
-          body: |
-            ## Auto-generated PR.
-            Original PR: #${{ github.event.pull_request.number }}
-            Original author: @${{ github.event.pull_request.user.login }}
-            Body message:
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          pr_number=$(gh pr create \
+            --base ${{ github.base_ref }} \
+            --head pr$PR_NUMBER \
+            --title "$PR_TITLE | PR #$PR_NUMBER by @$PR_AUTHOR" \
+            --body "## Auto-generated PR
+          Original PR: #$PR_NUMBER
+          Original Author: @$PR_AUTHOR
+
+          ---
+
+          ${{ github.event.pull_request.body }}" \
+            --json number -q .number)
+          echo "NEW_PR_NUMBER=$pr_number" >> $GITHUB_ENV
+          echo "NEW_PR_NUMBER=$pr_number" >> $GITHUB_OUTPUT
+          
+      # - name: Open new PR
+      #   id: create-pr
+      #   uses: peter-evans/create-pull-request@v8
+      #   with:
+      #     token: ${{ secrets.GITHUB_TOKEN }}
+      #     branch: pr${{ github.event.pull_request.number }}
+      #     base: master
+      #     title: "${{ github.event.pull_request.title}} | PR #${{ github.event.pull_request.number }} by @${{ github.event.pull_request.user.login }}"
+      #     body: |
+      #       ## Auto-generated PR.
+      #       Original PR: #${{ github.event.pull_request.number }}
+      #       Original author: @${{ github.event.pull_request.user.login }}
+      #       Body message:
             
-            ---
+      #       ---
             
-            ${{ github.event.pull_request.body }}
+      #       ${{ github.event.pull_request.body }}
 
       - name: Add proxied label
-        if: steps.create-pr.outputs.pull-request-number != ''
+        if: steps.create-pr.outputs.NEW_PR_NUMBER != ''
         uses: actions-ecosystem/action-add-labels@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           labels: proxied
-          number: ${{ steps.create-pr.outputs.pull-request-number }}
+          number: ${{ steps.create-pr.outputs.NEW_PR_NUMBER }}
           repo: ${{ github.repository }}
 
       - name: Close original PR
         run: |
           gh pr comment $PR_NUMBER --body "## PR was proxied and closed!
-          See the new PR: #${{ steps.create-pr.outputs.pull-request-number }}
+          See the new PR: #${{ steps.create-pr.outputs.NEW_PR_NUMBER }}
           Original Author: @$PR_AUTHOR
           Original PR: #$PR_NUMBER"
           gh pr close $PR_NUMBER
