@@ -51,6 +51,10 @@ jobs:
         run: |
           git push origin pr$PR_NUMBER --force
 
+      - name: LOG
+        run: |
+          git log --oneline origin/master..HEAD
+          
       - name: Open new PR
         id: create-pr
         uses: peter-evans/create-pull-request@v8
