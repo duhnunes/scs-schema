@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "description": ""
+  },
+  "scope": "terrain_edge",
+  "key": {
+    "name": {
+      "description": "",
+      "arrayElementType": null,
+      "type": ["string"],
+      "isArray": false
+    },
+    "model": {
+      "type": ["resource_tie"],
+      "isArray": false,
+      "arrayElementType": null,
+      "description": "/path/to/file.pmd"
+    },
+    "uv_type":{
+      "description": "",
+      "type": ["float"],
+      "isArray": false,
+      "arrayElementType": null
+    }
+  }
+}
