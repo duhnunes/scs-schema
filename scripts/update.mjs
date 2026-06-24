@@ -180,10 +180,28 @@ async function main() {
     console.log(`No changes detected, manifest untouched.`)
   }
 
-  logSummary(stats)
+  if(verbose) {
+    console.log('\nDetailed changes:')
+    for (const key of Object.keys(manifest.schemas)) {
+      const schema = manifest.schemas[key]
+      if (!schema) continue
+      console.log(`- ${key}: version=${schema.metaVersion}`)
+    }
+  } else {
+    logSummary(stats)
+  }
   const endMain = Date.now()
   const duration = (endMain - startMain) / 1000
   console.log(`⏱ Finished in ${duration.toFixed(2)} seconds`)
+}
+
+// CLI
+const argv = process.argv.slice(2)
+let refArg = argv[0] || null
+let verbose = false
+for (const a of argv) {
+  if (a === '--verbose') verbose = true
+  else if (!refArg) refArg = a
 }
 
 main().catch(err => { console.error(err.message); process.exit(1) })
