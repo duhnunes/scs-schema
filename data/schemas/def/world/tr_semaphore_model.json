@@ -1,0 +1,45 @@
+{
+  "key": {
+    "name": {
+      "arrayElementType": null,
+      "description": "Name semaphore model",
+      "isArray": false,
+      "type": ["string"]
+    },
+    "model_desc": {
+      "arrayElementType": null,
+      "description": "/path/to/file.pmd",
+      "isArray": false,
+      "type": ["resource_tie"]
+    },
+    "model_coll": {
+      "description": "/path/to/file.pmc",
+      "type": ["resource_tie"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "draw_distance": {
+      "description": "",
+      "type": ["fixed"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "state_anim": {
+      "description": "/path/to/file.pma",
+      "type": ["fixed"],
+      "isArray": true,
+      "arrayElementType": ["resource_tie", "string"]
+    },
+    "sounds": {
+      "description": "ROY|/path/to/sound/file.bank#id",
+      "type": null,
+      "isArray": true,
+      "arrayElementType": ["resource_tie"]
+    }
+  },
+  "meta": {
+    "description": "",
+    "version": "0.1.0"
+  },
+  "scope": "tr_semaphore_model"
+}
