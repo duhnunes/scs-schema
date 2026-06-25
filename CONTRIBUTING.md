@@ -4,6 +4,16 @@ Thanks for helping improve the schema database used by the <a href="https://gith
 
 ---
 
+## Table of Contents
+- [Quick Rules (must follow)](#quick-rules-must-follow)
+- [File location and path structure](#file-location-and-path-structure)
+- [File format and field rules](#file-format-and-field-rules)
+  - [Examples](#examples)
+- [Validation](#validation)
+- [PR workflow](#pr-workflow)
+- [Checklist before PR](#checklist-before-pr)
+- [Automated PR workflow](#automated-pr-workflow)
+
 ## Quick rules (must follow)
 - **Filename**: must equal the `class_name`
     - This avoids duplication when multiple game files share the same class but have different filenames.
@@ -180,3 +190,29 @@ gh pr create --repo duhnunes/scs-schema \
 - [x] `meta.version` set (start with `"0.1.0"`)
 - [x] `scope` equals `class_name`
 - [x] Every `key` has `description`, `type`, `isArray`, `arrayElementType`
+
+## Automated PR workflow
+
+Once you open a Pull Request, the repository's automation takes care of the full pipeline:
+
+1. **Proxying**
+    - External PRs are mirrored inside the main repository.
+    - This ensures all workflows can run with full permissions.
+    - From your perspective, you just open a PR normally.
+
+2. **Validation**
+    - JSON schemas are automatically formatted.
+    - Validation checks confirm that all files follow the rules.
+      - ✅ If everything is correct and only `data/schemas/` was modified, the PR moves forward.
+      - ❌ If validation fails (invalid schema or files outside `data/schemas/`), the PR stops here and waits for human review.
+
+3. **Building**
+    - Runs daily at 00:00 UTC.
+    - Updates `manifest.json`, bumps schema versions, and generates CDN links.
+    - If successful, the PR moves forward.
+
+4. **Merging**
+    - All PRs that passed building are automatically squash-merged into `master`.
+
+👉 **In short**: Just focus on writing correct schemas under `data/schemas/`.
+The automation will take care of everything else - formatting, validation, manifest updates, versioning, CDN generation, and merging.
