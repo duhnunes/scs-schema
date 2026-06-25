@@ -72,7 +72,8 @@ jobs:
             echo "HEAD_REF=$HEAD_REF"
 
             git fetch https://x-access-token:${GH_TOKEN}@github.com/$HEAD_REPO $HEAD_REF
-            git merge --strategy=ours FETCH_HEAD -m "ci: auto-merge workflow changes"
+            git checkout $HEAD_REF
+            git rebase origin/master
             git push https://x-access-token:${GH_TOKEN}@github.com/$HEAD_REPO HEAD:$HEAD_REF
           done
 
