@@ -74,7 +74,7 @@ jobs:
             git fetch https://x-access-token:${GH_TOKEN}@github.com/$HEAD_REPO $HEAD_REF
             git checkout $HEAD_REF
             git rebase origin/master
-            git push https://x-access-token:${GH_TOKEN}@github.com/$HEAD_REPO HEAD:$HEAD_REF
+            git push --force https://x-access-token:${GH_TOKEN}@github.com/$HEAD_REPO HEAD:$HEAD_REF
           done
 
       - name: Comment on PR with summary
