@@ -1,0 +1,27 @@
+{
+  "scope": "traffic_lane_data",
+  "meta": {
+    "description": "",
+    "version": "0.1.0"
+  },
+  "key": {
+    "speed_class": {
+      "description": "the value is used when determining the country speed limit ('lane_speed_class' attribute in '/def/country/(country_name)/speed_limit.sii')",
+      "type": ["token"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "rank": {
+      "description": "used for speed limit and lane type description - lane with higher rank is preferred",
+      "type": ["fixed"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "traffic_rules": {
+      "description": "",
+      "type": null,
+      "isArray": true,
+      "arrayElementType": ["token"]
+    }
+  }
+}
