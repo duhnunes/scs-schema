@@ -1,6 +1,6 @@
 {
   "version": "0.1.0",
-  "generatedAt": "2026-06-25T10:40:56.062Z",
+  "generatedAt": "2026-06-25T12:12:57.592Z",
   "schemas": {
     "animated_model_data": {
       "id": "data/schemas/def/world/animated_model_data.json",
@@ -410,6 +410,16 @@
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@cd0d866b6627e3588b5560f132ab5958373f4f04/data/schemas/def/world/tr_semaphore_model.json",
       "hash": "sha256:1dea922a218641f26e984c0e85603d6fba3cef5c7de84e0c40db7fa988810b9d",
       "size": 1042,
+      "description": ""
+    },
+    "trigger_action": {
+      "id": "data/schemas/def/world/trigger_action.json",
+      "name": "trigger_action",
+      "path": "./data/schemas/def/world/trigger_action.json",
+      "metaVersion": "0.1.0",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@f3f6a9e94282a14574e485474972d6a56880723a/data/schemas/def/world/trigger_action.json",
+      "hash": "sha256:de6c0d94a7f7396947a52720a7b478ec469ae133f4d9f130be0ded8d1c5fbec5",
+      "size": 1179,
       "description": ""
     }
   }

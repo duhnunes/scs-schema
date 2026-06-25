@@ -1,0 +1,58 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "description": ""
+  },
+  "scope": "trigger_action",
+  "key": {
+    "name": {
+      "description": "",
+      "type": [
+        "string"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "command": {
+      "description": "",
+      "type": [
+        "string"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "str_params": {
+      "description": "for customizable actions are used only as tooltips in editor",
+      "type": null,
+      "isArray": true,
+      "arrayElementType": [
+        "string"
+      ]
+    },
+    "rule": {
+      "description": "",
+      "type": [
+        "token"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "type": {
+      "description": "",
+      "type": [
+        "token"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "num_params": {
+      "description": "Some tips from original file:\n- 0: checkmark (default)\n- 0: infinite (default)\n- 1: info\n- 2: warning\n- 3: Delay in [s]",
+      "type": null,
+      "isArray": true,
+      "arrayElementType": [
+        "float",
+        "fixed"
+      ]
+    }
+  }
+}
