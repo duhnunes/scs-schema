@@ -2,8 +2,8 @@ name: Merger
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 0 * * *"  # all day 00:00 UTC
+  # schedule:
+  #   - cron: "0 0 * * *"  # all day 00:00 UTC
 
 permissions:
   contents: write
