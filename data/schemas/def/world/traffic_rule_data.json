@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "description": "",
+    "version": "0.0.0"
+  },
+  "scope": "traffic_rule_data",
+  "key": {
+    "name": {
+      "description": "",
+      "type": [
+        "string"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "rule": {
+      "description": "",
+      "type": [
+        "string"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "num_params": {
+      "description": "Some anotations from original file:\n- 0.5: block time after reaching 'stop speed'\n- 0.5: block while speed is higher than this [m/s]\n- 0: include vehicle types (default)\n-0: disallow\n-0: inclusive\n-0: disable player acess\n-0: no change to vehicle access\n-0: no change to trailer access\n-1: exclude vehicle types\n-1: allow\n-1: set vehicle access\n-1: set trailer access\n-1: fixed position\n-1.5: block time after reaching 'stop speed'\n-2: context-specific\n-7.0: block while speed is higher than this [m/s]\n- 24: AI slow-down (without speed limit change)",
+      "type": null,
+      "isArray": true,
+      "arrayElementType": [
+        "float",
+        "fixed"
+      ]
+    },
+    "additional_rules": {
+      "description": "",
+      "type": null,
+      "isArray": true,
+      "arrayElementType": [
+        "token"
+      ]
+    },
+    "str_params": {
+      "description": "",
+      "type": null,
+      "isArray": true,
+      "arrayElementType": [
+        "string"
+      ]
+    }
+  }
+}
