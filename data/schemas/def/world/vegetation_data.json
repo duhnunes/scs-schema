@@ -1,0 +1,69 @@
+{
+  "key": {
+    "name": {
+      "description": "",
+      "type": ["string"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "model": {
+      "description": "",
+      "type": null,
+      "isArray": true,
+      "arrayElementType": ["token"]
+    },
+    "occurrence": {
+      "description": "",
+      "type": null,
+      "isArray": true,
+      "arrayElementType": ["fixed"]
+    },
+    "min_offset": {
+      "description": "",
+      "type": ["fixed", "float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "max_offset": {
+      "description": "",
+      "type": ["fixed", "float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "density": {
+      "description": "",
+      "type": ["fixed", "float"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "min_size_perc": {
+      "description": "",
+      "type": ["fixed"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "max_size_perc": {
+      "description": "",
+      "type": ["fixed"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "distribution_map_path": {
+      "description": "/path/to/file.{dmd/tga}",
+      "type": ["resource_tie"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "distribution_text_gen": {
+      "description": "",
+      "type": ["fixed", "float"],
+      "isArray": false,
+      "arrayElementType": null
+    }
+  },
+  "meta": {
+    "description": "",
+    "version": "0.1.0"
+  },
+  "scope": "vegetation_data"
+}
