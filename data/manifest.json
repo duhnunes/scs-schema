@@ -1,6 +1,6 @@
 {
   "version": "0.1.0",
-  "generatedAt": "2026-06-25T12:12:57.515Z",
+  "generatedAt": "2026-06-25T12:12:57.592Z",
   "schemas": {
     "animated_model_data": {
       "id": "data/schemas/def/world/animated_model_data.json",
@@ -417,7 +417,7 @@
       "name": "trigger_action",
       "path": "./data/schemas/def/world/trigger_action.json",
       "metaVersion": "0.1.0",
-      "url": "",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@f3f6a9e94282a14574e485474972d6a56880723a/data/schemas/def/world/trigger_action.json",
       "hash": "sha256:de6c0d94a7f7396947a52720a7b478ec469ae133f4d9f130be0ded8d1c5fbec5",
       "size": 1179,
       "description": ""
