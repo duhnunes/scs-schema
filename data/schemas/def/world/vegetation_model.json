@@ -1,0 +1,57 @@
+{
+  "meta": {
+    "version": "0.0.0",
+    "description": ""
+  },
+  "scope": "vegetation_model",
+  "key": {
+    "sprite_model": {
+      "description": "/path/to/file.pmd",
+      "type": ["resource_tie"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "detail_vegetation": {
+      "description": "",
+      "type": ["bool"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "use_collision": {
+      "description": "",
+      "type": ["bool"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "colbox_size": {
+      "description": "",
+      "type": ["fixed3", "float3"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "med_poly_model": {
+      "description": "/path/to/file.pmd",
+      "type": ["resource_tie"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "hi_poly_model": {
+      "description": "/path/to/file.pmd",
+      "type": ["resource_tie"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "generic_model": {
+      "description": "",
+      "type": ["bool"],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "follow_surface": {
+      "description": "",
+      "type": ["bool"],
+      "isArray": false,
+      "arrayElementType": null
+    }
+  }
+}
