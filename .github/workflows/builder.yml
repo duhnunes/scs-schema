@@ -43,6 +43,21 @@ jobs:
           | jq -r '.[] | select(.draft==false and (.labels[].name=="validated")) | .number' | tr '\n' ' ')
           echo "numbers=$PRS" >> $GITHUB_OUTPUT
 
+      - name: Checkout PR branch
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          prsNumbers="${{ steps.prs.outputs.numbers }}"
+          for pr in $prsNumbers; do
+            DATA=$(curl -s -H "Authorization: Bearer ${GH_TOKEN}" "https://api.github.com/repos/${REPO}/pulls/$pr")
+            HEAD_REPO=$(echo "$DATA" | jq -r '.head.repo.full_name')
+            HEAD_REF=$(echo "$DATA" | jq -r '.head.ref')
+
+            git fetch https://x-access-token:${GH_TOKEN}@github.com/$HEAD_REPO $HEAD_REF
+            git checkout $HEAD_REF
+          done
+
       - name: Update files
         run: |
           set -o pipefail
@@ -71,8 +86,7 @@ jobs:
             echo "HEAD_REPO=$HEAD_REPO"
             echo "HEAD_REF=$HEAD_REF"
 
-            git fetch https://x-access-token:${GH_TOKEN}@github.com/$HEAD_REPO $HEAD_REF
-            git merge --strategy=ours FETCH_HEAD -m "ci: auto-merge workflow changes"
+            echo "Pushing changes to $HEAD_REPO/$HEAD_REF"
             git push https://x-access-token:${GH_TOKEN}@github.com/$HEAD_REPO HEAD:$HEAD_REF
           done
 
