@@ -7,6 +7,7 @@ import { logBuildSummary, logSummary } from './log.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const DATA_DIR = path.resolve(__dirname, '..', 'data')
+const SCHEMAS_DIR = path.join(DATA_DIR, 'schemas')
 const MANIFEST = path.join(DATA_DIR, 'manifest.json')
 
 const REPO_USER = process.env.REPO_USER || 'duhnunes'
