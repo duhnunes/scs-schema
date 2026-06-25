@@ -1,6 +1,6 @@
 {
   "version": "0.1.0",
-  "generatedAt": "2026-06-20T03:42:20.982Z",
+  "generatedAt": "2026-06-25T09:37:58.338Z",
   "schemas": {
     "animated_model_data": {
       "id": "data/schemas/def/world/animated_model_data.json",
@@ -270,6 +270,146 @@
       "metaVersion": "0.1.0",
       "hash": "sha256:9953784565fb2a61861a1c3e8d5b97d867bebb01940f8c8a83e0645f41b582fc",
       "size": 2514,
+      "description": ""
+    },
+    "railing_model": {
+      "id": "data/schemas/def/world/railing_model.json",
+      "name": "railing_model",
+      "path": "./data/schemas/def/world/railing_model.json",
+      "metaVersion": "0.1.0",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@cd0d866b6627e3588b5560f132ab5958373f4f04/data/schemas/def/world/railing_model.json",
+      "hash": "sha256:fed2efe7dfcc9e0eba716ca5daea7edbe5b050e8055547bf929949c482d59572",
+      "size": 1204,
+      "description": ""
+    },
+    "road_def": {
+      "id": "data/schemas/def/world/road_def.json",
+      "name": "road_def",
+      "path": "./data/schemas/def/world/road_def.json",
+      "metaVersion": "0.1.0",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@cd0d866b6627e3588b5560f132ab5958373f4f04/data/schemas/def/world/road_def.json",
+      "hash": "sha256:005f0e23f2bbb6e354a1a7f23c2c21553256e842e23093dc34bf17169a917fbf",
+      "size": 670,
+      "description": ""
+    },
+    "road_edge": {
+      "id": "data/schemas/def/world/road_edge.json",
+      "name": "road_edge",
+      "path": "./data/schemas/def/world/road_edge.json",
+      "metaVersion": "0.1.0",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@cd0d866b6627e3588b5560f132ab5958373f4f04/data/schemas/def/world/road_edge.json",
+      "hash": "sha256:63475c8635eb1c9c1ace2dab2751dc3da67bfc41e7b0b6ced82877a35dc7eab7",
+      "size": 926,
+      "description": ""
+    },
+    "road_look": {
+      "id": "data/schemas/def/world/road_look.json",
+      "name": "road_look",
+      "path": "./data/schemas/def/world/road_look.json",
+      "metaVersion": "0.1.0",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@cd0d866b6627e3588b5560f132ab5958373f4f04/data/schemas/def/world/road_look.json",
+      "hash": "sha256:3c7a21a55b68148023f3047c2fb4e370d9d85b1b110dfba960187879830371ce",
+      "size": 4863,
+      "description": ""
+    },
+    "road_material_def": {
+      "id": "data/schemas/def/world/road_material_def.json",
+      "name": "road_material_def",
+      "path": "./data/schemas/def/world/road_material_def.json",
+      "metaVersion": "0.1.0",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@cd0d866b6627e3588b5560f132ab5958373f4f04/data/schemas/def/world/road_material_def.json",
+      "hash": "sha256:2976150f78f050dca974f63417b7f484da23814b637fc9126376ca09a1fce078",
+      "size": 417,
+      "description": ""
+    },
+    "sign_board_model": {
+      "id": "data/schemas/def/world/sign_board_model.json",
+      "name": "sign_board_model",
+      "path": "./data/schemas/def/world/sign_board_model.json",
+      "metaVersion": "0.1.0",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@cd0d866b6627e3588b5560f132ab5958373f4f04/data/schemas/def/world/sign_board_model.json",
+      "hash": "sha256:53808769ca15ba64957717ec196d4a227490504fbcaada1e5ce7770ca8e55f6a",
+      "size": 1143,
+      "description": ""
+    },
+    "sign_stand_model": {
+      "id": "data/schemas/def/world/sign_stand_model.json",
+      "name": "sign_stand_model",
+      "path": "./data/schemas/def/world/sign_stand_model.json",
+      "metaVersion": "0.1.0",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@cd0d866b6627e3588b5560f132ab5958373f4f04/data/schemas/def/world/sign_stand_model.json",
+      "hash": "sha256:d74497555834be5ce45eec5755686a9a1e39e71699e5b1d057163991cb5e1cfa",
+      "size": 1399,
+      "description": ""
+    },
+    "sound_item_data": {
+      "id": "data/schemas/def/world/sound_item_data.json",
+      "name": "sound_item_data",
+      "path": "./data/schemas/def/world/sound_item_data.json",
+      "metaVersion": "0.1.0",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@cd0d866b6627e3588b5560f132ab5958373f4f04/data/schemas/def/world/sound_item_data.json",
+      "hash": "sha256:0d6c0599da5d56332b6f4e257a83058324916d3b4d4f1410f8fc7a5212fd1ae8",
+      "size": 1217,
+      "description": ""
+    },
+    "sound_item_reverb": {
+      "id": "data/schemas/def/world/sound_item_reverb.json",
+      "name": "sound_item_reverb",
+      "path": "./data/schemas/def/world/sound_item_reverb.json",
+      "metaVersion": "0.1.0",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@cd0d866b6627e3588b5560f132ab5958373f4f04/data/schemas/def/world/sound_item_reverb.json",
+      "hash": "sha256:0da044c3e70ca2df6bfc6a4beeb2dcd3f4ed7c290637317189abd21fbbca4004",
+      "size": 3663,
+      "description": ""
+    },
+    "stamp_data": {
+      "id": "data/schemas/def/world/stamp_data.json",
+      "name": "stamp_data",
+      "path": "./data/schemas/def/world/stamp_data.json",
+      "metaVersion": "0.1.0",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@cd0d866b6627e3588b5560f132ab5958373f4f04/data/schemas/def/world/stamp_data.json",
+      "hash": "sha256:cf43f3087e8dcf7823831d28aa26427c16dc944f6dada98a5e3614967303eeab",
+      "size": 410,
+      "description": ""
+    },
+    "terrain_color": {
+      "id": "data/schemas/def/world/terrain_color.json",
+      "name": "terrain_color",
+      "path": "./data/schemas/def/world/terrain_color.json",
+      "metaVersion": "0.1.0",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@cd0d866b6627e3588b5560f132ab5958373f4f04/data/schemas/def/world/terrain_color.json",
+      "hash": "sha256:f195f4f40b2b785fedc9f0c2dbf83a1daec58d3dcab8d9031a995b456eafe35b",
+      "size": 493,
+      "description": ""
+    },
+    "terrain_edge": {
+      "id": "data/schemas/def/world/terrain_edge.json",
+      "name": "terrain_edge",
+      "path": "./data/schemas/def/world/terrain_edge.json",
+      "metaVersion": "0.1.0",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@cd0d866b6627e3588b5560f132ab5958373f4f04/data/schemas/def/world/terrain_edge.json",
+      "hash": "sha256:cf2262978e3b0f10f29215e2f8e4c8bb081a0d2da51a9130e2346e5cf0d3963f",
+      "size": 514,
+      "description": ""
+    },
+    "terrain_profile": {
+      "id": "data/schemas/def/world/terrain_profile.json",
+      "name": "terrain_profile",
+      "path": "./data/schemas/def/world/terrain_profile.json",
+      "metaVersion": "0.1.0",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@cd0d866b6627e3588b5560f132ab5958373f4f04/data/schemas/def/world/terrain_profile.json",
+      "hash": "sha256:6f8fee0b910ab9b137df0a616a4bbfa6600a94fb9966c45c66c1ca671a699c5e",
+      "size": 507,
+      "description": ""
+    },
+    "tr_semaphore_model": {
+      "id": "data/schemas/def/world/tr_semaphore_model.json",
+      "name": "tr_semaphore_model",
+      "path": "./data/schemas/def/world/tr_semaphore_model.json",
+      "metaVersion": "0.1.0",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@cd0d866b6627e3588b5560f132ab5958373f4f04/data/schemas/def/world/tr_semaphore_model.json",
+      "hash": "sha256:1dea922a218641f26e984c0e85603d6fba3cef5c7de84e0c40db7fa988810b9d",
+      "size": 1042,
       "description": ""
     }
   }
