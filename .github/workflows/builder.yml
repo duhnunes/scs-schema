@@ -1,0 +1,113 @@
+name: Build files
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+    
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+
+      - name: Git Config
+        run: |
+          git config user.name ${{ github.actor }}
+          git config user.email ${{ github.actor }}@users.noreply.github.com
+          
+      - name: List PRs validated
+        id: prs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          PRS=$(curl -s \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${REPO}/pulls?state=open&per_page=100" \
+          | jq -r '.[] | select(.draft==false and (.labels[].name=="validated")) | .number' | tr '\n' ' ')
+          echo "numbers=$PRS" >> $GITHUB_OUTPUT
+
+      - name: Update files
+        run: |
+          set -o pipefail
+          node scripts/update.mjs 2>&1 | tee /tmp/update.log
+          git add data/manifest.json data/schemas
+          git commit -m "update(prepare): verify and bump needed files [skip ci]" || echo "No changes to commit"
+
+      - name: Build CDNs
+        run: |
+          set -o pipefail
+          REF=$(git rev-parse HEAD)
+          node scripts/build.mjs "$REF" 2>&1 | tee /tmp/build.log
+          git add data/manifest.json
+          git commit -m "update(build): build CDN URLs in manifest [skip ci]" || echo "No changes to commit"
+
+      - name: Push changes back to PR branches
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          prsNumbers="${{ steps.prs.outputs.numbers }}"
+          for pr in $prsNumbers; do
+            DATA=$(curl -s -H "Authorization: Bearer ${GH_TOKEN}" "https://api.github.com/repos/${REPO}/pulls/$pr")
+            HEAD_REPO=$(echo "$DATA" | jq -r '.head.repo.full_name')
+            HEAD_REF=$(echo "$DATA" | jq -r '.head.ref')
+            echo "HEAD_REPO=$HEAD_REPO"
+            echo "HEAD_REF=$HEAD_REF"
+
+            git fetch https://x-access-token:${GH_TOKEN}@github.com/$HEAD_REPO $HEAD_REF
+            git rebase FETCH_HEAD
+            git push https://x-access-token:${GH_TOKEN}@github.com/$HEAD_REPO HEAD:$HEAD_REF
+          done
+
+      - name: Comment on PR with summary
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          prsNumbers="${{ steps.prs.outputs.numbers }}"
+          for pr in $prsNumbers; do
+            BODY="### ✅  Automated schema check completed"
+            BODY="$BODY**Update logs:**
+            ```
+            $(cat /tmp/update.log)
+            ```"
+            BODY="$BODY**Build logs:**
+            ```
+            $(cat /tmp/build.log)
+            ```"
+
+            PAYLOAD=$(jq -nc --arg body "$BODY" '{body:$body}')
+            API="https://api.github.com/repos/${REPO}/issues/$pr/comments"
+
+            curl -sS -X POST \
+              -H "Authorization: Bearer ${GH_TOKEN}" \
+              -H "Accept: application/vnd.github+json" \
+              -d "$PAYLOAD" \
+              "$API"
+          done
+      
+      - name: Add ready-for-merge label
+        if: steps.prs.outputs.numbers != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          for pr in ${{ steps.prs.outputs.numbers }}; do
+            gh pr edit $pr --add-label "ready-for-merge"
+          done

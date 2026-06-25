@@ -64,7 +64,7 @@ jobs:
           pr_number=$(gh api repos/${{ github.repository }}/pulls \
             -f base=${{ github.base_ref }} \
             -f head=pr$PR_NUMBER \
-            -f title="${{ github.event.pull_request.title}} | PR #$PR_NUMBER by @$PR_AUTHOR" \
+            -f title="${{ github.event.pull_request.title}} by @$PR_AUTHOR" \
             -f body="## Auto-generated PR
           Original PR: #$PR_NUMBER
           Original Author: @$PR_AUTHOR
