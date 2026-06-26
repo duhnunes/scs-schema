@@ -1,6 +1,6 @@
 {
   "version": "0.1.0",
-  "generatedAt": "2026-06-26T02:51:31.607Z",
+  "generatedAt": "2026-06-26T02:51:31.680Z",
   "schemas": {
     "animated_model_data": {
       "id": "data/schemas/def/world/animated_model_data.json",
@@ -427,7 +427,7 @@
       "name": "vegetation_model",
       "path": "./data/schemas/def/world/vegetation_model.json",
       "metaVersion": "0.1.0",
-      "url": "",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@9d58e98bb22bd1071c792745705956dcb6a6e1d8/data/schemas/def/world/vegetation_model.json",
       "hash": "sha256:a951b90c348da48e13518c425a6275c1052d7377a8dc4445b4dc92909268e741",
       "size": 1273,
       "description": ""
