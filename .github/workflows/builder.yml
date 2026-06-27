@@ -59,7 +59,7 @@ jobs:
 
             # Update branch with updated master
             git fetch origin master
-            git rebase origin/main || git merge origin/master --no-edit
+            git rebase origin/master || git merge origin/master --no-edit
 
             # Update
             set -o pipefail
