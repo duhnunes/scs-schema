@@ -97,14 +97,13 @@ jobs:
             -d "{\"body\": $BODY}" \
             "https://api.github.com/repos/${REPO}/issues/${{ steps.get-pr.outputs.PR_NUMB }}/comments"
 
-      - name: Add invalid-schema label
+      - name: Add ready label
         if: steps.validate.outputs.invalid == 'true'
-        uses: actions-ecosystem/action-add-labels@v1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          labels: invalid-schema
-          number: ${{ steps.get-pr.outputs.PR_NUMB }}
-          repo: ${{ github.repository }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR: ${{ steps.get-pr.outputs.PR_NUMB }}
+        run: |
+            gh pr edit $PR --add-label "invalid-schema" --repo ${{ github.repository }}
       
       - name: Fail job if invalid
         if: steps.validate.outputs.invalid == 'true'
