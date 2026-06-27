@@ -83,14 +83,13 @@ jobs:
           gh api repos/${{ github.repository }}/pulls/$NEW_PR_NUMBER \
             --jq '.head.repo.full_name, .head.repo.fork, .base.repo.full_name'
 
-      - name: Add proxied label
+      - name: Add ready label
         if: steps.create-pr.outputs.NEW_PR_NUMBER != ''
-        uses: actions-ecosystem/action-add-labels@v1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          labels: proxied
-          number: ${{ steps.create-pr.outputs.NEW_PR_NUMBER }}
-          repo: ${{ github.repository }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR: ${{ steps.create-pr.outputs.NEW_PR_NUMBER }}
+        run: |
+            gh pr edit $PR --add-label "proxied" --repo ${{ github.repository }}
 
       - name: Close original PR
         run: |
