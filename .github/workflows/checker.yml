@@ -102,8 +102,9 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR: ${{ steps.get-pr.outputs.PR_NUMB }}
+          REPO: ${{ github.repository }}
         run: |
-            gh pr edit $PR --add-label "invalid-schema" --repo ${{ github.repository }}
+            gh pr edit $PR --add-label "invalid-schema" --repo "$REPO"
       
       - name: Fail job if invalid
         if: steps.validate.outputs.invalid == 'true'
@@ -158,19 +159,32 @@ jobs:
             | jq -r '.[].name' | xargs)
           echo "labels=$labels" >> $GITHUB_OUTPUT
           
+      # - name: Remove labels
+      #   if: steps.current-labels.outputs.labels != ''
+      #   env:
+      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     REPO: ${{ github.repository }}
+      #   run: |
+      #     labels="${{ steps.current-labels.outputs.labels }}"
+      #     for label in $labels; do
+      #       echo "Removing $label"
+      #       curl -sS -X DELETE \
+      #         -H "Authorization: Bearer ${GH_TOKEN}" \
+      #         -H "Accept: application/vnd.github+json" \
+      #         "https://api.github.com/repos/${REPO}/issues/${{ needs.validate.outputs.PR_NUMB }}/labels/$label"
+      #     done
+
       - name: Remove labels
         if: steps.current-labels.outputs.labels != ''
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.TOKEN }}
           REPO: ${{ github.repository }}
+          PR: ${{ needs.validate.outputs.PR_NUMB }}
         run: |
           labels="${{ steps.current-labels.outputs.labels }}"
           for label in $labels; do
             echo "Removing $label"
-            curl -sS -X DELETE \
-              -H "Authorization: Bearer ${GH_TOKEN}" \
-              -H "Accept: application/vnd.github+json" \
-              "https://api.github.com/repos/${REPO}/issues/${{ needs.validate.outputs.PR_NUMB }}/labels/$label"
+            gh pr edit $PR --remove-label "${{ steps.current-labels.outputs.labels }}" --repo "$REPO"
           done
       
       - name: Add label
