@@ -102,6 +102,49 @@ jobs:
               "$API"
           done
       
+      - name: Check PR mergeable state
+        id: mergeable
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          prsNumbers="${{ steps.prs.outputs.numbers }}"
+          for pr in $prsNumbers; do
+            state=$(gh api repos/$REPO/pulls/$pr --jq '.mergeable_state')
+            echo "PR $pr mergeble_state=$state"
+            echo "$state_$pr=$state" >> $GITHUB_OUTPUT
+            if [ "$state" = "dirty" ]; then
+              echo "Conflict detected in PR $pr"
+              gh pr edit $pr --add-label "conflict" --remove-label "ready" --repo "$REPO"
+              continue
+            fi
+          done
+        
+      - name: Comment on PR with conflict notice
+        if: steps.mergeable.outputs.state == 'dirty'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          prsNumbers="${{ steps.prs.outputs.numbers }}"
+          for pr in $prsNumbers; do
+            state=$(gh api repos/$REPO/pulls/$pr --jq '.mergeable_state')
+            if [ "$state" = "dirty" ]; then
+              PAYLOAD=$(jq -nc \
+                `{body: ("### ⚠️ Conflict detect\n\n
+                This PR has merge conflicts with the base branch.\n\n
+                The automation workflow has paused and applied the `conflict` label.\n\n
+                Please resolve the conflicts manually and push the changes to resume automation.")}')
+              API="https://api.github.com/repos/${REPO}/issues/$pr/comments"
+
+              curl -sS -X POST \
+                -H "Authorization: Bearer ${GH_TOKEN}" \
+                -H "Accept: application/vnd.github+json" \
+                -d "$PAYLOAD" \
+                "$API"
+              fi
+            done
+
       - name: Add ready label
         if: steps.prs.outputs.numbers != ''
         env:
