@@ -174,9 +174,9 @@ jobs:
           done
       
       - name: Add label
-        uses: actions-ecosystem/action-add-labels@v1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          labels: ${{ steps.check.outputs.labels }}
-          number: ${{ needs.validate.outputs.PR_NUMB }}
-          repo: ${{ github.repository }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR: ${{ needs.validate.outputs.PR_NUMB }}
+          REPO: ${{ github.repository }}
+        run: |
+            gh pr edit $PR --add-label "${{ steps.check.outputs.labels }}" --repo "$REPO"
