@@ -43,7 +43,7 @@ jobs:
           | jq -r '.[] | select(.draft==false and (.labels[].name=="validated")) | .number' | tr '\n' ' ')
           echo "numbers=$PRS" >> $GITHUB_OUTPUT
 
-      - name: Checkout PR branch
+      - name: Process validate PRs and Build CDNs
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
@@ -56,37 +56,24 @@ jobs:
 
             git fetch https://x-access-token:${GH_TOKEN}@github.com/$HEAD_REPO $HEAD_REF
             git checkout $HEAD_REF
-          done
 
-      - name: Update files
-        run: |
-          set -o pipefail
-          node scripts/update.mjs 2>&1 | tee /tmp/update.log
-          git add data/manifest.json data/schemas
-          git commit -m "update(prepare): verify and bump needed files [skip ci]" || echo "No changes to commit"
+            # Update branch with updated master
+            git pull origin master --no-edit
 
-      - name: Build CDNs
-        run: |
-          set -o pipefail
-          REF=$(git rev-parse HEAD)
-          node scripts/build.mjs "$REF" 2>&1 | tee /tmp/build.log
-          git add data/manifest.json
-          git commit -m "update(build): build CDN URLs in manifest [skip ci]" || echo "No changes to commit"
+            # Update
+            set -o pipefail
+            node scripts/update.mjs 2>&1 | tee /tmp/update-$pr.log
+            git add data/manifest.json data/schemas
+            git commit -m "ci(update): Verify and bump needed files [skip ci]" || echo "No changes to commit"
 
-      - name: Push changes back to PR branches
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPO: ${{ github.repository }}
-        run: |
-          prsNumbers="${{ steps.prs.outputs.numbers }}"
-          for pr in $prsNumbers; do
-            DATA=$(curl -s -H "Authorization: Bearer ${GH_TOKEN}" "https://api.github.com/repos/${REPO}/pulls/$pr")
-            HEAD_REPO=$(echo "$DATA" | jq -r '.head.repo.full_name')
-            HEAD_REF=$(echo "$DATA" | jq -r '.head.ref')
-            echo "HEAD_REPO=$HEAD_REPO"
-            echo "HEAD_REF=$HEAD_REF"
+            # Build CDNs
+            set -o pipefail
+            REF=$(git rev-parse HEAD)
+            node scripts/build.mjs "$REF" 2>&1 | tee /tmp/build-$pr.log
+            git add data/manifest.json
+            git commit -m "ci(build): build CDN URLs in manifest [skip ci]" || echo "No changes to commit"
 
-            echo "Pushing changes to $HEAD_REPO/$HEAD_REF"
+            # Push
             git push https://x-access-token:${GH_TOKEN}@github.com/$HEAD_REPO HEAD:$HEAD_REF
           done
 
@@ -98,8 +85,8 @@ jobs:
           prsNumbers="${{ steps.prs.outputs.numbers }}"
           for pr in $prsNumbers; do
             PAYLOAD=$(jq -nc \
-              --arg update "$(cat /tmp/update.log)" \
-              --arg build "$(cat /tmp/build.log)" \
+              --arg update "$(cat /tmp/update-$pr.log)" \
+              --arg build "$(cat /tmp/build-$pr.log)" \
               '{body: ("### ✅ Automated schema check completed\n\n**Update logs:**\n```bash\n" 
                       + $update 
                       + "\n```\n\n**Build logs:**\n```bash\n" 
