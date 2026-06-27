@@ -1,6 +1,6 @@
 {
   "version": "0.1.0",
-  "generatedAt": "2026-06-26T02:51:34.049Z",
+  "generatedAt": "2026-06-27T02:21:54.584Z",
   "schemas": {
     "animated_model_data": {
       "id": "data/schemas/def/world/animated_model_data.json",
@@ -430,6 +430,16 @@
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@63959d4482af770518ac8e6a84581fc909226f49/data/schemas/def/world/vegetation_data.json",
       "hash": "sha256:d231b961e689fe70870a1e1fcbbc747a1956a2320e9f4dbb8504feb6499afffc",
       "size": 1509,
+      "description": ""
+    },
+    "vegetation_model": {
+      "id": "data/schemas/def/world/vegetation_model.json",
+      "name": "vegetation_model",
+      "path": "./data/schemas/def/world/vegetation_model.json",
+      "metaVersion": "0.1.0",
+      "url": "",
+      "hash": "sha256:a951b90c348da48e13518c425a6275c1052d7377a8dc4445b4dc92909268e741",
+      "size": 1273,
       "description": ""
     }
   }
