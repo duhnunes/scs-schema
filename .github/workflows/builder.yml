@@ -58,8 +58,7 @@ jobs:
             git checkout $HEAD_REF
 
             # Update branch with updated master
-            git fetch origin master
-            git rebase origin/master || git merge origin/master --no-edit
+            git pull origin master --no-edit
 
             # Update
             set -o pipefail
