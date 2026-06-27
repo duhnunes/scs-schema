@@ -57,6 +57,10 @@ jobs:
             git fetch https://x-access-token:${GH_TOKEN}@github.com/$HEAD_REPO $HEAD_REF
             git checkout $HEAD_REF
 
+            # Update branch with updated master
+            git fetch origin master
+            git rebase origin/main || git merge origin/master --no-edit
+
             # Update
             set -o pipefail
             node scripts/update.mjs 2>&1 | tee /tmp/update-$pr.log
