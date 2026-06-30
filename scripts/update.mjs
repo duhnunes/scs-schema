@@ -114,6 +114,7 @@ async function main() {
     const key = path.basename(rel, '.json')
     const hash = sha256(raw)
     const size = raw.length
+    const scope = parsed.scope || ''
     const description = parsed.meta?.description || ''
 
     seenKeys.add(key)
@@ -154,6 +155,7 @@ async function main() {
           url: prevEntry?.url || '',
           hash: sha256(Buffer.from(updatedRaw, 'utf8')),
           size: updatedRaw.length,
+          scope,
           description
         }
 
