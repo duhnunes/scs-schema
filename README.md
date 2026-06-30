@@ -16,7 +16,7 @@ This repo is a curated database of schema files that describe `class_name` block
 - **`data/manifest.json`**: Generated manifest with metadata for each schema.
 - **`scripts/build.mjs`**: Updates schema URLs in `data/manifest.json` using the current commit SHA and changed files.
 - **`scripts/update.mjs`**: Scans schema files, calculates hash/size, bumps version (`major`, `minor`, `patch`) based on commit messages, and updates `data/manifest.json`.
-- **`scripts/validate.mjs`**: Validates all schema files against `.vscode/schema.json` using Ajv.
+- **`scripts/validate.mjs`**: Validates all schema files against `.vscode/db.schema.json` using Ajv.
 - **`scripts/formatter.mjs`**: Normalizes field order (`meta`, `scope`, `key`), sorts types and arrays, and ensures consistent formatting across schema files.
 
 ## Automation
@@ -43,7 +43,7 @@ These automations reduce manual work and guarantee that the database stays relia
 
 - `./scripts/build.mjs` - Updates schema URLs in `manifest.json` using the current commit SHA and changed files.
 - `./scripts/update.mjs` - Walks through schema files, calacultes hash/size, bumps versions (`patch`, `minor`, `major`) based on commit messages, and updates `manifest.json`.
-- `./scripts/validate.mjs` - Validates all schema files against `.vscode/schema.json` using Ajv.
+- `./scripts/validate.mjs` - Validates all schema files against `.vscode/db.schema.json` using Ajv.
 - `./scripts/formatter.mjs` - Normalizes field order (`meta`, `scope`, `key`), sorts types and arrays, and ensures consistent formatting across schema files.
 
 ## Contributing
