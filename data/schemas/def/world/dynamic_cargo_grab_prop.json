@@ -1,7 +1,7 @@
 {
   "meta": {
     "version": "0.1.0",
-    "description": ""
+    "description": "."
   },
   "scope": "dynamic_cargo_grab_prop",
   "key": {
