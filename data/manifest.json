@@ -1,6 +1,6 @@
 {
   "version": "0.1.0",
-  "generatedAt": "2026-08-07T14:10:17.551Z",
+  "generatedAt": "2026-08-07T14:45:14.845Z",
   "schemas": {
     "animated_model_data": {
       "id": "data/schemas/def/world/animated_model_data.json",
@@ -73,11 +73,11 @@
       "name": "dynamic_cargo_grab_prop",
       "path": "./data/schemas/def/world/dynamic_cargo_grab_prop.json",
       "metaVersion": "0.1.1",
-      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@ffc2dc0a331546816ad91d0c4c382dc9b28b3c55/data/schemas/def/world/dynamic_cargo_grab_prop.json",
-      "hash": "sha256:86f9472c5028adb9aa6467b1d7a83a928db54ea487296ecf191cdfed5abec1b1",
-      "size": 1276,
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@b6fee8e2c2b3d6b7d04a5da99e1c0f52d1ecf764/data/schemas/def/world/dynamic_cargo_grab_prop.json",
+      "hash": "sha256:5707f907ca12ea159052cdb806486833b2a974ed89428bfb3847bad21aa8e163",
+      "size": 1275,
       "scope": "dynamic_cargo_grab_prop",
-      "description": "."
+      "description": ""
     },
     "far_model_def": {
       "id": "data/schemas/def/world/far_model_def.json",
@@ -271,33 +271,33 @@
       "name": "prefab_model",
       "path": "./data/schemas/def/world/prefab_model.json",
       "metaVersion": "0.1.1",
-      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@329304cc625c6bd171614508bf1fa30e75a90588/data/schemas/def/world/prefab_model.json",
-      "hash": "sha256:29daf784f473ba5cfb286a29dc624f82f3fed0ce4f95ab813d02dac7bdc50d86",
-      "size": 4262,
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@b6fee8e2c2b3d6b7d04a5da99e1c0f52d1ecf764/data/schemas/def/world/prefab_model.json",
+      "hash": "sha256:bf944dd8d4e45479bee334d483c802f0d862613bb8ffbcdc38732f53d968290b",
+      "size": 4261,
       "scope": "prefab_model",
-      "description": "."
+      "description": ""
     },
     "multimon_config": {
       "id": "data/schemas/documents/multimon_config.json",
       "name": "multimon_config",
       "path": "./data/schemas/documents/multimon_config.json",
       "metaVersion": "0.1.1",
-      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@329304cc625c6bd171614508bf1fa30e75a90588/data/schemas/documents/multimon_config.json",
-      "hash": "sha256:8283e7ba019adbe4a691f8361de9f6212422d863d20971c8360a244148b5aecb",
-      "size": 3554,
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@b6fee8e2c2b3d6b7d04a5da99e1c0f52d1ecf764/data/schemas/documents/multimon_config.json",
+      "hash": "sha256:0041b1615e61b81ee6413aec8a9b5095d909bb08aae035a82eb9a20bd0376f51",
+      "size": 3553,
       "scope": "multimon_config",
-      "description": "."
+      "description": ""
     },
     "sign_model": {
       "id": "data/schemas/def/world/sign_model.json",
       "name": "sign_model",
       "path": "./data/schemas/def/world/sign_model.json",
       "metaVersion": "0.1.1",
-      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@59298bc62edfcdce967f22da281ec87cf73c58f9/data/schemas/def/world/sign_model.json",
-      "hash": "sha256:7d25e6f1981e59604e6ae93f349030942f836ef80e997494869e2f00b23ba089",
-      "size": 2875,
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@b6fee8e2c2b3d6b7d04a5da99e1c0f52d1ecf764/data/schemas/def/world/sign_model.json",
+      "hash": "sha256:9c6ac4e43507b22d40ceac58773ead330ba7d3686f61999fcff3b96d33660599",
+      "size": 2874,
       "scope": "sign_model",
-      "description": "."
+      "description": ""
     },
     "railing_model": {
       "id": "data/schemas/def/world/railing_model.json",
