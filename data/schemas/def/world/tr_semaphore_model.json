@@ -3,17 +3,17 @@
     "version": "0.1.0",
     "description": ""
   },
-  "scope": "road_edge",
+  "scope": "tr_semaphore_model",
   "key": {
     "name": {
-      "description": "Name from road edge",
+      "description": "Name semaphore model",
       "type": [
         "string"
       ],
       "isArray": false,
       "arrayElementType": null
     },
-    "model": {
+    "model_desc": {
       "description": "/path/to/file.pmd",
       "type": [
         "resource_tie"
@@ -21,38 +21,40 @@
       "isArray": false,
       "arrayElementType": null
     },
-    "variant_5": {
-      "description": "",
+    "model_coll": {
+      "description": "/path/to/file.pmc",
       "type": [
-        "token"
+        "resource_tie"
       ],
       "isArray": false,
       "arrayElementType": null
     },
-    "variant_15": {
+    "draw_distance": {
       "description": "",
       "type": [
-        "token"
-      ],
-      "isArray": false,
-      "arrayElementType": null
-    },
-    "look": {
-      "description": "",
-      "type": [
-        "token"
-      ],
-      "isArray": false,
-      "arrayElementType": null
-    },
-    "width": {
-      "description": "",
-      "type": [
-        "float",
         "fixed"
       ],
       "isArray": false,
       "arrayElementType": null
+    },
+    "state_anim": {
+      "description": "/path/to/file.pma",
+      "type": [
+        "fixed"
+      ],
+      "isArray": true,
+      "arrayElementType": [
+        "string",
+        "resource_tie"
+      ]
+    },
+    "sounds": {
+      "description": "ROY|/path/to/sound/file.bank#id",
+      "type": null,
+      "isArray": true,
+      "arrayElementType": [
+        "resource_tie"
+      ]
     }
   }
 }

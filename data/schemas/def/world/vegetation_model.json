@@ -3,34 +3,9 @@
     "version": "0.1.0",
     "description": ""
   },
-  "scope": "sign_stand_model",
+  "scope": "vegetation_model",
   "key": {
-    "stand_name": {
-      "description": "Name from sign stand",
-      "type": [
-        "string"
-      ],
-      "isArray": false,
-      "arrayElementType": null
-    },
-    "category": {
-      "description": "",
-      "type": [
-        "string"
-      ],
-      "isArray": false,
-      "arrayElementType": null
-    },
-    "stand_class": {
-      "description": "",
-      "type": [
-        "string",
-        "token"
-      ],
-      "isArray": false,
-      "arrayElementType": null
-    },
-    "model_desce": {
+    "sprite_model": {
       "description": "/path/to/file.pmd",
       "type": [
         "resource_tie"
@@ -38,24 +13,7 @@
       "isArray": false,
       "arrayElementType": null
     },
-    "model_coll": {
-      "description": "/path/to/file.pmc",
-      "type": [
-        "resource_tie"
-      ],
-      "isArray": false,
-      "arrayElementType": null
-    },
-    "variant_name": {
-      "description": "",
-      "type": [
-        "string",
-        "token"
-      ],
-      "isArray": false,
-      "arrayElementType": null
-    },
-    "dynamic": {
+    "detail_vegetation": {
       "description": "",
       "type": [
         "bool"
@@ -63,20 +21,51 @@
       "isArray": false,
       "arrayElementType": null
     },
-    "mass": {
+    "use_collision": {
       "description": "",
       "type": [
-        "float",
-        "fixed"
+        "bool"
       ],
       "isArray": false,
       "arrayElementType": null
     },
-    "look_name": {
+    "colbox_size": {
       "description": "",
       "type": [
-        "string",
-        "token"
+        "float3",
+        "fixed3"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "med_poly_model": {
+      "description": "/path/to/file.pmd",
+      "type": [
+        "resource_tie"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "hi_poly_model": {
+      "description": "/path/to/file.pmd",
+      "type": [
+        "resource_tie"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "generic_model": {
+      "description": "",
+      "type": [
+        "bool"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "follow_surface": {
+      "description": "",
+      "type": [
+        "bool"
       ],
       "isArray": false,
       "arrayElementType": null

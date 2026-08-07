@@ -5,8 +5,7 @@ import Ajv from 'ajv'
 
 const ajv = new Ajv({ allErrors: true })
 
-// Resolve o caminho do schema relativo ao root do projeto
-const schemaPath = path.resolve(process.cwd(), '.vscode/schema.json')
+const schemaPath = path.resolve(process.cwd(), '.vscode/db.schema.json')
 const schema = JSON.parse(fs.readFileSync(schemaPath, 'utf8'))
 const validate = ajv.compile(schema)
 

@@ -2,7 +2,7 @@ name: Schema checker
 
 on:
   pull_request:
-    types: [synchronize, ready_for_review]
+    types: [ready_for_review]
   workflow_run:
     workflows: ["Proxy Fork PRs"]
     types: [completed]
@@ -97,14 +97,14 @@ jobs:
             -d "{\"body\": $BODY}" \
             "https://api.github.com/repos/${REPO}/issues/${{ steps.get-pr.outputs.PR_NUMB }}/comments"
 
-      - name: Add invalid-schema label
+      - name: Add ready label
         if: steps.validate.outputs.invalid == 'true'
-        uses: actions-ecosystem/action-add-labels@v1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          labels: invalid-schema
-          number: ${{ steps.get-pr.outputs.PR_NUMB }}
-          repo: ${{ github.repository }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR: ${{ steps.get-pr.outputs.PR_NUMB }}
+          REPO: ${{ github.repository }}
+        run: |
+            gh pr edit $PR --add-label "invalid-schema" --repo "$REPO"
       
       - name: Fail job if invalid
         if: steps.validate.outputs.invalid == 'true'
@@ -159,25 +159,38 @@ jobs:
             | jq -r '.[].name' | xargs)
           echo "labels=$labels" >> $GITHUB_OUTPUT
           
+      # - name: Remove labels
+      #   if: steps.current-labels.outputs.labels != ''
+      #   env:
+      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     REPO: ${{ github.repository }}
+      #   run: |
+      #     labels="${{ steps.current-labels.outputs.labels }}"
+      #     for label in $labels; do
+      #       echo "Removing $label"
+      #       curl -sS -X DELETE \
+      #         -H "Authorization: Bearer ${GH_TOKEN}" \
+      #         -H "Accept: application/vnd.github+json" \
+      #         "https://api.github.com/repos/${REPO}/issues/${{ needs.validate.outputs.PR_NUMB }}/labels/$label"
+      #     done
+
       - name: Remove labels
         if: steps.current-labels.outputs.labels != ''
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.TOKEN }}
           REPO: ${{ github.repository }}
+          PR: ${{ needs.validate.outputs.PR_NUMB }}
         run: |
           labels="${{ steps.current-labels.outputs.labels }}"
           for label in $labels; do
             echo "Removing $label"
-            curl -sS -X DELETE \
-              -H "Authorization: Bearer ${GH_TOKEN}" \
-              -H "Accept: application/vnd.github+json" \
-              "https://api.github.com/repos/${REPO}/issues/${{ needs.validate.outputs.PR_NUMB }}/labels/$label"
+            gh pr edit $PR --remove-label "${{ steps.current-labels.outputs.labels }}" --repo "$REPO"
           done
       
       - name: Add label
-        uses: actions-ecosystem/action-add-labels@v1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          labels: ${{ steps.check.outputs.labels }}
-          number: ${{ needs.validate.outputs.PR_NUMB }}
-          repo: ${{ github.repository }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR: ${{ needs.validate.outputs.PR_NUMB }}
+          REPO: ${{ github.repository }}
+        run: |
+            gh pr edit $PR --add-label "${{ steps.check.outputs.labels }}" --repo "$REPO"

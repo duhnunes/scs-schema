@@ -3,17 +3,9 @@
     "version": "0.1.0",
     "description": ""
   },
-  "scope": "sign_stand_model",
+  "scope": "vegetation_data",
   "key": {
-    "stand_name": {
-      "description": "Name from sign stand",
-      "type": [
-        "string"
-      ],
-      "isArray": false,
-      "arrayElementType": null
-    },
-    "category": {
+    "name": {
       "description": "",
       "type": [
         "string"
@@ -21,49 +13,23 @@
       "isArray": false,
       "arrayElementType": null
     },
-    "stand_class": {
+    "model": {
       "description": "",
-      "type": [
-        "string",
+      "type": null,
+      "isArray": true,
+      "arrayElementType": [
         "token"
-      ],
-      "isArray": false,
-      "arrayElementType": null
+      ]
     },
-    "model_desce": {
-      "description": "/path/to/file.pmd",
-      "type": [
-        "resource_tie"
-      ],
-      "isArray": false,
-      "arrayElementType": null
-    },
-    "model_coll": {
-      "description": "/path/to/file.pmc",
-      "type": [
-        "resource_tie"
-      ],
-      "isArray": false,
-      "arrayElementType": null
-    },
-    "variant_name": {
+    "occurrence": {
       "description": "",
-      "type": [
-        "string",
-        "token"
-      ],
-      "isArray": false,
-      "arrayElementType": null
+      "type": null,
+      "isArray": true,
+      "arrayElementType": [
+        "fixed"
+      ]
     },
-    "dynamic": {
-      "description": "",
-      "type": [
-        "bool"
-      ],
-      "isArray": false,
-      "arrayElementType": null
-    },
-    "mass": {
+    "min_offset": {
       "description": "",
       "type": [
         "float",
@@ -72,11 +38,53 @@
       "isArray": false,
       "arrayElementType": null
     },
-    "look_name": {
+    "max_offset": {
       "description": "",
       "type": [
-        "string",
-        "token"
+        "float",
+        "fixed"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "density": {
+      "description": "",
+      "type": [
+        "float",
+        "fixed"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "min_size_perc": {
+      "description": "",
+      "type": [
+        "fixed"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "max_size_perc": {
+      "description": "",
+      "type": [
+        "fixed"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "distribution_map_path": {
+      "description": "/path/to/file.{dmd/tga}",
+      "type": [
+        "resource_tie"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "distribution_text_gen": {
+      "description": "",
+      "type": [
+        "float",
+        "fixed"
       ],
       "isArray": false,
       "arrayElementType": null

@@ -1,5 +1,5 @@
 {
-  "$id": "https://github.com/duhnunes/scs-schema/schemas.json",
+  "$id": "https://github.com/duhnunes/scs-schema/blob/master/.vscode/db.schema.json",
   "title": "Material definition file",
   "type": "object",
   "required": ["meta", "scope", "key"],
@@ -76,7 +76,8 @@
                   "minItems": 1
                 },
                 { "type": "null" }
-              ]
+              ],
+              "default": null
             },
             "isArray": {
               "type": "boolean",
@@ -118,7 +119,8 @@
                   "minItems": 1
                 },
                 { "type": "null" }
-              ]
+              ],
+              "default": null
             }
           },
           "additionalProperties": false,

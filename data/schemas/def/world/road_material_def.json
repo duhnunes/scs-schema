@@ -5,17 +5,21 @@
   },
   "scope": "road_material_def",
   "key": {
-     "path": {
+    "path": {
       "description": "/path/to/file.mat",
-      "type": ["resource_tie"],
+      "type": [
+        "resource_tie"
+      ],
       "isArray": false,
       "arrayElementType": null
-     },
-     "kerb": { 
+    },
+    "kerb": {
       "description": "/path/to/file.mat",
-      "type": ["resource_tie"],
+      "type": [
+        "resource_tie"
+      ],
       "isArray": false,
       "arrayElementType": null
-     }
+    }
   }
 }

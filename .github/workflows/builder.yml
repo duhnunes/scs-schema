@@ -1,0 +1,155 @@
+name: Build files
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+    
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+
+      - name: Git Config
+        run: |
+          git config user.name ${{ github.actor }}
+          git config user.email ${{ github.actor }}@users.noreply.github.com
+          
+      - name: List PRs validated
+        id: prs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          PRS=$(curl -s \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${REPO}/pulls?state=open&per_page=100" \
+          | jq -r '.[] | select(.draft==false and (.labels[].name=="validated")) | .number' | tr '\n' ' ')
+          echo "numbers=$PRS" >> $GITHUB_OUTPUT
+
+      - name: Process validate PRs and Build CDNs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          prsNumbers="${{ steps.prs.outputs.numbers }}"
+          for pr in $prsNumbers; do
+            DATA=$(curl -s -H "Authorization: Bearer ${GH_TOKEN}" "https://api.github.com/repos/${REPO}/pulls/$pr")
+            HEAD_REPO=$(echo "$DATA" | jq -r '.head.repo.full_name')
+            HEAD_REF=$(echo "$DATA" | jq -r '.head.ref')
+
+            git fetch https://x-access-token:${GH_TOKEN}@github.com/$HEAD_REPO $HEAD_REF
+            git checkout $HEAD_REF
+
+            # Update branch with updated master
+            git pull origin master --no-edit
+
+            # Update
+            set -o pipefail
+            node scripts/update.mjs 2>&1 | tee /tmp/update-$pr.log
+            git add data/manifest.json data/schemas
+            git commit -m "ci(update): Verify and bump needed files [skip ci]" || echo "No changes to commit"
+
+            # Build CDNs
+            set -o pipefail
+            REF=$(git rev-parse HEAD)
+            node scripts/build.mjs "$REF" 2>&1 | tee /tmp/build-$pr.log
+            git add data/manifest.json
+            git commit -m "ci(build): build CDN URLs in manifest [skip ci]" || echo "No changes to commit"
+
+            # Push
+            git push https://x-access-token:${GH_TOKEN}@github.com/$HEAD_REPO HEAD:$HEAD_REF
+          done
+
+      - name: Comment on PR with summary
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          prsNumbers="${{ steps.prs.outputs.numbers }}"
+          for pr in $prsNumbers; do
+            PAYLOAD=$(jq -nc \
+              --arg update "$(cat /tmp/update-$pr.log)" \
+              --arg build "$(cat /tmp/build-$pr.log)" \
+              '{body: ("### ✅ Automated schema check completed\n\n**Update logs:**\n```bash\n" 
+                      + $update 
+                      + "\n```\n\n**Build logs:**\n```bash\n" 
+                      + $build 
+                      + "\n```")}')
+
+            API="https://api.github.com/repos/${REPO}/issues/$pr/comments"
+
+            curl -sS -X POST \
+              -H "Authorization: Bearer ${GH_TOKEN}" \
+              -H "Accept: application/vnd.github+json" \
+              -d "$PAYLOAD" \
+              "$API"
+          done
+      
+      - name: Check PR mergeable state
+        id: mergeable
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          prsNumbers="${{ steps.prs.outputs.numbers }}"
+          for pr in $prsNumbers; do
+            state=$(gh api repos/$REPO/pulls/$pr --jq '.mergeable_state')
+            echo "PR $pr mergeble_state=$state"
+            echo "$state_$pr=$state" >> $GITHUB_OUTPUT
+            if [ "$state" = "dirty" ]; then
+              echo "Conflict detected in PR $pr"
+              gh pr edit $pr --add-label "conflict" --remove-label "ready" --repo "$REPO"
+              continue
+            fi
+          done
+        
+      - name: Comment on PR with conflict notice
+        if: steps.mergeable.outputs.state == 'dirty'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          prsNumbers="${{ steps.prs.outputs.numbers }}"
+          for pr in $prsNumbers; do
+            state=$(gh api repos/$REPO/pulls/$pr --jq '.mergeable_state')
+            if [ "$state" = "dirty" ]; then
+              PAYLOAD=$(jq -nc \
+                `{body: ("### ⚠️ Conflict detect\n\n
+                This PR has merge conflicts with the base branch.\n\n
+                The automation workflow has paused and applied the `conflict` label.\n\n
+                Please resolve the conflicts manually and push the changes to resume automation.")}')
+              API="https://api.github.com/repos/${REPO}/issues/$pr/comments"
+
+              curl -sS -X POST \
+                -H "Authorization: Bearer ${GH_TOKEN}" \
+                -H "Accept: application/vnd.github+json" \
+                -d "$PAYLOAD" \
+                "$API"
+              fi
+            done
+
+      - name: Add ready label
+        if: steps.prs.outputs.numbers != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          for pr in ${{ steps.prs.outputs.numbers }}; do
+            gh pr edit $pr --add-label "ready"
+          done

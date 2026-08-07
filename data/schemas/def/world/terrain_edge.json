@@ -3,20 +3,28 @@
     "version": "0.1.0",
     "description": ""
   },
-  "scope": "stamp_data",
+  "scope": "terrain_edge",
   "key": {
-    "stamp_name": {
-      "description": "Name from stamp",
+    "name": {
+      "description": "",
       "type": [
         "string"
       ],
       "isArray": false,
       "arrayElementType": null
     },
-    "stamp_path": {
-      "description": "/path/to/file.btf",
+    "model": {
+      "description": "/path/to/file.pmd",
       "type": [
         "resource_tie"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    },
+    "uv_type": {
+      "description": "",
+      "type": [
+        "float"
       ],
       "isArray": false,
       "arrayElementType": null

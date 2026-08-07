@@ -7,7 +7,9 @@
   "key": {
     "name": {
       "description": "",
-      "type": ["string"],
+      "type": [
+        "string"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
@@ -15,13 +17,19 @@
       "description": "",
       "type": null,
       "isArray": true,
-      "arrayElementType": ["fixed", "float"]
+      "arrayElementType": [
+        "float",
+        "fixed"
+      ]
     },
     "step": {
       "description": "",
       "type": null,
       "isArray": true,
-      "arrayElementType": ["fixed", "float"]
+      "arrayElementType": [
+        "float",
+        "fixed"
+      ]
     }
   }
 }

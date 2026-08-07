@@ -2,7 +2,7 @@
   "json.schemas": [
     {
       "fileMatch": ["data/schemas/**/*.json"],
-      "url": "./.vscode/schema.json"
+      "url": "./.vscode/db.schema.json"
     }
   ]
 }

@@ -7,21 +7,27 @@
   "key": {
     "material": {
       "description": "",
-      "arrayElementType": null,
+      "type": [
+        "token"
+      ],
       "isArray": false,
-      "type": ["token"]
+      "arrayElementType": null
     },
     "names": {
-      "type": null,
-      "isArray": true,
-      "arrayElementType": ["string"],
-      "description": ""
-    },
-    "colors":{
       "description": "",
       "type": null,
       "isArray": true,
-      "arrayElementType": ["float3"]
+      "arrayElementType": [
+        "string"
+      ]
+    },
+    "colors": {
+      "description": "",
+      "type": null,
+      "isArray": true,
+      "arrayElementType": [
+        "float3"
+      ]
     }
   }
 }
