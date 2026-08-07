@@ -1,55 +1,71 @@
 {
   "meta": {
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": ""
   },
   "scope": "railing_model",
   "key": {
     "model_desc": {
       "description": "/path/to/file.pmd",
-      "type": ["resource_tie"],
+      "type": [
+        "resource_tie"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "look_name": {
       "description": "",
-      "type": ["token"],
+      "type": [
+        "token"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "bridge": {
       "description": "",
-      "type": ["bool"],
+      "type": [
+        "bool"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "tunnel": {
       "description": "",
-      "type": ["bool"],
+      "type": [
+        "bool"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "use_perling": {
       "description": "",
-      "type": ["bool"],
+      "type": [
+        "bool"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "lod_desc": {
       "description": "/path/to/file.pmd",
-      "type": ["resource_tie"],
+      "type": [
+        "resource_tie"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "lod_dist": {
       "description": "",
-      "type": ["float"],
+      "type": [
+        "float"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "variation_scheme": {
       "description": "",
-      "type": ["string"],
+      "type": [
+        "string"
+      ],
       "isArray": false,
       "arrayElementType": null
     }

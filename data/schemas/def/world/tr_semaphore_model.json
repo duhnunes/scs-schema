@@ -1,45 +1,60 @@
 {
+  "meta": {
+    "version": "0.1.1",
+    "description": ""
+  },
+  "scope": "tr_semaphore_model",
   "key": {
     "name": {
-      "arrayElementType": null,
       "description": "Name semaphore model",
+      "type": [
+        "string"
+      ],
       "isArray": false,
-      "type": ["string"]
+      "arrayElementType": null
     },
     "model_desc": {
-      "arrayElementType": null,
       "description": "/path/to/file.pmd",
+      "type": [
+        "resource_tie"
+      ],
       "isArray": false,
-      "type": ["resource_tie"]
+      "arrayElementType": null
     },
     "model_coll": {
       "description": "/path/to/file.pmc",
-      "type": ["resource_tie"],
+      "type": [
+        "resource_tie"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "draw_distance": {
       "description": "",
-      "type": ["fixed"],
+      "type": [
+        "fixed"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "state_anim": {
       "description": "/path/to/file.pma",
-      "type": ["fixed"],
+      "type": [
+        "fixed"
+      ],
       "isArray": true,
-      "arrayElementType": ["resource_tie", "string"]
+      "arrayElementType": [
+        "string",
+        "resource_tie"
+      ]
     },
     "sounds": {
       "description": "ROY|/path/to/sound/file.bank#id",
       "type": null,
       "isArray": true,
-      "arrayElementType": ["resource_tie"]
+      "arrayElementType": [
+        "resource_tie"
+      ]
     }
-  },
-  "meta": {
-    "description": "",
-    "version": "0.1.0"
-  },
-  "scope": "tr_semaphore_model"
+  }
 }

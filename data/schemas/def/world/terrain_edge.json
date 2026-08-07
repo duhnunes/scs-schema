@@ -1,25 +1,31 @@
 {
   "meta": {
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": ""
   },
   "scope": "terrain_edge",
   "key": {
     "name": {
       "description": "",
-      "arrayElementType": null,
-      "type": ["string"],
-      "isArray": false
+      "type": [
+        "string"
+      ],
+      "isArray": false,
+      "arrayElementType": null
     },
     "model": {
-      "type": ["resource_tie"],
+      "description": "/path/to/file.pmd",
+      "type": [
+        "resource_tie"
+      ],
       "isArray": false,
-      "arrayElementType": null,
-      "description": "/path/to/file.pmd"
+      "arrayElementType": null
     },
-    "uv_type":{
+    "uv_type": {
       "description": "",
-      "type": ["float"],
+      "type": [
+        "float"
+      ],
       "isArray": false,
       "arrayElementType": null
     }

@@ -1,55 +1,72 @@
 {
   "meta": {
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": ""
   },
   "scope": "vegetation_model",
   "key": {
     "sprite_model": {
       "description": "/path/to/file.pmd",
-      "type": ["resource_tie"],
+      "type": [
+        "resource_tie"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "detail_vegetation": {
       "description": "",
-      "type": ["bool"],
+      "type": [
+        "bool"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "use_collision": {
       "description": "",
-      "type": ["bool"],
+      "type": [
+        "bool"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "colbox_size": {
       "description": "",
-      "type": ["fixed3", "float3"],
+      "type": [
+        "float3",
+        "fixed3"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "med_poly_model": {
       "description": "/path/to/file.pmd",
-      "type": ["resource_tie"],
+      "type": [
+        "resource_tie"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "hi_poly_model": {
       "description": "/path/to/file.pmd",
-      "type": ["resource_tie"],
+      "type": [
+        "resource_tie"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "generic_model": {
       "description": "",
-      "type": ["bool"],
+      "type": [
+        "bool"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "follow_surface": {
       "description": "",
-      "type": ["bool"],
+      "type": [
+        "bool"
+      ],
       "isArray": false,
       "arrayElementType": null
     }

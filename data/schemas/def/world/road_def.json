@@ -1,31 +1,39 @@
 {
   "meta": {
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": ""
   },
   "scope": "road_def",
   "key": {
     "full_line_width": {
       "description": "",
-      "type": ["float"],
+      "type": [
+        "float"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "broken_line_width": {
       "description": "",
-      "type": ["float"],
+      "type": [
+        "float"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "boundary_dist": {
       "description": "",
-      "type": ["float"],
+      "type": [
+        "float"
+      ],
       "isArray": false,
       "arrayElementType": null
     },
     "road_lines": {
       "description": "/path/to/file.mat",
-      "type": ["resource_tie"],
+      "type": [
+        "resource_tie"
+      ],
       "isArray": false,
       "arrayElementType": null
     }

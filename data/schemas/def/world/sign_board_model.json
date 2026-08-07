@@ -1,51 +1,68 @@
 {
   "meta": {
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": ""
   },
   "scope": "sign_board_model",
   "key": {
-     "board_name": {
+    "board_name": {
       "description": "Name from sign board",
-      "type": ["string"],
+      "type": [
+        "string"
+      ],
       "isArray": false,
       "arrayElementType": null
-     },
-     "model_desc": { 
+    },
+    "model_desc": {
       "description": "/path/to/file.pmd",
-      "type": ["resource_tie"],
+      "type": [
+        "resource_tie"
+      ],
       "isArray": false,
       "arrayElementType": null
-     },
-     "model_coll": {
+    },
+    "model_coll": {
       "description": "/path/to/file.pmc",
-      "type": ["resource_tie"],
-      "isArray": false,
-       "arrayElementType": null
-     },
-     "look_name": {
-      "description": "",
-      "type": ["string", "token"],
+      "type": [
+        "resource_tie"
+      ],
       "isArray": false,
       "arrayElementType": null
-     },
-     "variant_name": {
+    },
+    "look_name": {
       "description": "",
-      "type": ["string", "token"],
+      "type": [
+        "string",
+        "token"
+      ],
       "isArray": false,
       "arrayElementType": null
-     },
-     "category": {
+    },
+    "variant_name": {
       "description": "",
-      "type": ["string"],
+      "type": [
+        "string",
+        "token"
+      ],
       "isArray": false,
       "arrayElementType": null
-     },
-     "mass": {
+    },
+    "category": {
       "description": "",
-      "type": ["float", "fixed"],
+      "type": [
+        "string"
+      ],
       "isArray": false,
       "arrayElementType": null
-     }
+    },
+    "mass": {
+      "description": "",
+      "type": [
+        "float",
+        "fixed"
+      ],
+      "isArray": false,
+      "arrayElementType": null
+    }
   }
 }

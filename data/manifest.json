@@ -1,6 +1,6 @@
 {
   "version": "0.1.0",
-  "generatedAt": "2026-06-30T10:23:45.230Z",
+  "generatedAt": "2026-08-07T14:10:17.551Z",
   "schemas": {
     "animated_model_data": {
       "id": "data/schemas/def/world/animated_model_data.json",
@@ -72,12 +72,12 @@
       "id": "data/schemas/def/world/dynamic_cargo_grab_prop.json",
       "name": "dynamic_cargo_grab_prop",
       "path": "./data/schemas/def/world/dynamic_cargo_grab_prop.json",
+      "metaVersion": "0.1.1",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@ffc2dc0a331546816ad91d0c4c382dc9b28b3c55/data/schemas/def/world/dynamic_cargo_grab_prop.json",
-      "metaVersion": "0.1.0",
-      "hash": "sha256:cbe5777bee243b5df595eeec1591ea376ed1c16c63320dedaaaa7c3b1f339874",
-      "size": 1275,
-      "description": "",
-      "scope": "dynamic_cargo_grab_prop"
+      "hash": "sha256:86f9472c5028adb9aa6467b1d7a83a928db54ea487296ecf191cdfed5abec1b1",
+      "size": 1276,
+      "scope": "dynamic_cargo_grab_prop",
+      "description": "."
     },
     "far_model_def": {
       "id": "data/schemas/def/world/far_model_def.json",
@@ -270,188 +270,188 @@
       "id": "data/schemas/def/world/prefab_model.json",
       "name": "prefab_model",
       "path": "./data/schemas/def/world/prefab_model.json",
+      "metaVersion": "0.1.1",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@329304cc625c6bd171614508bf1fa30e75a90588/data/schemas/def/world/prefab_model.json",
-      "metaVersion": "0.1.0",
-      "hash": "sha256:86740173edd2e2639bd9344d554cf23836bb97f00293109080577e0120468df9",
-      "size": 4261,
-      "description": "",
-      "scope": "prefab_model"
+      "hash": "sha256:29daf784f473ba5cfb286a29dc624f82f3fed0ce4f95ab813d02dac7bdc50d86",
+      "size": 4262,
+      "scope": "prefab_model",
+      "description": "."
     },
     "multimon_config": {
       "id": "data/schemas/documents/multimon_config.json",
       "name": "multimon_config",
       "path": "./data/schemas/documents/multimon_config.json",
+      "metaVersion": "0.1.1",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@329304cc625c6bd171614508bf1fa30e75a90588/data/schemas/documents/multimon_config.json",
-      "metaVersion": "0.1.0",
-      "hash": "sha256:6d0d8059228f5a312c572135afd122d79a2ab2906711cf84c00fc9a60df8aa68",
-      "size": 3553,
-      "description": "",
-      "scope": "multimon_config"
+      "hash": "sha256:8283e7ba019adbe4a691f8361de9f6212422d863d20971c8360a244148b5aecb",
+      "size": 3554,
+      "scope": "multimon_config",
+      "description": "."
     },
     "sign_model": {
       "id": "data/schemas/def/world/sign_model.json",
       "name": "sign_model",
       "path": "./data/schemas/def/world/sign_model.json",
+      "metaVersion": "0.1.1",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@59298bc62edfcdce967f22da281ec87cf73c58f9/data/schemas/def/world/sign_model.json",
-      "metaVersion": "0.1.0",
-      "hash": "sha256:9953784565fb2a61861a1c3e8d5b97d867bebb01940f8c8a83e0645f41b582fc",
-      "size": 2514,
-      "description": "",
-      "scope": "sign_model"
+      "hash": "sha256:7d25e6f1981e59604e6ae93f349030942f836ef80e997494869e2f00b23ba089",
+      "size": 2875,
+      "scope": "sign_model",
+      "description": "."
     },
     "railing_model": {
       "id": "data/schemas/def/world/railing_model.json",
       "name": "railing_model",
       "path": "./data/schemas/def/world/railing_model.json",
-      "metaVersion": "0.1.0",
+      "metaVersion": "0.1.1",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@cd0d866b6627e3588b5560f132ab5958373f4f04/data/schemas/def/world/railing_model.json",
-      "hash": "sha256:fed2efe7dfcc9e0eba716ca5daea7edbe5b050e8055547bf929949c482d59572",
-      "size": 1204,
-      "description": "",
-      "scope": "railing_model"
+      "hash": "sha256:17001349c7d93130bacb26205bd8815b9a1a529fbd2d16110376d59595cacd99",
+      "size": 1333,
+      "scope": "railing_model",
+      "description": ""
     },
     "road_def": {
       "id": "data/schemas/def/world/road_def.json",
       "name": "road_def",
       "path": "./data/schemas/def/world/road_def.json",
-      "metaVersion": "0.1.0",
+      "metaVersion": "0.1.1",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@cd0d866b6627e3588b5560f132ab5958373f4f04/data/schemas/def/world/road_def.json",
-      "hash": "sha256:005f0e23f2bbb6e354a1a7f23c2c21553256e842e23093dc34bf17169a917fbf",
-      "size": 670,
-      "description": "",
-      "scope": "road_def"
+      "hash": "sha256:2eb31929e27898484c7023ca4e4e50f7ad24467701d474e15b7555ca924aee91",
+      "size": 735,
+      "scope": "road_def",
+      "description": ""
     },
     "road_edge": {
       "id": "data/schemas/def/world/road_edge.json",
       "name": "road_edge",
       "path": "./data/schemas/def/world/road_edge.json",
-      "metaVersion": "0.1.0",
+      "metaVersion": "0.1.1",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@cd0d866b6627e3588b5560f132ab5958373f4f04/data/schemas/def/world/road_edge.json",
-      "hash": "sha256:63475c8635eb1c9c1ace2dab2751dc3da67bfc41e7b0b6ced82877a35dc7eab7",
-      "size": 926,
-      "description": "",
-      "scope": "road_edge"
+      "hash": "sha256:906622ce13c4ad9fcf798090da579774d1f18f475689843fae0614cbdac69765",
+      "size": 1031,
+      "scope": "road_edge",
+      "description": ""
     },
     "road_look": {
       "id": "data/schemas/def/world/road_look.json",
       "name": "road_look",
       "path": "./data/schemas/def/world/road_look.json",
-      "metaVersion": "0.1.0",
+      "metaVersion": "0.1.1",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@cd0d866b6627e3588b5560f132ab5958373f4f04/data/schemas/def/world/road_look.json",
-      "hash": "sha256:3c7a21a55b68148023f3047c2fb4e370d9d85b1b110dfba960187879830371ce",
-      "size": 4863,
-      "description": "",
-      "scope": "road_look"
+      "hash": "sha256:593d72aa82469fc95f9b6ad9304f5766cc29060e1c57acb017915f8cbca76f1f",
+      "size": 5560,
+      "scope": "road_look",
+      "description": ""
     },
     "road_material_def": {
       "id": "data/schemas/def/world/road_material_def.json",
       "name": "road_material_def",
       "path": "./data/schemas/def/world/road_material_def.json",
-      "metaVersion": "0.1.0",
+      "metaVersion": "0.1.1",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@cd0d866b6627e3588b5560f132ab5958373f4f04/data/schemas/def/world/road_material_def.json",
-      "hash": "sha256:2976150f78f050dca974f63417b7f484da23814b637fc9126376ca09a1fce078",
-      "size": 417,
-      "description": "",
-      "scope": "road_material_def"
+      "hash": "sha256:981fa75d7c5ef7b334125afce68877158917084f57c0f747b3b00deca09eb8f0",
+      "size": 445,
+      "scope": "road_material_def",
+      "description": ""
     },
     "sign_board_model": {
       "id": "data/schemas/def/world/sign_board_model.json",
       "name": "sign_board_model",
       "path": "./data/schemas/def/world/sign_board_model.json",
-      "metaVersion": "0.1.0",
+      "metaVersion": "0.1.1",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@cd0d866b6627e3588b5560f132ab5958373f4f04/data/schemas/def/world/sign_board_model.json",
-      "hash": "sha256:53808769ca15ba64957717ec196d4a227490504fbcaada1e5ce7770ca8e55f6a",
-      "size": 1143,
-      "description": "",
-      "scope": "sign_board_model"
+      "hash": "sha256:f34454be7b6ad5fb360246190e817defa25d69a6d036a0e22838d83bce075650",
+      "size": 1264,
+      "scope": "sign_board_model",
+      "description": ""
     },
     "sign_stand_model": {
       "id": "data/schemas/def/world/sign_stand_model.json",
       "name": "sign_stand_model",
       "path": "./data/schemas/def/world/sign_stand_model.json",
-      "metaVersion": "0.1.0",
+      "metaVersion": "0.1.1",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@cd0d866b6627e3588b5560f132ab5958373f4f04/data/schemas/def/world/sign_stand_model.json",
-      "hash": "sha256:d74497555834be5ce45eec5755686a9a1e39e71699e5b1d057163991cb5e1cfa",
-      "size": 1399,
-      "description": "",
-      "scope": "sign_stand_model"
+      "hash": "sha256:efd88672b89f20b1c2a904dab969a1e540736e4449f0fdb68fdfc85a6d72097d",
+      "size": 1576,
+      "scope": "sign_stand_model",
+      "description": ""
     },
     "sound_item_data": {
       "id": "data/schemas/def/world/sound_item_data.json",
       "name": "sound_item_data",
       "path": "./data/schemas/def/world/sound_item_data.json",
-      "metaVersion": "0.1.0",
+      "metaVersion": "0.1.1",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@cd0d866b6627e3588b5560f132ab5958373f4f04/data/schemas/def/world/sound_item_data.json",
-      "hash": "sha256:0d6c0599da5d56332b6f4e257a83058324916d3b4d4f1410f8fc7a5212fd1ae8",
-      "size": 1217,
-      "description": "",
-      "scope": "sound_item_data"
+      "hash": "sha256:8c4104cdcadf081757c7b5f09d1268de0c54c17190d400bfa3a5005a975432b0",
+      "size": 1330,
+      "scope": "sound_item_data",
+      "description": ""
     },
     "sound_item_reverb": {
       "id": "data/schemas/def/world/sound_item_reverb.json",
       "name": "sound_item_reverb",
       "path": "./data/schemas/def/world/sound_item_reverb.json",
-      "metaVersion": "0.1.0",
+      "metaVersion": "0.1.1",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@cd0d866b6627e3588b5560f132ab5958373f4f04/data/schemas/def/world/sound_item_reverb.json",
-      "hash": "sha256:0da044c3e70ca2df6bfc6a4beeb2dcd3f4ed7c290637317189abd21fbbca4004",
-      "size": 3663,
-      "description": "",
-      "scope": "sound_item_reverb"
+      "hash": "sha256:09a29c5fa8019ec330ce653c81d87382b05794a6f3be3e420dfd4df0d4f24b15",
+      "size": 3951,
+      "scope": "sound_item_reverb",
+      "description": ""
     },
     "stamp_data": {
       "id": "data/schemas/def/world/stamp_data.json",
       "name": "stamp_data",
       "path": "./data/schemas/def/world/stamp_data.json",
-      "metaVersion": "0.1.0",
+      "metaVersion": "0.1.1",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@cd0d866b6627e3588b5560f132ab5958373f4f04/data/schemas/def/world/stamp_data.json",
-      "hash": "sha256:cf43f3087e8dcf7823831d28aa26427c16dc944f6dada98a5e3614967303eeab",
-      "size": 410,
-      "description": "",
-      "scope": "stamp_data"
+      "hash": "sha256:81aa14063f3c96e9a91cbf811204942dcc8bc93853ef4a233ef0db3cd300c14c",
+      "size": 442,
+      "scope": "stamp_data",
+      "description": ""
     },
     "terrain_color": {
       "id": "data/schemas/def/world/terrain_color.json",
       "name": "terrain_color",
       "path": "./data/schemas/def/world/terrain_color.json",
-      "metaVersion": "0.1.0",
+      "metaVersion": "0.1.1",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@cd0d866b6627e3588b5560f132ab5958373f4f04/data/schemas/def/world/terrain_color.json",
-      "hash": "sha256:f195f4f40b2b785fedc9f0c2dbf83a1daec58d3dcab8d9031a995b456eafe35b",
-      "size": 493,
-      "description": "",
-      "scope": "terrain_color"
+      "hash": "sha256:1d8ca036935238095f0b754618b6433dc2275889d8287ca13363b72ac521eb13",
+      "size": 542,
+      "scope": "terrain_color",
+      "description": ""
     },
     "terrain_edge": {
       "id": "data/schemas/def/world/terrain_edge.json",
       "name": "terrain_edge",
       "path": "./data/schemas/def/world/terrain_edge.json",
-      "metaVersion": "0.1.0",
+      "metaVersion": "0.1.1",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@cd0d866b6627e3588b5560f132ab5958373f4f04/data/schemas/def/world/terrain_edge.json",
-      "hash": "sha256:cf2262978e3b0f10f29215e2f8e4c8bb081a0d2da51a9130e2346e5cf0d3963f",
-      "size": 514,
-      "description": "",
-      "scope": "terrain_edge"
+      "hash": "sha256:65e4912e2341a8100ca6c234a81443a609b328581af8fef05df9bd09571adea5",
+      "size": 563,
+      "scope": "terrain_edge",
+      "description": ""
     },
     "terrain_profile": {
       "id": "data/schemas/def/world/terrain_profile.json",
       "name": "terrain_profile",
       "path": "./data/schemas/def/world/terrain_profile.json",
-      "metaVersion": "0.1.0",
+      "metaVersion": "0.1.1",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@cd0d866b6627e3588b5560f132ab5958373f4f04/data/schemas/def/world/terrain_profile.json",
-      "hash": "sha256:6f8fee0b910ab9b137df0a616a4bbfa6600a94fb9966c45c66c1ca671a699c5e",
-      "size": 507,
-      "description": "",
-      "scope": "terrain_profile"
+      "hash": "sha256:fac7404f587e8fe505438dacd51e8b6796c23d33bdf82d0a3ce3e66c2d4886a5",
+      "size": 572,
+      "scope": "terrain_profile",
+      "description": ""
     },
     "tr_semaphore_model": {
       "id": "data/schemas/def/world/tr_semaphore_model.json",
       "name": "tr_semaphore_model",
       "path": "./data/schemas/def/world/tr_semaphore_model.json",
-      "metaVersion": "0.1.0",
+      "metaVersion": "0.1.1",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@cd0d866b6627e3588b5560f132ab5958373f4f04/data/schemas/def/world/tr_semaphore_model.json",
-      "hash": "sha256:1dea922a218641f26e984c0e85603d6fba3cef5c7de84e0c40db7fa988810b9d",
-      "size": 1042,
-      "description": "",
-      "scope": "tr_semaphore_model"
+      "hash": "sha256:683dc8969618c64e560fe4e0735c48db002ae5cf6ffdee2903c7adec62946900",
+      "size": 1163,
+      "scope": "tr_semaphore_model",
+      "description": ""
     },
     "trigger_action": {
       "id": "data/schemas/def/world/trigger_action.json",
@@ -468,23 +468,23 @@
       "id": "data/schemas/def/world/vegetation_data.json",
       "name": "vegetation_data",
       "path": "./data/schemas/def/world/vegetation_data.json",
-      "metaVersion": "0.1.0",
+      "metaVersion": "0.1.1",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@5c9ad4f0002edd935fe824597830bb0d554c0223/data/schemas/def/world/vegetation_data.json",
-      "hash": "sha256:d231b961e689fe70870a1e1fcbbc747a1956a2320e9f4dbb8504feb6499afffc",
-      "size": 1509,
-      "description": "",
-      "scope": "vegetation_data"
+      "hash": "sha256:d755ad220a1b24ef8e2cfb77ce33b8c1fec1651223a42db6365748856ea41ac2",
+      "size": 1702,
+      "scope": "vegetation_data",
+      "description": ""
     },
     "vegetation_model": {
       "id": "data/schemas/def/world/vegetation_model.json",
       "name": "vegetation_model",
       "path": "./data/schemas/def/world/vegetation_model.json",
-      "metaVersion": "0.1.0",
+      "metaVersion": "0.1.1",
       "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@5c9ad4f0002edd935fe824597830bb0d554c0223/data/schemas/def/world/vegetation_model.json",
-      "hash": "sha256:a951b90c348da48e13518c425a6275c1052d7377a8dc4445b4dc92909268e741",
-      "size": 1273,
-      "description": "",
-      "scope": "vegetation_model"
+      "hash": "sha256:15fa28c0f827265521bd2976126b218bc5e431644f8f22c2d30f33e3fd89cb21",
+      "size": 1410,
+      "scope": "vegetation_model",
+      "description": ""
     }
   }
 }
