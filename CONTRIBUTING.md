@@ -60,14 +60,14 @@ This rule helps the extension map schemas to game files and keeps the DB organiz
 #### With scalar & not array
 ```sii
 SiiNunit {
-  model_def : unit.name {
-    name: "name"
+  model_def : vehicle.dummy.truck {
+    name: "Dummy Truck"
   }
 }
 ```
 ```json
 "name": {
-  "description": "",
+  "description": "A dummy truck to scene",
   "type": ["string"],
   "isArray": false,
   "arrayElementType": null
@@ -76,7 +76,7 @@ SiiNunit {
 #### With scalar and array key:
 ```sii
 SiiNunit {
-  model_def : unit.name {
+  model_def : vehicle.dummy.truck {
     dynamic_lod_desc: 2
     dynamic_lod_desc[0]: "/path/to/file.pmd"
     dynamic_lod_desc[1]: "/path/to/file.pmd"
@@ -85,7 +85,7 @@ SiiNunit {
 ```
 ```json
 "dynamic_lod_desc": {
-  "description": "",
+  "description": "Path to file.pmd",
   "type": ["fixed"],
   "isArray": true,
   "arrayElementType": ["resource_tie"]
@@ -94,8 +94,8 @@ SiiNunit {
 #### With array & not scalar:
 ```sii
 SiiNunit {
-  mover_action : unit.name {
-    timer_params[]: ""
+  mover_action : catch_down_1 {
+    timer_params[]: "stop_at_end: 'sound_catch_down_1'; wait_effect: 'anim_catch_down_1'"
   }
 }
 ```
