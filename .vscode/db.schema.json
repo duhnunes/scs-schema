@@ -1,129 +1,176 @@
 {
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://github.com/duhnunes/scs-schema/blob/master/.vscode/db.schema.json",
-  "title": "Material definition file",
+  "title": "SCS unit schema (source format)",
+  "description": "Validates files under data/schemas/ — the hand-authored source format. This is NOT the shape of data/dist/ (the build-generated, inheritance-flattened output nobody edits by hand, so it doesn't need editor IntelliSense or validation).",
   "type": "object",
-  "required": ["meta", "scope", "key"],
+  "required": ["meta", "scope", "description", "superclass", "allowsSiiNunitRoot", "key"],
+  "additionalProperties": false,
+  "definitions": {
+    "attributeType": {
+      "type": "string",
+      "oneOf": [
+        { "const": "string", "description": "Plain text value | e.g., key: \"x\"" },
+        { "const": "float", "description": "Single float number | e.g., key: x or HEX ieee754: &3f800000" },
+        { "const": "float2", "description": "Vector of 2 floats | e.g., key: (x, y)" },
+        { "const": "float3", "description": "Vector of 3 floats | e.g., key: (x, y, z)" },
+        { "const": "float4", "description": "Vector of 4 floats | e.g., key: (x, y, z, w)" },
+        { "const": "placement", "description": "Placement transform | e.g., key: (x, y, z)(w; x, y, z)" },
+        { "const": "fixed", "description": "Fixed-point number | e.g., key: x" },
+        { "const": "fixed2", "description": "Vector of 2 fixed-point numbers | e.g., key: (x, y)" },
+        { "const": "fixed3", "description": "Vector of 3 fixed-point numbers | e.g., key: (x, y, z)" },
+        { "const": "fixed4", "description": "Vector of 4 fixed-point numbers | e.g., key: (x, y, z, w)" },
+        { "const": "int2", "description": "Vector of 2 integers | e.g., key: (x, y)" },
+        { "const": "quaternion", "description": "Quaternion rotation | e.g., key: (w, x, y, z)" },
+        { "const": "s16", "description": "Signed 16-bit integer | e.g., key: x" },
+        { "const": "s32", "description": "Signed 32-bit integer | e.g., key: x" },
+        { "const": "s64", "description": "Signed 64-bit integer | e.g., key: x" },
+        { "const": "u16", "description": "Unsigned 16-bit integer | e.g., key: x" },
+        { "const": "u32", "description": "Unsigned 32-bit integer | e.g., key: x" },
+        { "const": "u64", "description": "Unsigned 64-bit integer | e.g., key: x" },
+        { "const": "bool", "description": "Boolean flag | e.g., true|false" },
+        { "const": "token", "description": "String of max length 12, only lowercase alphanumeric and underscore: [a-z0-9_]" },
+        { "const": "owner_ptr", "description": "Refers to a unit defined within the same SiiNunit | e.g., \".trailer.tchassis\"" },
+        { "const": "link_ptr", "description": "Refers to a named unit defined elsewhere | e.g., \"cabin_a.brand.model.cabin\"" },
+        { "const": "resource_tie", "description": "Typically used to bind animations to animated models (e.g. \"path/to/file.pma\") — same syntax as 'string'. The wiki's own example is specifically .pma; don't assume it covers other file types (.pmd, .pmc, etc.) unless a specific class's docs say so." }
+      ]
+    },
+    "typeList": {
+      "description": "One or more allowed types. null means \"not applicable\" (see the sibling field's own description for exactly when that is).",
+      "anyOf": [
+        {
+          "type": "array",
+          "items": { "$ref": "#/definitions/attributeType" },
+          "minItems": 1
+        },
+        { "type": "null" }
+      ],
+      "default": null
+    },
+    "versionNote": {
+      "description": "Free-text note on when this was added/removed/changed, exactly as the wiki phrases it (e.g. \"Added in 1.38.\", \"Removed in 1.44 (ETS2 only).\"). null when there's nothing noteworthy. Deliberately NOT split into separate addedIn/removedIn fields: the extension never knows what game version the user has installed, so this is display-only information, never something compared programmatically — and the wiki itself isn't consistent enough (sometimes one version, sometimes different per game, sometimes a whole sentence) to force into stricter structure.",
+      "type": ["string", "null"]
+    },
+    "classNameList": {
+      "description": "One or more class_name values (e.g. for pointsTo). null when not applicable.",
+      "anyOf": [
+        {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^[A-Za-z_][A-Za-z0-9_]*$" },
+          "minItems": 1
+        },
+        { "type": "null" }
+      ],
+      "default": null
+    }
+  },
   "properties": {
     "meta": {
       "type": "object",
-      "description": "Metadata block required for cache validation and file context.\n\nContains version information used to synchronize with manifest.json and a human-readable description of the file. This section must always be present and strictly follow the defined structure.",
-      "required": ["version", "description"],
+      "description": "Metadata required for cache validation and file context. Must always be present and follow this exact structure.",
+      "required": ["version", "documentationStatus"],
+      "additionalProperties": false,
       "properties": {
         "version": {
           "type": "string",
-          "pattern": "^[0-9]+\\.[0-9]\\.[0-9]+$",
-          "description": "Internal metadata version used to ensure cache consistency.\n\nThis value is required in every file and must be \"0.1.0\" when creating a new one. At runtime, tooling compares meta.version against manifest.json:metaVersion to decide whether cached data remains valid or needs refresh. The field is automatically bumped by the build/update process and should not be manually modified."
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+          "description": "Semver version of this schema FILE (not of the game). Must be \"0.1.0\" on a new file. Bumped automatically by scripts/update.mjs based on conventional-commit messages touching this file — don't edit by hand."
         },
-        "description": {
+        "documentationStatus": {
           "type": "string",
-          "description": "Description used by completion tooling.\n\nProvides contextual information for the class_name, enabling better suggestions in the extension. This field is required in every file and should contain a concise explanation of the class_name's purpose."
+          "enum": ["complete", "wip"],
+          "description": "\"wip\" mirrors the same warning the SCS wiki itself shows on several unit-type pages (\"has yet to be reviewed by SCS staff\") — use it while you're still filling this file in or unsure about some of it."
         }
-      },
-      "additionalProperties": false
+      }
     },
     "scope": {
       "type": "string",
-      "description": "Scope identifier matching the file name.\n\nUsed by completion tooling to reference available class_name definitions from SCS game files. This field must always correspond to the actual file name to ensure proper linking and suggestion accuracy."
+      "pattern": "^[A-Za-z_][A-Za-z0-9_]*$",
+      "description": "The class_name this file documents. Should match the file name (without .json)."
+    },
+    "description": {
+      "type": "string",
+      "description": "What this class_name is, in a sentence or two. Shown in completion/hover for the class_name itself."
+    },
+    "superclass": {
+      "type": "string",
+      "pattern": "^[A-Za-z_][A-Za-z0-9_]*$",
+      "description": "The DIRECT parent class_name this one inherits attributes from — not the whole ancestor chain (scripts/build.mjs resolves that recursively). Use the literal value \"unit\" when there's no real documented parent — that's the engine's own generic root type, confirmed via package_version_info's \"Raw Unit Definition\" section, not a real class to look up."
+    },
+    "versionNote": { "$ref": "#/definitions/versionNote" },
+    "allowsSiiNunitRoot": {
+      "type": "boolean",
+      "description": "false for classes documented as needing to be @include-d rather than used as a file's SiiNunit root (e.g. cargo_data, trailer say \"must not use the SiiNunit magic mark\"). true for everything else."
     },
     "key": {
       "type": "object",
-      "description": "Represents attribute definitions inside a class_name block of SCS files.\n\nEach entry corresponds to a property of the unit, expressed as key: value pairs within the class_name scope. This section defines the available attributes, their types, and array semantics, enabling completion tooling to provide accurate suggestions and validation.",
-      "minProperties": 0,
+      "description": "This class's OWN attributes only — never copy in attributes inherited from superclass; scripts/build.mjs merges those in automatically when generating data/dist/.",
       "additionalProperties": false,
       "patternProperties": {
         "^[A-Za-z0-9_]+$": {
           "type": "object",
-          "description": "Represents the attribute name whitin a class_name block of an SCS file.\n\nKeys must consist only of alphabetic characters and underscores, following the allowed identifier pattern. Each key object describes the attribute's semantics, type constraints, and array behavior, ensuring consistent validation and tooling support.",
-          "required": ["description", "type", "isArray", "arrayElementType"],
+          "description": "One attribute definition.",
+          "required": [
+            "description", "type", "isArray", "arrayElementType", "required",
+            "versionNote", "values", "pointsTo", "expectedExtensions",
+            "supportsLocalization", "internalOnly", "notes"
+          ],
+          "additionalProperties": false,
           "properties": {
             "description": {
               "type": "string",
-              "description": "Explanation of the attribute.\n\nProvides context for what the key represents within the class_name block of an SCS file. This field should be concise, describing the purpose or semantics of the attribute to aid understanding and validation."
+              "description": "What this attribute does."
             },
             "type": {
-              "description": "Defines the allowed data types for the attribute.\n\nThis field may be null (indicating no explicit type) or an array containing one or more valid type identifiers. Supported types include primitive values (string, float, bool), numeric variants (s16, u32, etc.), and specialized SCS constructs (placements, quaternion, resource_tie). The array must contain at least one entry when not null.\n\nDoc: https://modding.scssoft.com/wiki/Documentation/Engine/Units#Attribute_types",
-              "anyOf": [
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "string",
-                    "oneOf": [
-                      { "const": "string", "description": "Plain text value | e.g., key: \"x\"" },
-                      { "const": "float", "description": "Sigle float number | e.g., key: x or HEXieee754: &3f800000" },
-                      { "const": "float2", "description": "Vector of 2 floats | e.g., key: (x, y)" },
-                      { "const": "float3", "description": "Vector of 3 floats | e.g., key: (x, y, z)" },
-                      { "const": "float4", "description": "Vector of 4 floats | e.g., key: (x, y, z, w)" },
-                      { "const": "placement", "description": "Placement transform | e.g., key: (x, y, z)(w; x, y, z)" },
-                      { "const": "fixed", "description": "Fixed-point number | e.g., key: x" },
-                      { "const": "fixed2", "description": "Vector of 2 fixed-point numbers | e.g., key: (x, y)" },
-                      { "const": "fixed3", "description": "Vector of 3 fixed-point numbers | e.g., key: (x, y, z)" },
-                      { "const": "fixed4", "description": "Vector of 4 fixed-point numbers | e.g., key: (x, y, z, w)" },
-                      { "const": "int2", "description": "Vector of 2 integer | e.g., key: (x, y)" },
-                      { "const": "quaternion", "description": "Quaternion rotation | e.g., key: (w, x, y, z)" },
-                      { "const": "s16", "description": "Signed 16-bit integer | e.g., key: x" },
-                      { "const": "s32", "description": "Signed 32-bit integer | e.g., key: x" },
-                      { "const": "s64", "description": "Signed 64-bit integer | e.g., key: x" },
-                      { "const": "u16", "description": "Unsigned 16-bit integer | e.g., key: x" },
-                      { "const": "u32", "description": "Unsigned 32-bit integer | e.g., key: x" },
-                      { "const": "u64", "description": "Unsigned 64-bit integer | e.g., key: x" },
-                      { "const": "bool", "description": "Boolean flag | e.g., true|false" },
-                      { "const": "token", "description": "Token is a string of maximum length of 12 characters, only lowercase alphanumeric characters and underscore can be used \"[a-z0-9-]\"" },
-                      { "const": "owner_ptr", "description": "\"owner_ptr\" refers to unit defined within the same SiiNunit | e.g., \".tailer.tchassis\"" },
-                      { "const": "link_ptr", "description": "\"link_ptr\" refers to a named unit that is defined elsewhere (e.g., \"cabin_a.brand.model.cabin\"" },
-                      { "const": "resource_tie", "description": "\"resource_tie\" is typically used to bind animations to animated models. The syntax is the same as for 'string' type key" }
-                    ]
-                  },
-                  "minItems": 1
-                },
-                { "type": "null" }
-              ],
-              "default": null
+              "$ref": "#/definitions/typeList",
+              "description": "Allowed type(s) for the SCALAR form (key: value). null if this attribute ONLY ever exists as a dynamic array (e.g. str_params — see the SCS docs' trigger_action page)."
             },
             "isArray": {
               "type": "boolean",
-              "description": "Specifies wether the attribute is defined as an array is SCS file syntax.\n\n- false: the key is scalar, appearing once with a single value (e.g., name:\"value\"\n- true: the key is declared with \"[]\" or repeated multiples times (e.g., \"key[]\" or \"key[N]\"), representing a list of values. In this case, arrayElementType must define the type of each element.\nThis flag ensures correct interpretation of attributes that may occur either s single values or as collections withing class_name blocks."
+              "description": "true if this attribute supports EITHER array form (key[]: value repeated, or key: N followed by key[0]..key[N-1]). false if it's only ever a bare key: value."
             },
             "arrayElementType": {
-              "description": "Defines the data type of elements when the attribute is declared as an array.\n\nThis field must be specified when \"isArray: true\", and describes the type of ech entry in the list (e.g., string, resource_tie). When \"isArray: false\", the value must be \"null\". Ensures correct typing and validation of array-based attributes in SCS files.\n\nDoc: https://modding.scssoft.com/wiki/Documentation/Engine/Units#Attribute_types",
+              "$ref": "#/definitions/typeList",
+              "description": "Allowed type(s) for each array element. Required (non-null) whenever isArray is true; must be null when isArray is false."
+            },
+            "required": {
+              "type": "boolean",
+              "description": "Whether the SCS docs mark this attribute as required (shown as bold text, or as a dedicated Required/Optional column — the wiki uses both conventions inconsistently across pages)."
+            },
+            "versionNote": { "$ref": "#/definitions/versionNote" },
+            "values": {
+              "description": "Valid literal values for a token-typed attribute, when the docs enumerate them (e.g. cargo_model_match's loading_method). null when not documented or not applicable.",
               "anyOf": [
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "string",
-                    "oneOf": [
-                      { "const": "string", "description": "Plain text value | e.g., key: \"x\"" },
-                      { "const": "float", "description": "Sigle float number | e.g., key: x or HEXieee754: &3f800000" },
-                      { "const": "float2", "description": "Vector of 2 floats | e.g., key: (x, y)" },
-                      { "const": "float3", "description": "Vector of 3 floats | e.g., key: (x, y, z)" },
-                      { "const": "float4", "description": "Vector of 4 floats | e.g., key: (x, y, z, w)" },
-                      { "const": "placement", "description": "Placement transform | e.g., key: (x, y, z)(w; x, y, z)" },
-                      { "const": "fixed", "description": "Fixed-point number | e.g., key: x" },
-                      { "const": "fixed2", "description": "Vector of 2 fixed-point numbers | e.g., key: (x, y)" },
-                      { "const": "fixed3", "description": "Vector of 3 fixed-point numbers | e.g., key: (x, y, z)" },
-                      { "const": "fixed4", "description": "Vector of 4 fixed-point numbers | e.g., key: (x, y, z, w)" },
-                      { "const": "int2", "description": "Vector of 4 fixed-point numbers | e.g., key: (x, y, z, w)" },
-                      { "const": "quaternion", "description": "Quaternion rotation | e.g., key: (w, x, y, z)" },
-                      { "const": "s16", "description": "Signed 16-bit integer | e.g., key: x" },
-                      { "const": "s32", "description": "Signed 32-bit integer | e.g., key: x" },
-                      { "const": "s64", "description": "Signed 64-bit integer | e.g., key: x" },
-                      { "const": "u16", "description": "Unsigned 16-bit integer | e.g., key: x" },
-                      { "const": "u32", "description": "Unsigned 32-bit integer | e.g., key: x" },
-                      { "const": "u64", "description": "Unsigned 64-bit integer | e.g., key: x" },
-                      { "const": "bool", "description": "Boolean flag | e.g., true|false" },
-                      { "const": "token", "description": "Token is a string of maximum length of 12 characters, only lowercase alphanumeric characters and underscore can be used \"[a-z0-9-]\"" },
-                      { "const": "owner_ptr", "description": "\"owner_ptr\" refers to unit defined within the same SiiNunit | e.g., \".tailer.tchassis\"" },
-                      { "const": "link_ptr", "description": "\"link_ptr\" refers to a named unit that is defined elsewhere (e.g., \"cabin_a.brand.model.cabin\"" },
-                      { "const": "resource_tie", "description": "\"resource_tie\" is typically used to bind animations to animated models. The syntax is the same as for 'string' type key" }
-                    ]
-                  },
-                  "minItems": 1
-                },
+                { "type": "array", "items": { "type": "string" }, "minItems": 1 },
                 { "type": "null" }
               ],
               "default": null
+            },
+            "pointsTo": {
+              "$ref": "#/definitions/classNameList",
+              "description": "For owner_ptr/link_ptr attributes: which class_name(s) the pointed-to unit is expected to be (e.g. trailer.accessories accepts several vehicle_*_accessory classes). null when not documented or not a pointer type."
+            },
+            "expectedExtensions": {
+              "description": "Which file extension(s) this attribute's value is expected to have, without the leading dot (e.g. [\"pmd\"], [\"pmc\"]) — for ANY attribute whose value is a file path, not just resource_tie ones (most such attributes are actually typed as plain 'string' per the wiki, not resource_tie — see resource_tie's own description above). null when not documented, not a file path, or the path format doesn't cleanly reduce to one expected extension (e.g. a sound attribute that can be either a .soundref file OR a direct \"bank#event\" string).",
+              "anyOf": [
+                { "type": "array", "items": { "type": "string", "pattern": "^[a-z0-9]+$" }, "minItems": 1 },
+                { "type": "null" }
+              ],
+              "default": null
+            },
+            "supportsLocalization": {
+              "type": "boolean",
+              "description": "true if the docs note this string-ish value supports the @@localization@@ template syntax (e.g. cargo_data's name)."
+            },
+            "internalOnly": {
+              "type": "boolean",
+              "description": "true if the docs say this should not be set manually in a definition (engine/save-game managed — several trailer attributes are like this)."
+            },
+            "notes": {
+              "type": "string",
+              "description": "Anything else worth keeping that doesn't fit the fields above. Empty string when there's nothing to add."
             }
           },
-          "additionalProperties": false,
           "allOf": [
             {
               "if": { "properties": { "isArray": { "const": true } } },
@@ -131,18 +178,10 @@
                 "properties": {
                   "arrayElementType": {
                     "type": "array",
-                    "items": {
-                      "type": "string",
-                      "enum": [
-                        "string", "float", "float2", "float3", "float4", "placement", "fixed", "fixed2", "fixed3", "fixed4",
-                        "int2", "quaternion", "s16", "s32", "s64", "u16", "u32", "u64", "bool", "token", "owner_ptr",
-                        "link_ptr", "resource_tie"
-                      ]
-                    },
+                    "items": { "$ref": "#/definitions/attributeType" },
                     "minItems": 1
                   }
-                },
-                "required": ["arrayElementType"]
+                }
               }
             },
             {
@@ -156,7 +195,30 @@
           ]
         }
       }
+    },
+    "dynamicAttributeGroups": {
+      "type": "array",
+      "description": "For families of attributes the docs describe collectively rather than name individually (e.g. accessory_interior_data's \"nearly 70 interior animation attributes\"). Optional — omit or leave empty ([]) for classes without this.",
+      "items": {
+        "type": "object",
+        "required": ["pattern", "description", "type", "notes"],
+        "additionalProperties": false,
+        "properties": {
+          "pattern": {
+            "type": "string",
+            "description": "Short label for the group, e.g. \"interior animation attributes\"."
+          },
+          "description": {
+            "type": "string",
+            "description": "What the group is, roughly how many attributes, and where to find the real names if documented elsewhere."
+          },
+          "type": { "$ref": "#/definitions/typeList" },
+          "notes": {
+            "type": "string",
+            "description": "Anything else — e.g. a link to a page that lists the actual attribute names."
+          }
+        }
+      }
     }
-  },
-  "additionalProperties": false
+  }
 }

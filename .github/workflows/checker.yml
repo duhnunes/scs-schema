@@ -6,7 +6,7 @@ on:
   workflow_run:
     workflows: ["Proxy Fork PRs"]
     types: [completed]
-  
+
 permissions:
   contents: write
   pull-requests: write
@@ -15,182 +15,142 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    outputs:
-      PR_NUMB: ${{ steps.get-pr.outputs.PR_NUMB }}
-      BASE_REF: ${{ steps.get-pr.outputs.BASE_REF }}
-      HEAD_SHA: ${{ steps.get-pr.outputs.HEAD_SHA }}
-      HEAD_REF: ${{ steps.get-pr.outputs.HEAD_REF }}
-      IS_DRAFT: ${{ steps.get-pr.outputs.IS_DRAFT }}
     steps:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
       - uses: pnpm/action-setup@v6
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version: 24
           cache: 'pnpm'
-      
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Get proxied PR number
-        id: get-pr
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          pr_number=$(gh api repos/${{ github.repository }}/pulls \
-            --jq 'map(select(.labels[].name == "proxied")) | .[0].number')
-          echo "PR_NUMB=$pr_number" >> $GITHUB_OUTPUT
-          pr_json=$(gh api repos/${{ github.repository }}/pulls/$pr_number)
-          echo "BASE_REF=$(echo $pr_json | jq -r .base.ref)" >> $GITHUB_OUTPUT
-          echo "HEAD_SHA=$(echo $pr_json | jq -r .head.sha)" >> $GITHUB_OUTPUT
-          echo "HEAD_REF=$(echo $pr_json | jq -r .head.ref)" >> $GITHUB_OUTPUT
-          echo "IS_DRAFT=$(echo $pr_json | jq -r .draft)" >> $GITHUB_OUTPUT
-          
-      - name: Config Actor
+      - name: Git Config
         run: |
           git config user.name ${{ github.actor }}
-          git config user.email ${{ github.actor }}users.noreply.github.com
+          git config user.email ${{ github.actor }}@users.noreply.github.com
 
-      - name: Run formatter script
-        id: formatter
+      # A direct "ready_for_review" event already tells us exactly which PR
+      # fired it — no need to guess. A "workflow_run" from proxy.yml doesn't
+      # carry a PR reference at all (a known GitHub Actions limitation for
+      # fork PRs), so that path processes every currently-open PR labeled
+      # "proxied" instead — there's no other reliable way to know which
+      # one(s) just got proxied.
+      - name: List PRs to check
+        id: prs
         env:
-          HEAD_REF: ${{ steps.get-pr.outputs.HEAD_REF }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
         run: |
-          node ./scripts/formatter.mjs  || true
-          git add data/schemas/**/*.json  || true
-          if ! git diff --staged --quiet; then
-            git commit -m "refactor(schemas): normalize schema JSONs [skip ci]" || true
-            git push origin HEAD:${HEAD_REF} || true
-            echo "formatted=true" >> $GITHUB_OUTPUT
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            NUMBERS="${{ github.event.pull_request.number }}"
           else
-            echo "formatted=false" >> $GITHUB_OUTPUT
+            NUMBERS=$(gh api "repos/${REPO}/pulls?state=open&per_page=100" \
+              --jq '.[] | select(.labels[].name=="proxied") | .number' | tr '\n' ' ')
           fi
-      
-      - name: Run schema validation
-        id: validate
+          echo "numbers=$NUMBERS" >> $GITHUB_OUTPUT
+
+      - name: Validate each PR
+        if: steps.prs.outputs.numbers != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
         run: |
           set -o pipefail
-          if ! OUTPUT=$(node ./scripts/validate.mjs 2>&1); then
-            echo "invalid=true" >> $GITHUB_OUTPUT
-            echo "output<<EOF" >> $GITHUB_OUTPUT
-            echo "$OUTPUT" >> $GITHUB_OUTPUT
-            echo "EOF" >> $GITHUB_OUTPUT
-          else
-            echo "invalid=false" >> $GITHUB_OUTPUT
-          fi
+          any_invalid=0
 
-      - name: Comment on PR with errors
-        if: steps.validate.outputs.invalid == 'true'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPO: ${{ github.repository }}
-        run: |
-          BODY=$(jq -Rs . <<< "${{ steps.validate.outputs.output }}")
-          curl -sS -X POST \
-            -H "Authorization: Bearer ${GH_TOKEN}" \
-            -H "Accept: application/vnd.github+json" \
-            -d "{\"body\": $BODY}" \
-            "https://api.github.com/repos/${REPO}/issues/${{ steps.get-pr.outputs.PR_NUMB }}/comments"
+          # Labels this workflow itself is allowed to add/remove. Anything
+          # else already on the PR (proxied, conflict, ready — managed by
+          # the other workflows) must never be touched here.
+          MANAGED_LABELS="validated documentation system invalid-schema"
 
-      - name: Add ready label
-        if: steps.validate.outputs.invalid == 'true'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR: ${{ steps.get-pr.outputs.PR_NUMB }}
-          REPO: ${{ github.repository }}
-        run: |
-            gh pr edit $PR --add-label "invalid-schema" --repo "$REPO"
-      
-      - name: Fail job if invalid
-        if: steps.validate.outputs.invalid == 'true'
-        run: exit 1
-      
-  add-label:
-    runs-on: ubuntu-latest
-    needs: validate
-    if: needs.validate.outputs.IS_DRAFT == 'false' && needs.validate.result == 'success'
-    steps:
-      - uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
-      
-      - name: Check path files modified
-        id: check
-        env:
-          BASE_REF: ${{ needs.validate.outputs.BASE_REF }}
-          HEAD_SHA: ${{ needs.validate.outputs.HEAD_SHA }}
-        run: |
-          git fetch origin ${BASE_REF} --depth=1
-          CHANGED=$(git diff --name-only origin/${BASE_REF} ${HEAD_SHA})
+          for pr in ${{ steps.prs.outputs.numbers }}; do
+            echo "::group::PR #$pr"
 
-          labels=""
-
-          if echo "$CHANGED" | grep -q '^data/schemas'; then
-            if ! echo "$CHANGED" | grep -vq '^data/schemas'; then
-              labels="validated"
+            PR_JSON=$(gh api "repos/${REPO}/pulls/$pr")
+            IS_DRAFT=$(echo "$PR_JSON" | jq -r .draft)
+            if [ "$IS_DRAFT" = "true" ]; then
+              echo "PR #$pr is a draft, skipping"
+              echo "::endgroup::"
+              continue
             fi
-          fi
-        
-          if echo "$CHANGED" | grep -Eq '^(README\.md|CHANGELOG\.md|CONTRIBUTING\.md|CODE_OF_CONDUCT\.md|LICENSE|docs/)'; then
-            labels="$labels,documentation"
-          fi
 
-          if echo "$CHANGED" | grep -vq '^data/schemas/' && ! echo "$CHANGED" | grep -Eq '^(README\.md|CHANGELOG\.md|CONTRIBUTING\.md|CODE_OF_CONDUCT\.md|LICENSE|docs/)'; then
-            labels="$labels,system"
-          fi
+            BASE_REF=$(echo "$PR_JSON" | jq -r .base.ref)
+            HEAD_REF=$(echo "$PR_JSON" | jq -r .head.ref)
 
-          labels=$(echo "$labels" | sed 's/^,//')
+            git fetch origin "$HEAD_REF" "$BASE_REF" --depth=100
+            git checkout "$HEAD_REF"
 
-          echo "labels=$labels" >> $GITHUB_OUTPUT
-      
-      - name: Get current labels
-        id: current-labels
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPO: ${{ github.repository }}
-        run: |
-          labels=$(curl -sS -H "Authorization: Bearer ${GH_TOKEN}" \
-            "https://api.github.com/repos/${REPO}/issues/${{ needs.validate.outputs.PR_NUMB }}/labels" \
-            | jq -r '.[].name' | xargs)
-          echo "labels=$labels" >> $GITHUB_OUTPUT
-          
-      # - name: Remove labels
-      #   if: steps.current-labels.outputs.labels != ''
-      #   env:
-      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #     REPO: ${{ github.repository }}
-      #   run: |
-      #     labels="${{ steps.current-labels.outputs.labels }}"
-      #     for label in $labels; do
-      #       echo "Removing $label"
-      #       curl -sS -X DELETE \
-      #         -H "Authorization: Bearer ${GH_TOKEN}" \
-      #         -H "Accept: application/vnd.github+json" \
-      #         "https://api.github.com/repos/${REPO}/issues/${{ needs.validate.outputs.PR_NUMB }}/labels/$label"
-      #     done
+            # Format, and push back only if it actually changed anything.
+            node ./scripts/formatter.mjs || true
+            git add data/schemas/*.json || true
+            if ! git diff --staged --quiet; then
+              git commit -m "refactor(schemas): normalize schema JSONs [skip ci]"
+              git push origin "HEAD:$HEAD_REF"
+            fi
 
-      - name: Remove labels
-        if: steps.current-labels.outputs.labels != ''
-        env:
-          GH_TOKEN: ${{ secrets.TOKEN }}
-          REPO: ${{ github.repository }}
-          PR: ${{ needs.validate.outputs.PR_NUMB }}
-        run: |
-          labels="${{ steps.current-labels.outputs.labels }}"
-          for label in $labels; do
-            echo "Removing $label"
-            gh pr edit $PR --remove-label "${{ steps.current-labels.outputs.labels }}" --repo "$REPO"
+            # Validate; capture output either way, but don't let a bad PR
+            # stop the loop from checking the rest.
+            if VALIDATE_OUTPUT=$(node ./scripts/validate.mjs 2>&1); then
+              INVALID=false
+            else
+              INVALID=true
+              any_invalid=1
+            fi
+
+            if [ "$INVALID" = "true" ]; then
+              BODY=$(jq -n --arg msg "$VALIDATE_OUTPUT" '{body: ("### ❌ Schema validation failed\n\n```\n" + $msg + "\n```")}')
+              curl -sS -X POST \
+                -H "Authorization: Bearer ${GH_TOKEN}" \
+                -H "Accept: application/vnd.github+json" \
+                -d "$BODY" \
+                "https://api.github.com/repos/${REPO}/issues/$pr/comments"
+              gh pr edit $pr --add-label "invalid-schema" --repo "$REPO"
+              echo "::endgroup::"
+              continue
+            fi
+
+            # Valid — figure out which of our managed labels apply, based
+            # on what actually changed in this PR.
+            CHANGED=$(git diff --name-only "origin/$BASE_REF" "$HEAD_REF")
+            NEW_LABELS=""
+
+            if echo "$CHANGED" | grep -q '^data/schemas/' && ! echo "$CHANGED" | grep -vq '^data/schemas/'; then
+              NEW_LABELS="validated"
+            fi
+            if echo "$CHANGED" | grep -Eq '^(README\.md|CHANGELOG\.md|CONTRIBUTING\.md|CODE_OF_CONDUCT\.md|LICENSE|docs/)'; then
+              NEW_LABELS="$NEW_LABELS documentation"
+            fi
+            if echo "$CHANGED" | grep -vq '^data/schemas/' && ! echo "$CHANGED" | grep -Eq '^(README\.md|CHANGELOG\.md|CONTRIBUTING\.md|CODE_OF_CONDUCT\.md|LICENSE|docs/)'; then
+              NEW_LABELS="$NEW_LABELS system"
+            fi
+            NEW_LABELS=$(echo "$NEW_LABELS" | xargs)
+
+            CURRENT_LABELS=$(gh api "repos/${REPO}/issues/$pr/labels" --jq '.[].name')
+
+            # Only ever remove labels this workflow owns — never touch
+            # proxied/conflict/ready, which belong to the other workflows.
+            for label in $CURRENT_LABELS; do
+              for managed in $MANAGED_LABELS; do
+                if [ "$label" = "$managed" ]; then
+                  gh pr edit $pr --remove-label "$label" --repo "$REPO"
+                fi
+              done
+            done
+
+            for label in $NEW_LABELS; do
+              gh pr edit $pr --add-label "$label" --repo "$REPO"
+            done
+
+            echo "::endgroup::"
           done
-      
-      - name: Add label
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR: ${{ needs.validate.outputs.PR_NUMB }}
-          REPO: ${{ github.repository }}
-        run: |
-            gh pr edit $PR --add-label "${{ steps.check.outputs.labels }}" --repo "$REPO"
+
+          if [ "$any_invalid" = "1" ]; then
+            exit 1
+          fi

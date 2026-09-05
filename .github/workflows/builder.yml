@@ -60,17 +60,19 @@ jobs:
             # Update branch with updated master
             git pull origin master --no-edit
 
-            # Update
+            # Update — bumps meta.version in data/schemas/ only. Never
+            # touches manifest.json or data/dist/ anymore (see update.mjs).
             set -o pipefail
             node scripts/update.mjs 2>&1 | tee /tmp/update-$pr.log
-            git add data/manifest.json data/schemas
+            git add data/schemas
             git commit -m "ci(update): Verify and bump needed files [skip ci]" || echo "No changes to commit"
 
-            # Build CDNs
+            # Build CDNs — resolves inheritance, writes data/dist/, and
+            # rewrites manifest.json (URLs only change where the hash did).
             set -o pipefail
             REF=$(git rev-parse HEAD)
             node scripts/build.mjs "$REF" 2>&1 | tee /tmp/build-$pr.log
-            git add data/manifest.json
+            git add data/manifest.json data/dist
             git commit -m "ci(build): build CDN URLs in manifest [skip ci]" || echo "No changes to commit"
 
             # Push
@@ -131,10 +133,7 @@ jobs:
             state=$(gh api repos/$REPO/pulls/$pr --jq '.mergeable_state')
             if [ "$state" = "dirty" ]; then
               PAYLOAD=$(jq -nc \
-                `{body: ("### ⚠️ Conflict detect\n\n
-                This PR has merge conflicts with the base branch.\n\n
-                The automation workflow has paused and applied the `conflict` label.\n\n
-                Please resolve the conflicts manually and push the changes to resume automation.")}')
+                '{body: ("### ⚠️ Conflict detected\n\nThis PR has merge conflicts with the base branch.\n\nThe automation workflow has paused and applied the `conflict` label.\n\nPlease resolve the conflicts manually and push the changes to resume automation.")}')
               API="https://api.github.com/repos/${REPO}/issues/$pr/comments"
 
               curl -sS -X POST \
