@@ -1,0 +1,152 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "complete"
+  },
+  "scope": "accessory_addon_data",
+  "description": "Used for vehicle accessories which add a visible component to a vehicle. Defines the paths to the visible models and their configuration (variant, look, excluded views), and the collision mesh path if applicable.",
+  "superclass": "accessory_data",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "exterior_model": {
+      "description": "Path to the model descriptor (.pmd) displayed in the exterior view, if applicable.",
+      "type": [
+        "string"
+      ],
+      "isArray": false,
+      "arrayElementType": null,
+      "required": false,
+      "versionNote": null,
+      "values": null,
+      "pointsTo": null,
+      "expectedExtensions": [
+        "pmd"
+      ],
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "The wiki lists this attribute's type as plain \"string\", not \"resource_tie\", even though it's a model path — kept as documented rather than reinterpreted."
+    },
+    "exterior_model_uk": {
+      "description": "Path to the model descriptor (.pmd) displayed in the exterior view for right-hand drive vehicles. Defaults to exterior_model when unset.",
+      "type": [
+        "string"
+      ],
+      "isArray": false,
+      "arrayElementType": null,
+      "required": false,
+      "versionNote": null,
+      "values": null,
+      "pointsTo": null,
+      "expectedExtensions": [
+        "pmd"
+      ],
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    },
+    "interior_model": {
+      "description": "Path to the model descriptor (.pmd) displayed in the interior view, if applicable.",
+      "type": [
+        "string"
+      ],
+      "isArray": false,
+      "arrayElementType": null,
+      "required": false,
+      "versionNote": null,
+      "values": null,
+      "pointsTo": null,
+      "expectedExtensions": [
+        "pmd"
+      ],
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    },
+    "interior_model_uk": {
+      "description": "Path to the model descriptor (.pmd) displayed in the interior view for right-hand drive vehicles. Defaults to interior_model when unset.",
+      "type": [
+        "string"
+      ],
+      "isArray": false,
+      "arrayElementType": null,
+      "required": false,
+      "versionNote": null,
+      "values": null,
+      "pointsTo": null,
+      "expectedExtensions": [
+        "pmd"
+      ],
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    },
+    "coll": {
+      "description": "Path to the collision descriptor (.pmc) for the accessory, if applicable.",
+      "type": [
+        "string"
+      ],
+      "isArray": false,
+      "arrayElementType": null,
+      "required": false,
+      "versionNote": null,
+      "values": null,
+      "pointsTo": null,
+      "expectedExtensions": [
+        "pmc"
+      ],
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    },
+    "look": {
+      "description": "Name of the look used on all descriptors of this accessory. All models for an accessory must have the same set of looks.",
+      "type": [
+        "token"
+      ],
+      "isArray": false,
+      "arrayElementType": null,
+      "required": false,
+      "versionNote": null,
+      "values": null,
+      "pointsTo": null,
+      "expectedExtensions": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "Default value: default."
+    },
+    "variant": {
+      "description": "Name of the variant used on all descriptors of this accessory. All models for an accessory must have the same set of variants.",
+      "type": [
+        "token"
+      ],
+      "isArray": false,
+      "arrayElementType": null,
+      "required": false,
+      "versionNote": null,
+      "values": null,
+      "pointsTo": null,
+      "expectedExtensions": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "Default value: default."
+    },
+    "hide_in": {
+      "description": "Flag for hiding the accessory from being drawn in specific views. Accessories whose model references mirror-reflection textures (e.g. the mirror itself) MUST be marked as not visible in mirrors.",
+      "type": [
+        "u32"
+      ],
+      "isArray": false,
+      "arrayElementType": null,
+      "required": false,
+      "versionNote": null,
+      "values": null,
+      "pointsTo": null,
+      "expectedExtensions": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "Default value: 0."
+    }
+  },
+  "dynamicAttributeGroups": []
+}
