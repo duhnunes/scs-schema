@@ -1,6 +1,6 @@
 {
   "formatVersion": "2.0.0",
-  "generatedAt": "2026-09-05T12:57:37.226Z",
+  "generatedAt": "2026-09-05T13:12:01.650Z",
   "schemas": {
     "accessory_addon_data": {
       "name": "accessory_addon_data",
@@ -20,6 +20,16 @@
       "metaVersion": "0.1.0",
       "size": 6831,
       "superclass": null,
+      "documentationStatus": "complete"
+    },
+    "accessory_horn_addon_data": {
+      "name": "accessory_horn_addon_data",
+      "description": "An extension of accessory_addon_data used specifically for air horn accessories. Functions the same as accessory_addon_data, adding the sound_path attribute to bind a horn sound event to the accessory.",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@318c25d42b2ed0dfcb1cd50a2c6b3208e8c04628/data/dist/accessory_horn_addon_data.json",
+      "hash": "sha256:e66a3f323261097dd132cc28e350aee90ca1986007dc7f677ca1b36b37a86e73",
+      "metaVersion": "0.1.0",
+      "size": 12665,
+      "superclass": "accessory_addon_data",
       "documentationStatus": "complete"
     }
   }
