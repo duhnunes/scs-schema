@@ -1,0 +1,273 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "complete"
+  },
+  "scope": "accessory_cabin_data",
+  "description": "Configures the models for the cabin of the player's vehicle. Units of this type are found in /def/vehicle/truck/<brand.model>/cabin/.",
+  "superclass": "accessory_data",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "detail_model": {
+      "description": "Path to the detailed mesh model descriptor (.pmd). Used only for vehicles used by the player, and in vehicle previews and browser windows.",
+      "type": [
+        "string"
+      ],
+      "isArray": false,
+      "arrayElementType": null,
+      "required": false,
+      "versionNote": null,
+      "values": null,
+      "pointsTo": null,
+      "expectedExtensions": [
+        "pmd"
+      ],
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    },
+    "model": {
+      "description": "Path to the model descriptor (.pmd). If only a single LOD is used, it should be set up as model, and detail_model/lods should not be defined.",
+      "type": [
+        "string"
+      ],
+      "isArray": false,
+      "arrayElementType": null,
+      "required": false,
+      "versionNote": null,
+      "values": null,
+      "pointsTo": null,
+      "expectedExtensions": [
+        "pmd"
+      ],
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    },
+    "lods": {
+      "description": "Paths to the reduced level-of-detail model descriptors (.pmd), in order of increasing viewing distance (decreasing model complexity).",
+      "type": null,
+      "isArray": true,
+      "arrayElementType": [
+        "string"
+      ],
+      "required": false,
+      "versionNote": null,
+      "values": null,
+      "pointsTo": null,
+      "expectedExtensions": [
+        "pmd"
+      ],
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    },
+    "collision": {
+      "description": "Path to the collision descriptor (.pmc).",
+      "type": [
+        "string"
+      ],
+      "isArray": false,
+      "arrayElementType": null,
+      "required": false,
+      "versionNote": null,
+      "values": null,
+      "pointsTo": null,
+      "expectedExtensions": [
+        "pmc"
+      ],
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    },
+    "variant": {
+      "description": "Selects the variant to be used for all models/collisions defined. Required if the cabin and chassis share a model, as is standard practice in ETS2 and ATS. All models defined for this accessory_cabin_data must have this variant name.",
+      "type": [
+        "token"
+      ],
+      "isArray": false,
+      "arrayElementType": null,
+      "required": false,
+      "versionNote": null,
+      "values": null,
+      "pointsTo": null,
+      "expectedExtensions": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "Default value: default."
+    },
+    "variant_uk": {
+      "description": "Selects the variant to be used for all models/collisions for right-hand-drive (RHD) vehicles. All models defined for this accessory_cabin_data must have this variant name.",
+      "type": [
+        "token"
+      ],
+      "isArray": false,
+      "arrayElementType": null,
+      "required": false,
+      "versionNote": null,
+      "values": null,
+      "pointsTo": null,
+      "expectedExtensions": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "Defaults to the same value as variant when unset."
+    },
+    "look": {
+      "description": "Selects the look to be used for all models defined. All models defined for this accessory_cabin_data must have this look name.",
+      "type": [
+        "token"
+      ],
+      "isArray": false,
+      "arrayElementType": null,
+      "required": false,
+      "versionNote": null,
+      "values": null,
+      "pointsTo": null,
+      "expectedExtensions": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "Default value: default."
+    },
+    "wiper_model": {
+      "description": "Path to the animated wiper model (.pmg).",
+      "type": [
+        "string"
+      ],
+      "isArray": false,
+      "arrayElementType": null,
+      "required": false,
+      "versionNote": null,
+      "values": null,
+      "pointsTo": null,
+      "expectedExtensions": [
+        "pmg"
+      ],
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    },
+    "wiper_anim": {
+      "description": "Path to the wiper animation (.pma).",
+      "type": [
+        "resource_tie"
+      ],
+      "isArray": false,
+      "arrayElementType": null,
+      "required": false,
+      "versionNote": null,
+      "values": null,
+      "pointsTo": null,
+      "expectedExtensions": [
+        "pma"
+      ],
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    },
+    "wiper_model_uk": {
+      "description": "Path to the animated wiper model (.pmg) for RHD vehicles.",
+      "type": [
+        "string"
+      ],
+      "isArray": false,
+      "arrayElementType": null,
+      "required": false,
+      "versionNote": null,
+      "values": null,
+      "pointsTo": null,
+      "expectedExtensions": [
+        "pmg"
+      ],
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "Defaults to the value of wiper_model when unset."
+    },
+    "wiper_anim_uk": {
+      "description": "Path to the wiper animation (.pma) for RHD vehicles.",
+      "type": [
+        "resource_tie"
+      ],
+      "isArray": false,
+      "arrayElementType": null,
+      "required": false,
+      "versionNote": null,
+      "values": null,
+      "pointsTo": null,
+      "expectedExtensions": [
+        "pma"
+      ],
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "Defaults to the value of wiper_anim when unset."
+    },
+    "drl_with_headlights": {
+      "description": "Relative strength of the daytime running lights when the headlights are on. 0 turns the DRL off when headlights are on; 1 keeps it at full strength without dimming; values above 1 intensify it. The typical value in ETS2 is 0.4.",
+      "type": [
+        "float"
+      ],
+      "isArray": false,
+      "arrayElementType": null,
+      "required": false,
+      "versionNote": null,
+      "values": null,
+      "pointsTo": null,
+      "expectedExtensions": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "Default value: 0.0."
+    },
+    "suspension": {
+      "description": "When true, physical simulation of cabin air suspension is enabled.",
+      "type": [
+        "bool"
+      ],
+      "isArray": false,
+      "arrayElementType": null,
+      "required": false,
+      "versionNote": null,
+      "values": null,
+      "pointsTo": null,
+      "expectedExtensions": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "Default value: true."
+    },
+    "suspension_type": {
+      "description": "Type of cabin suspension, if suspension is enabled.",
+      "type": [
+        "token"
+      ],
+      "isArray": false,
+      "arrayElementType": null,
+      "required": false,
+      "versionNote": "Added in 1.47.",
+      "values": [
+        "4air",
+        "hinge2air"
+      ],
+      "pointsTo": null,
+      "expectedExtensions": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "Default value: 4air (EU type). hinge2air is the US type."
+    },
+    "sounds": {
+      "description": "Each item assigns an FMOD event to a function, using the \"sound_name|sound_path\" format. Expected sound event names are: horn, aero_noise, and rain_noise.",
+      "type": null,
+      "isArray": true,
+      "arrayElementType": [
+        "string"
+      ],
+      "required": false,
+      "versionNote": "Added in 1.39.",
+      "values": null,
+      "pointsTo": null,
+      "expectedExtensions": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  },
+  "dynamicAttributeGroups": []
+}
