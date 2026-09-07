@@ -67,52 +67,39 @@ async function loadSourceSchemas() {
   return schemas
 }
 
-/**
- * Merges `key` maps root-first, so a closer ancestor (or the class
- * itself) always wins on a name collision. Attributes copied in from an
- * ancestor are stamped with `inheritedFrom`; the class's own attributes
- * are left exactly as authored, with no `inheritedFrom` at all.
- */
 function flattenKeys(scope, ancestorChain, schemas) {
   const merged = {}
-
   for (const ancestorScope of ancestorChain) {
     const ancestor = schemas.get(ancestorScope)
     for (const [attrName, attrDef] of Object.entries(ancestor.key || {})) {
       merged[attrName] = { ...attrDef, inheritedFrom: ancestorScope }
     }
   }
-
   const own = schemas.get(scope)
   for (const [attrName, attrDef] of Object.entries(own.key || {})) {
     merged[attrName] = { ...attrDef }
   }
-
   return merged
 }
 
 function flattenDynamicAttributeGroups(scope, ancestorChain, schemas) {
   const groups = []
-
   for (const ancestorScope of ancestorChain) {
     const ancestor = schemas.get(ancestorScope)
     for (const group of ancestor.dynamicAttributeGroups || []) {
       groups.push({ ...group, inheritedFrom: ancestorScope })
     }
   }
-
   const own = schemas.get(scope)
   for (const group of own.dynamicAttributeGroups || []) {
     groups.push({ ...group })
   }
-
   return groups
 }
 
 function buildFlattenedSchema(scope, schemas) {
   const own = schemas.get(scope)
   const ancestorChain = resolveAncestorChain(scope, schemas)
-
   return {
     ...own,
     inheritsFrom: ancestorChain,
@@ -129,9 +116,45 @@ async function loadExistingManifest() {
   }
 }
 
-async function build(ref, verbose) {
-  const startedAt = Date.now()
+/**
+ * Phase 1: writes data/dist/ ONLY — no manifest, no ref/URL needed at
+ * all yet. This is what the workflow commits FIRST, so that by the time
+ * phase 2 runs, dist/ genuinely exists at the commit whose SHA is about
+ * to be embedded in the manifest's URLs. Doing both phases in one shot
+ * (the old behavior) computed the ref BEFORE that commit existed, so
+ * every URL pointed at a commit where dist/ was never actually present
+ * — a 404 on the CDN, even though the content itself was correct.
+ */
+async function buildDist() {
+  const schemas = await loadSourceSchemas()
+  await fs.mkdir(DIST_DIR, { recursive: true })
 
+  const builtScopes = new Set()
+  for (const scope of schemas.keys()) {
+    const flattened = buildFlattenedSchema(scope, schemas)
+    const distContent = JSON.stringify(flattened, null, 2) + '\n'
+    await fs.writeFile(path.join(DIST_DIR, `${scope}.json`), distContent, 'utf8')
+    builtScopes.add(scope)
+  }
+
+  // Remove dist files for classes that no longer exist in data/schemas/.
+  const existingDistFiles = await walkJsonFiles(DIST_DIR)
+  for (const file of existingDistFiles) {
+    const scope = path.basename(file, '.json')
+    if (!builtScopes.has(scope)) await fs.rm(file, { force: true })
+  }
+
+  console.log(`Wrote ${builtScopes.size} file(s) to data/dist/`)
+}
+
+/**
+ * Phase 2: reads whatever's already on disk in data/dist/ (written by
+ * phase 1, already committed by the time this runs) and writes
+ * manifest.json against the now-final `ref`. Never touches data/dist/
+ * itself — the hash it records is of exactly the bytes already
+ * committed, not a re-flattened copy that could in principle drift.
+ */
+async function buildManifest(ref, verbose) {
   if (!ref) ref = process.env.REF || gitRevParseHead()
   const urlBase = `https://cdn.jsdelivr.net/gh/${REPO_USER}/${REPO_NAME}@${ref}`
 
@@ -143,21 +166,18 @@ async function build(ref, verbose) {
     schemas: {},
   }
 
-  await fs.mkdir(DIST_DIR, { recursive: true })
-
   const stats = { added: 0, updated: 0, removed: 0, unchanged: 0 }
 
-  // Every class is reprocessed on every run, not just ones that changed
-  // in some git diff — a change to a parent's file changes every
-  // descendant's flattened output too, even though the descendant's own
-  // source file didn't change at all. Re-flattening everything is cheap
-  // (pure local JSON work, no network); what's NOT cheap-to-churn is the
-  // manifest, so the URL for a class only gets rewritten when its hash
-  // actually changed.
   for (const scope of schemas.keys()) {
-    const flattened = buildFlattenedSchema(scope, schemas)
-    const distContent = JSON.stringify(flattened, null, 2) + '\n'
-    await fs.writeFile(path.join(DIST_DIR, `${scope}.json`), distContent, 'utf8')
+    const distPath = path.join(DIST_DIR, `${scope}.json`)
+    let distContent
+    try {
+      distContent = await fs.readFile(distPath, 'utf8')
+    } catch {
+      throw new Error(
+        `data/dist/${scope}.json is missing — run "build.mjs --dist-only" (and commit it) before "build.mjs --manifest-only"`
+      )
+    }
 
     const hash = sha256(Buffer.from(distContent, 'utf8'))
     const size = Buffer.byteLength(distContent, 'utf8')
@@ -185,10 +205,7 @@ async function build(ref, verbose) {
   }
 
   for (const scope of Object.keys(existingManifest.schemas)) {
-    if (!schemas.has(scope)) {
-      stats.removed++
-      await fs.rm(path.join(DIST_DIR, `${scope}.json`), { force: true })
-    }
+    if (!schemas.has(scope)) stats.removed++
   }
 
   await fs.writeFile(MANIFEST, JSON.stringify(newManifest, null, 2) + '\n', 'utf8')
@@ -200,19 +217,41 @@ async function build(ref, verbose) {
   } else {
     logBuildSummary(stats, ref)
   }
+}
+
+/** Default, single-shot mode — dist + manifest together, same `ref` for
+ *  both. Still useful for local/manual runs where there's no CI commit
+ *  boundary to split across (e.g. a contributor previewing the build on
+ *  their own machine); NOT what the automated workflow should use
+ *  anymore, since it has exactly the ref/dist-doesn't-exist-yet problem
+ *  this file's phase split exists to avoid. */
+async function buildAll(ref, verbose) {
+  await buildDist()
+  await buildManifest(ref, verbose)
+}
+
+async function main() {
+  const startedAt = Date.now()
+
+  const argv = process.argv.slice(2)
+  let refArg = null
+  let verbose = false
+  let mode = 'all'
+  for (const a of argv) {
+    if (a === '--verbose') verbose = true
+    else if (a === '--dist-only') mode = 'dist-only'
+    else if (a === '--manifest-only') mode = 'manifest-only'
+    else if (!refArg) refArg = a
+  }
+
+  if (mode === 'dist-only') await buildDist()
+  else if (mode === 'manifest-only') await buildManifest(refArg, verbose)
+  else await buildAll(refArg, verbose)
 
   console.log(`⏱ Finished in ${((Date.now() - startedAt) / 1000).toFixed(2)}s`)
 }
 
-const argv = process.argv.slice(2)
-let refArg = null
-let verbose = false
-for (const a of argv) {
-  if (a === '--verbose') verbose = true
-  else if (!refArg) refArg = a
-}
-
-build(refArg, verbose).catch((err) => {
+main().catch((err) => {
   console.error(err.message)
   process.exit(1)
 })
