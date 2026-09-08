@@ -60,20 +60,29 @@ jobs:
             # Update branch with updated master
             git pull origin master --no-edit
 
-            # Update — bumps meta.version in data/schemas/ only. Never
-            # touches manifest.json or data/dist/ anymore (see update.mjs).
+            # Update — bumps meta.version in data/schemas/ only.
             set -o pipefail
             node scripts/update.mjs 2>&1 | tee /tmp/update-$pr.log
             git add data/schemas
             git commit -m "ci(update): Verify and bump needed files [skip ci]" || echo "No changes to commit"
 
-            # Build CDNs — resolves inheritance, writes data/dist/, and
-            # rewrites manifest.json (URLs only change where the hash did).
+            # Build, phase 1: flatten schemas into data/dist/ and commit
+            # THAT FIRST. The manifest's CDN URLs are pinned to a commit
+            # SHA, so they need to reference a commit where data/dist/
+            # actually exists — which is only true starting from this
+            # commit, never before it.
             set -o pipefail
+            node scripts/build.mjs --dist-only 2>&1 | tee /tmp/build-$pr.log
+            git add data/dist
+            git commit -m "ci(build): flatten schemas into data/dist [skip ci]" || echo "No changes to commit"
+
+            # Build, phase 2: NOW the ref is correct — dist/ genuinely
+            # exists at this commit — so the manifest's URLs will
+            # actually resolve on the CDN instead of 404ing.
             REF=$(git rev-parse HEAD)
-            node scripts/build.mjs "$REF" 2>&1 | tee /tmp/build-$pr.log
-            git add data/manifest.json data/dist
-            git commit -m "ci(build): build CDN URLs in manifest [skip ci]" || echo "No changes to commit"
+            node scripts/build.mjs --manifest-only "$REF" 2>&1 | tee -a /tmp/build-$pr.log
+            git add data/manifest.json
+            git commit -m "ci(build): update manifest URLs [skip ci]" || echo "No changes to commit"
 
             # Push
             git push https://x-access-token:${GH_TOKEN}@github.com/$HEAD_REPO HEAD:$HEAD_REF
@@ -104,8 +113,8 @@ jobs:
               "$API"
           done
       
-      - name: Check PR mergeable state
-        id: mergeable
+      - name: Check mergeable state, flag conflicts, and label the rest ready
+        if: steps.prs.outputs.numbers != ''
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
@@ -113,42 +122,21 @@ jobs:
           prsNumbers="${{ steps.prs.outputs.numbers }}"
           for pr in $prsNumbers; do
             state=$(gh api repos/$REPO/pulls/$pr --jq '.mergeable_state')
-            echo "PR $pr mergeble_state=$state"
-            echo "$state_$pr=$state" >> $GITHUB_OUTPUT
+            echo "PR $pr mergeable_state=$state"
+
             if [ "$state" = "dirty" ]; then
-              echo "Conflict detected in PR $pr"
+              echo "Conflict detected in PR $pr — leaving it out of this run"
               gh pr edit $pr --add-label "conflict" --remove-label "ready" --repo "$REPO"
-              continue
-            fi
-          done
-        
-      - name: Comment on PR with conflict notice
-        if: steps.mergeable.outputs.state == 'dirty'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPO: ${{ github.repository }}
-        run: |
-          prsNumbers="${{ steps.prs.outputs.numbers }}"
-          for pr in $prsNumbers; do
-            state=$(gh api repos/$REPO/pulls/$pr --jq '.mergeable_state')
-            if [ "$state" = "dirty" ]; then
-              PAYLOAD=$(jq -nc \
-                '{body: ("### ⚠️ Conflict detected\n\nThis PR has merge conflicts with the base branch.\n\nThe automation workflow has paused and applied the `conflict` label.\n\nPlease resolve the conflicts manually and push the changes to resume automation.")}')
-              API="https://api.github.com/repos/${REPO}/issues/$pr/comments"
+
+              PAYLOAD=$(jq -n \
+                '{body: "### ⚠️ Conflict detected\n\nThis PR has merge conflicts with the base branch.\n\nThe automation workflow has paused and applied the `conflict` label.\n\nPlease resolve the conflicts manually and push the changes to resume automation."}')
 
               curl -sS -X POST \
                 -H "Authorization: Bearer ${GH_TOKEN}" \
                 -H "Accept: application/vnd.github+json" \
                 -d "$PAYLOAD" \
-                "$API"
-              fi
-            done
-
-      - name: Add ready label
-        if: steps.prs.outputs.numbers != ''
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          for pr in ${{ steps.prs.outputs.numbers }}; do
-            gh pr edit $pr --add-label "ready"
+                "https://api.github.com/repos/${REPO}/issues/$pr/comments"
+            else
+              gh pr edit $pr --add-label "ready" --repo "$REPO"
+            fi
           done
