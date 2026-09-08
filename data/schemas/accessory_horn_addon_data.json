@@ -1,0 +1,30 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "complete"
+  },
+  "scope": "accessory_horn_addon_data",
+  "description": "An extension of accessory_addon_data used specifically for air horn accessories. Functions the same as accessory_addon_data, adding the sound_path attribute to bind a horn sound event to the accessory.",
+  "superclass": "accessory_addon_data",
+  "versionNote": "This unit type was added in 1.38.",
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "sound_path": {
+      "description": "Path to the sound bank/event or soundref used for the horn accessory.",
+      "type": [
+        "string"
+      ],
+      "isArray": false,
+      "arrayElementType": null,
+      "required": false,
+      "versionNote": null,
+      "values": null,
+      "pointsTo": null,
+      "expectedExtensions": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "Per the 1.38 modding guide, this can link either a .soundref file OR a direct sound bank event string (\"bank_path#event_name\") — since only one of those two forms is actually a file with an extension, expectedExtensions is left null rather than picking one."
+    }
+  },
+  "dynamicAttributeGroups": []
+}
