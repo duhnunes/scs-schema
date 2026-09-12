@@ -6,138 +6,208 @@ Thanks for helping improve the schema database used by the <a href="https://gith
 
 ## Table of Contents
 - [Quick Rules (must follow)](#quick-rules-must-follow)
-- [File location and path structure](#file-location-and-path-structure)
+- [File location](#file-location)
 - [File format and field rules](#file-format-and-field-rules)
-  - [Examples](#examples)
+  - [Class-level fields](#class-level-fields)
+  - [Attribute fields (inside `key`)](#attribute-fields-inside-key)
+  - [`dynamicAttributeGroups`](#dynamicattributegroups)
+- [How to decide what to fill in](#how-to-decide-what-to-fill-in)
+- [Examples](#examples)
 - [Validation](#validation)
 - [PR workflow](#pr-workflow)
 - [Checklist before PR](#checklist-before-pr)
 - [Automated PR workflow](#automated-pr-workflow)
 
 ## Quick rules (must follow)
-- **Filename**: must equal the `class_name`
-    - This avoids duplication when multiple game files share the same class but have different filenames.
-    - Examples: all `gate_model.*.sii` variations -> schema file `gate_model.json`.
-- **Scope**: the file must contains a `scope` field equal to the `class_name`.
-- **Required top-level fields**: `meta`, `scope`, `key`
-- **Versioning**: start with `meta.version: 0.1.0`
+- **Filename**: must equal the `class_name`, e.g. `accessory_data.json`.
+- **`scope`**: must equal the filename (without `.json`) and the `class_name`.
+- **Required top-level fields**: `meta`, `scope`, `description`, `superclass`, `allowsSiiNunitRoot`, `key`.
+- **Versioning**: a new file always starts at `meta.version: "0.1.0"` — the automation bumps it for you afterwards, never edit it by hand again.
+- **Only document what the wiki page for that exact class actually says.** If a field isn't confirmed by the specific page you're reading, leave it `null`/`false` — see [How to decide what to fill in](#how-to-decide-what-to-fill-in).
+- **Never copy in inherited attributes.** `key` only lists attributes this class adds itself — see [`superclass`](#class-level-fields).
 
-## File location and path structure
-**Files must mirror the game's folder structure.**  
-Place each schema under `data/schemas/` using the same relative path used by the game files.
+## File location
 
-- Example: `/def/world/prefab_model.sii` -> `data/schemas/def/world/prefab_model.json`.
-- Example: `/base/ui/cargo_load_screen.sii` -> `data/schemas/base/ui/cargo_load_screen.sii`
-- Example: `C:\Users\<user_name>\Documents\American Truck Simulator/multimon_config.sii` -> `data/schemas/documents/multimon_config.json`
+**Files are flat — there is no folder structure to mirror.** Every schema lives directly under `data/schemas/`, named after its `class_name`:
 
-This rule helps the extension map schemas to game files and keeps the DB organized.
-> [!IMPORTANT]
-> The folder `data/schemas/` is the **root of the schema database**.
-> Every JSON schema file must be placed inside this folder, following the game's path structure.
-> This ensures the extension can correctly map schemas to game files and keeps the database organized.
+```
+data/schemas/
+  accessory_data.json
+  accessory_addon_data.json
+  accessory_horn_addon_data.json
+  ...
+```
+
+This changed from an earlier version of this guide that mirrored the game's own folder layout (`/def/world/...`). That stopped making sense once classes can inherit from each other — a class like `accessory_data` isn't "used" from any one game folder, so there's no single path to mirror. The extension never looks at file paths anyway; it only ever reads `manifest.json`, which is what actually maps a `class_name` to its data.
 
 ## File format and field rules
-- **meta**
-  - **`version`**: semantic version string (start `0.1.0`)
-  - **`description`**: short summary of the class.
-- **scope**
-  - Must equal the `class_name` in the game files (e.g. `prefab_model`).
-- **key**
-  - Each property under `key` represents a possible key in the `class_name` block.
-  - For each key include:
-    - **`description`**: clear explanation of the key. (If you know)
-    - **`type`**: if the key exists without `[]`, set an array of types (e.g., `["token"]`); if it never appers without `[]`, set `null`
-    - **`isArray`**: `true` if the key is an array (`key[]`), otherwise `false`
-    - **`arrayElementType`**: when `isArray: true`, set the element type array (e.g., `["float2"]`); otherwise `null`
 
-> [!IMPORTANT]  
-> Keep `type` and `arrayElementType` consistent:
-> - If a key exists both as scalar and array, you must reflect **both forms**.
->   - Scalar: set `type` accordingly.
->   - Array: set `isArray: true` and define `arrayElementType`
+### Class-level fields
 
-### Examples
-#### With scalar & not array
-```sii
-SiiNunit {
-  model_def : vehicle.dummy.truck {
-    name: "Dummy Truck"
-  }
+| Field | Required | Notes |
+|---|---|---|
+| `meta.version` | Yes | Semver, always `"0.1.0"` on a new file. Bumped automatically afterwards — don't touch it again. |
+| `meta.documentationStatus` | Yes | `"wip"` if the wiki page itself shows the *"This article is a work in progress and has yet to be reviewed by SCS staff"* notice near the top. `"complete"` otherwise. |
+| `scope` | Yes | The `class_name`. Must match the filename. |
+| `description` | Yes | A sentence or two summarizing the class — usually close to the wiki page's own opening paragraph. |
+| `superclass` | Yes | The **direct** parent class only — never the whole ancestor chain, `scripts/build.mjs` resolves that recursively. Use the literal value `"unit"` when the class has no real documented parent (the engine's own generic root type). |
+| `versionNote` | Optional | Free-text, exactly as the wiki phrases it (e.g. `"Added in 1.38."`, `"Removed in 1.44 (ETS2 only)."`). `null` when there's nothing noteworthy. Deliberately one free-text field, not separate `addedIn`/`removedIn` — the wiki isn't consistent enough (sometimes one version, sometimes different per game, sometimes a whole sentence) to force into stricter structure, and the extension never knows what game version the user has, so this is purely informational. |
+| `allowsSiiNunitRoot` | Yes | `false` **only** if the wiki explicitly says the class must not be used as a file's `SiiNunit` root (e.g. it says something like *"must not use the SiiNunit magic mark"* — these classes only ever appear via `@include`). `true` for everything else, including when the page says nothing about it at all. |
+| `key` | Yes | This class's **own** attributes only. Do not copy in anything inherited from `superclass` — `scripts/build.mjs` merges those in automatically when generating `data/dist/`. |
+| `dynamicAttributeGroups` | Optional | See its own section below. `[]` when not applicable. |
+
+### Attribute fields (inside `key`)
+
+Every attribute needs **all** of these fields present (not optional at the JSON Schema level), even when the value is `null`/`false`:
+
+| Field | Meaning |
+|---|---|
+| `description` | What the attribute does. |
+| `type` | Allowed type(s) for the **scalar** form (`key: value`). `null` if the attribute *only* ever exists as a dynamic array (see the array rules below). |
+| `isArray` | `true` if the attribute supports either array form — `key[]: value` (repeated) or `key: N` followed by `key[0]`..`key[N-1]`. `false` if it's only ever a bare `key: value`. |
+| `arrayElementType` | Allowed type(s) for each array element. Required (non-`null`) whenever `isArray` is `true`; must be `null` when `isArray` is `false`. |
+| `required` | `true` only if the wiki marks it required — either **bold** text in the attribute table, or a dedicated Required/Optional column (the wiki uses both conventions inconsistently across pages, so check for either). |
+| `versionNote` | Same free-text convention as the class-level field, but for this specific attribute. |
+| `values` | Only for `token`-typed attributes where the wiki enumerates the valid literals (e.g. `["factory", "aftermarket", "licensed", "unknown"]`). `null` for any other type, or when the wiki doesn't list them. |
+| `pointsTo` | Only for `owner_ptr`/`link_ptr` attributes where the wiki names which `class_name`(s) the reference is expected to point to. Can be more than one. `null` when the type doesn't apply, or the wiki doesn't name a target class. |
+| `expectedExtensions` | For **any** attribute whose value is a file path (most such attributes are actually typed `string`, not `resource_tie` — see below), the extension(s) expected, without the leading dot (e.g. `["pmd"]`). `null` when not a file path, not documented, or the format doesn't cleanly reduce to one extension (e.g. an attribute that can be either a file path *or* a different string format). |
+| `supportsLocalization` | `true` **only** if the attribute's own description explicitly mentions the `@@localization@@` template syntax. This is not a table column — it only ever shows up as a note inside the description text of specific string attributes. |
+| `internalOnly` | `true` only if the wiki says this attribute is engine/save-game managed and should not be set manually in a definition. Default assumption is `false` — most attributes exist precisely for you to set. |
+| `notes` | Anything else worth keeping that doesn't fit the fields above (default values, caveats, cross-references). Empty string `""` when there's nothing to add. |
+
+**About `resource_tie`:** the wiki's own definition of this type is narrow — *"typically used to bind animations to animated models"*, with its example always being a `.pma` file. Most file-path attributes (model, collision, UI script paths, etc.) are documented as plain `type: ["string"]`, not `resource_tie` — keep them that way rather than "upgrading" them, since `resource_tie` is a real type the engine treats differently internally, not just a synonym for "this is a file path." Use `expectedExtensions` to mark "this is a file path" regardless of which of the two types it actually is.
+
+### `dynamicAttributeGroups`
+
+For the rare case where the wiki describes a whole *family* of attributes collectively instead of naming each one (e.g. `accessory_interior_data`'s "nearly 70 interior animation attributes, plus `_min`/`_max` variants"). Each entry:
+
+```json
+{
+  "pattern": "interior animation attributes",
+  "description": "Nearly 70 interior animation attributes, plus _min/_max variants.",
+  "type": ["string", "float"],
+  "notes": "Not individually enumerated yet — see Truck_Interior_Animations_and_IDs."
 }
+```
+
+Leave this `[]` for the overwhelming majority of classes, which name every attribute individually.
+
+## How to decide what to fill in
+
+The rule that resolves basically every "what do I put here?" question: **only document what the wiki page for that exact class explicitly says.** Not what a similar class says, not what seems reasonable, not general modding knowledge — the specific page, for the specific attribute.
+
+If the page doesn't mention something, the field stays `null`/`false`. That is **not** a claim that the behavior doesn't exist in the game — the wiki itself is known to be incomplete in places — it just means it isn't confirmed yet by the source we're building from. A future contributor (or you, later) can always tighten a `null` into a real value once it's confirmed; walking back an incorrect value someone already trusted is much worse.
+
+A quick checklist, in order, for any attribute you're unsure about:
+1. Is the type `token`? -> only then does `values` potentially apply (and only if the wiki lists the literals).
+2. Is the type `owner_ptr`/`link_ptr`? -> only then does `pointsTo` potentially apply (and only if the wiki names the target class).
+3. Is the value clearly a file path? -> `expectedExtensions` potentially applies, regardless of whether the type is `string` or `resource_tie`.
+4. Does the page say "must not be set manually" / describe it as engine or save-game data? -> only then `internalOnly: true`. When in doubt, it's `false`.
+5. Does the description explicitly say `@@localization@@`? -> only then `supportsLocalization: true`.
+6. Anything the page simply doesn't mention -> leave it at its default (`null`/`false`). Never infer from a sibling class's page, even one that looks nearly identical.
+
+## Examples
+
+#### Scalar-only attribute
+```sii
+name: "Dummy Truck"
 ```
 ```json
 "name": {
-  "description": "A dummy truck to scene",
+  "description": "Full name for UI display.",
   "type": ["string"],
   "isArray": false,
-  "arrayElementType": null
+  "arrayElementType": null,
+  "required": false,
+  "versionNote": null,
+  "values": null,
+  "pointsTo": null,
+  "expectedExtensions": null,
+  "supportsLocalization": false,
+  "internalOnly": false,
+  "notes": ""
 }
 ```
-#### With scalar and array key:
+
+#### Array-only attribute (never appears as a bare scalar)
 ```sii
-SiiNunit {
-  model_def : vehicle.dummy.truck {
-    dynamic_lod_desc: 2
-    dynamic_lod_desc[0]: "/path/to/file.pmd"
-    dynamic_lod_desc[1]: "/path/to/file.pmd"
-  }
+suitable_for[]: "cabin.*"
+suitable_for[]: "chassis.*"
+```
+```json
+"suitable_for": {
+  "description": "Each member specifies a unit name (or wildcard pattern) required on the vehicle for this accessory to be applicable.",
+  "type": null,
+  "isArray": true,
+  "arrayElementType": ["string"],
+  "required": false,
+  "versionNote": null,
+  "values": null,
+  "pointsTo": null,
+  "expectedExtensions": null,
+  "supportsLocalization": false,
+  "internalOnly": false,
+  "notes": ""
 }
+```
+
+#### Counted array (both a scalar count form and an indexed array form)
+```sii
+dynamic_lod_desc: 2
+dynamic_lod_desc[0]: "/path/to/file.pmd"
+dynamic_lod_desc[1]: "/path/to/file.pmd"
 ```
 ```json
 "dynamic_lod_desc": {
-  "description": "Path to file.pmd",
+  "description": "Number of LOD model descriptors, followed by their paths (.pmd).",
   "type": ["fixed"],
   "isArray": true,
-  "arrayElementType": ["resource_tie"]
+  "arrayElementType": ["string"],
+  "required": false,
+  "versionNote": null,
+  "values": null,
+  "pointsTo": null,
+  "expectedExtensions": ["pmd"],
+  "supportsLocalization": false,
+  "internalOnly": false,
+  "notes": ""
 }
 ```
-#### With array & not scalar:
+
+#### Attribute the wiki documents with more than one valid type
 ```sii
-SiiNunit {
-  mover_action : catch_down_1 {
-    timer_params[]: "stop_at_end: 'sound_catch_down_1'; wait_effect: 'anim_catch_down_1'"
-  }
-}
-```
-```json
-"timer_params": {
-  "description": "",
-  "type": null,
-  "isArray": true,
-  "arrayElementType": ["string"]
-}
-```
-#### With double type
-```sii
-SiiNunit {
-  road_edge : unit.name {
-    width: 1
-    # or
-    width: 1.0
-  }
-}
+width: 1
+# or
+width: 1.0
 ```
 ```json
 "width": {
   "description": "",
   "type": ["fixed", "float"],
   "isArray": false,
-  "arrayElementType": null
+  "arrayElementType": null,
+  "required": false,
+  "versionNote": null,
+  "values": null,
+  "pointsTo": null,
+  "expectedExtensions": null,
+  "supportsLocalization": false,
+  "internalOnly": false,
+  "notes": ""
 }
 ```
 
 ## Validation
+
 Before opening a PR:
-- Ensure the file path mirrors the game path.
-- Run local validation:
 ```bash
 pnpm validate
 ```
-###### This command checks your JSON schemas against the project rules.
+This checks your file's shape against `.vscode/db.schema.json`, and also cross-file rules a single file can't self-check: that `scope` matches the filename, that `superclass` actually refers to a class that exists (no typos), that there's no inheritance cycle, and that no two files claim the same `scope`.
 
-> Automated checks will also run on every PR:
-> - JSON formatting is normalized automatically.
-> - Schema validation runs and comments on the PR if errors are found.
+> Automated checks also run on every PR:
+> - JSON field order is normalized automatically.
+> - The same validation above runs and comments on the PR if anything fails.
 
 ## PR workflow
 1. **Fork the repository**
@@ -179,40 +249,41 @@ gh pr create --repo duhnunes/scs-schema \
   --body "Clear description of the change"
 ```
 
-> [!IMPORTANT]  
+> [!IMPORTANT]
 > Always sync your fork with `upstream/master` before opening a PR.
 > The repository automatically updates `manifest.json` and bumps schema versions after PRs are merged.
 > Keeping your fork up to date avoids conflicts.
 
 ## Checklist before PR
-- [x] Filename equals the class_name.
-- [x] Schema file placed in the same relative path as the game file
-- [x] `meta.version` set (start with `"0.1.0"`)
-- [x] `scope` equals `class_name`
-- [x] Every `key` has `description`, `type`, `isArray`, `arrayElementType`
+- [x] Filename equals the `class_name`.
+- [x] `meta.version` set (start with `"0.1.0"`), `meta.documentationStatus` set.
+- [x] `scope` equals `class_name` and the filename.
+- [x] `superclass` set (a real class name, or `"unit"` if there's no documented parent).
+- [x] `key` contains only this class's **own** attributes — nothing inherited copied in.
+- [x] Every attribute has all 12 fields present, with anything unconfirmed by the wiki left as `null`/`false` rather than guessed.
+- [x] `pnpm validate` passes locally.
 
 ## Automated PR workflow
 
 Once you open a Pull Request, the repository's automation takes care of the full pipeline:
 
 1. **Proxying**
-    - External PRs are mirrored inside the main repository.
-    - This ensures all workflows can run with full permissions.
-    - From your perspective, you just open a PR normally.
+    - External (forked) PRs are mirrored into a local branch inside the main repository, preserving your original commit authorship.
+    - This is what lets the rest of the pipeline run with full permissions against your changes.
+    - From your perspective, you just open a PR normally — this happens automatically.
 
 2. **Validation**
-    - JSON schemas are automatically formatted.
-    - Validation checks confirm that all files follow the rules.
-      - ✅ If everything is correct and only `data/schemas/` was modified, the PR moves forward.
-      - ❌ If validation fails (invalid schema or files outside `data/schemas/`), the PR stops here and waits for human review.
+    - JSON schemas are automatically reformatted (field order, array normalization).
+    - The same rules `pnpm validate` runs locally are checked again here.
+      - If everything is correct, the PR is labeled `validated`.
+      - If validation fails, the PR is labeled `invalid-schema` and commented with the specific errors — fix and push again to re-trigger the check.
 
 3. **Building**
-    - Runs daily at 00:00 UTC.
-    - Updates `manifest.json`, bumps schema versions, and generates CDN links.
-    - If successful, the PR moves forward.
+    - Runs daily at 00:00 UTC (or can be triggered manually).
+    - Bumps `meta.version` on any changed files, resolves inheritance, regenerates `data/dist/` (the flattened files the extension actually fetches), and updates `manifest.json` with fresh CDN URLs.
+    - If successful, the PR is labeled `ready`. If your branch has a merge conflict with `master`, it's labeled `conflict` instead and paused until you resolve it.
 
 4. **Merging**
-    - All PRs that passed building are automatically squash-merged into `master`.
+    - Every `ready` PR is automatically squash-merged into `master`, crediting every real commit author as a co-author on the merge commit.
 
-👉 **In short**: Just focus on writing correct schemas under `data/schemas/`.
-The automation will take care of everything else - formatting, validation, manifest updates, versioning, CDN generation, and merging.
+**In short**: Just focus on writing correct schemas under `data/schemas/`, following the field-by-field rules above. The automation takes care of everything else — formatting, validation, inheritance resolution, versioning, CDN generation, and merging.
