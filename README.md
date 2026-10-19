@@ -45,7 +45,7 @@ Contributors only write files in `data/schemas/`; everything else is generated.
 > `update.mjs` and `build.mjs` are meant to run in CI, not locally: the manifest URLs need the real commit SHA produced by the pipeline.
 > `validate.mjs` and `formatter.mjs` are safe to run locally (`pnpm validate`, `pnpm format:schemas`).
 
-- `scripts/update.mjs`: bumps `meta.version` in `data/schemas/` based on the Conventional Commits that touched each file since the last `ci(update):` commit (`BREAKING CHANGE`/`!:` -> major, `feat` -> minor, anything else -> patch). Never touches `data/dist/` or the manifest.
+- `scripts/update.mjs`: bumps `meta.version` in `data/schemas/` based on the Conventional Commits that touched each file since the last `ci(update):` or `ci(build):` commit (`BREAKING CHANGE`/`!:` -> major, `feat` -> minor, anything else -> patch). Never touches `data/dist/` or the manifest.
 - `scripts/build.mjs`: resolves inheritance (`scripts/lib/inheritance.mjs`). `--dist-only` writes `data/dist/`; `--manifest-only <ref>` writes `data/manifest.json` against that commit. With no flag it runs both (local preview only).
 - `scripts/validate.mjs`: checks every file against `.vscode/db.schema.json` (Ajv), plus cross-file rules: `scope` equals the file name, `superclass` exists, no inheritance cycle, no duplicate `scope`.
 - `scripts/formatter.mjs`: normalizes field order and arrays. It never adds missing fields, so omissions are still caught by validation.

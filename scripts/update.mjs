@@ -40,16 +40,18 @@ function getLatestTag() {
 }
 
 /**
- * builder.yml commits with a message starting "ci(update):" after every
- * successful run of this script. Diffing from that commit (rather than
- * the last tag) means a file this script already bumped is never
- * re-bumped again just because nobody has cut a new tag since — none of
- * the current workflows ever create one, so relying on tags here would
- * mean every file gets "bumped" again on every single run, forever.
+ * builder.yml commits "ci(update):" (bumps) and "ci(build):" (dist and
+ * manifest) on master after processing everything up to that point.
+ * Diffing from the latest of those (rather than the last tag) means a
+ * file this script already bumped is never re-bumped again just because
+ * nobody has cut a new tag since — none of the current workflows ever
+ * create one. Both prefixes count because a run only commits
+ * "ci(update):" when something was bumped: with that one alone, a master
+ * that never had a bump would have no base at all, and so never bump.
  */
 function getLastAutomationCommit() {
   try {
-    const hash = run('git log --grep="^ci(update):" --format=%H -n 1')
+    const hash = run('git log -E --grep="^ci\\((update|build)\\):" --format=%H -n 1')
     return hash || null
   } catch {
     return null
