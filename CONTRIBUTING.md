@@ -267,17 +267,18 @@ gh pr create --repo duhnunes/scs-schema \
 
 Once you open a Pull Request, the repository's automation takes care of the full pipeline. Your PR stays your PR: it is checked and merged as it is, nothing is pushed to your branch.
 
-1. **Checking** (every time you push to the PR)
+1. **Checking** (every time you push to the PR; draft PRs are skipped until marked ready for review)
     - The same rules `pnpm validate` runs locally are checked against the current `master`.
     - PRs that edit `data/dist/` or `data/manifest.json` are rejected: those files are generated.
-      - If everything is correct and the PR only touches `data/schemas/`, it is labeled `validated`.
-      - If this is your **first contribution**, or the PR deletes a schema, it is also labeled `awaiting-approval`: it will be merged after the owner reviews and approves it. This can take a few days. Pushing new commits after the approval requires a new one. Once you've had a PR merged, your next ones go through automatically.
-      - If the check fails, the PR is labeled `invalid-schema` and commented with the specific errors — fix and push again to re-trigger the check.
-      - If the PR also touches other files, it is labeled `documentation` or `system` and waits for the owner's review instead of being merged automatically.
+    - Results:
+      - Everything is correct and the PR only touches `data/schemas/`: labeled `validated`.
+      - Your **first contribution**, or a PR that deletes a schema: also labeled `awaiting-approval`. It is merged only after the owner reviews and approves it, which can take a few days. Pushing new commits after the approval requires a new one. Once you've had a PR merged, your next ones no longer need approval (except deletions).
+      - The check fails: labeled `invalid-schema` and commented with the specific errors — fix and push again to re-trigger the check.
+      - The PR also touches other files: labeled `documentation` or `system`, and it waits for the owner's review instead of being merged automatically.
 
 2. **Merging and building**
     - Runs daily at 00:00 UTC (or can be triggered manually).
-    - Every `validated` PR is checked once more against the latest `master` and squash-merged, crediting every commit author as a co-author. If it conflicts with `master`, it's labeled `conflict` instead — update your branch and push again.
+    - Every `validated` PR (once approved, if it was `awaiting-approval`) is checked once more against the latest `master` and squash-merged, crediting every commit author as a co-author. If it conflicts with `master`, it's labeled `conflict` instead — update your branch and push again.
     - Then, on `master`: bumps `meta.version` on changed files, normalizes the JSON (field order, array normalization), resolves inheritance, regenerates `data/dist/` (the flattened files the extension actually fetches), and updates `manifest.json` with fresh CDN URLs.
 
 **In short**: Just focus on writing correct schemas under `data/schemas/`, following the field-by-field rules above. The automation takes care of everything else — validation, merging, formatting, inheritance resolution, versioning and CDN generation.
