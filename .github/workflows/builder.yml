@@ -1,5 +1,10 @@
 name: Build files
 
+# Daily (and on demand): merges every PR labeled `validated` into master,
+# then rebuilds everything on master itself. Like checker.yml, this only
+# ever runs master's own code: PR schema files are read as data by
+# scripts/ci/merge-prs.mjs and merged through the GitHub API.
+
 on:
   workflow_dispatch:
   schedule:
@@ -9,13 +14,18 @@ permissions:
   contents: write
   pull-requests: write
   issues: write
-    
+
+concurrency:
+  group: builder
+  cancel-in-progress: false
+
 jobs:
-  prepare:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
         with:
+          ref: master
           fetch-depth: 0
 
       - uses: pnpm/action-setup@v6
@@ -27,118 +37,54 @@ jobs:
 
       - name: Git Config
         run: |
-          git config user.name ${{ github.actor }}
-          git config user.email ${{ github.actor }}@users.noreply.github.com
-          
-      - name: List PRs validated
-        id: prs
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Merge validated PRs
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPO: ${{ github.repository }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/ci/merge-prs.mjs
+
+      # Covers both the PRs merged above and anything committed straight
+      # to master since the last run.
+      - name: Bump versions and normalize schemas
         run: |
-          PRS=$(curl -s \
-            -H "Authorization: Bearer ${GH_TOKEN}" \
-            -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/repos/${REPO}/pulls?state=open&per_page=100" \
-          | jq -r '.[] | select(.draft==false and (.labels[].name=="validated")) | .number' | tr '\n' ' ')
-          echo "numbers=$PRS" >> $GITHUB_OUTPUT
+          node scripts/update.mjs
+          node scripts/formatter.mjs
+          node scripts/validate.mjs
+          git add data/schemas
+          git commit -m "ci(update): bump versions and normalize schemas [skip ci]" || echo "No changes to commit"
 
-      - name: Process validate PRs and Build CDNs
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPO: ${{ github.repository }}
+      # Build, phase 1: flatten schemas into data/dist/ and commit THAT
+      # FIRST. The manifest's CDN URLs are pinned to a commit SHA, so they
+      # must reference a commit where data/dist/ already exists.
+      # -f: dist/ is in .gitignore so it's never committed from a
+      # contributor's machine; only CI is meant to commit it.
+      - name: Build data/dist
+        id: dist
         run: |
-          prsNumbers="${{ steps.prs.outputs.numbers }}"
-          for pr in $prsNumbers; do
-            DATA=$(curl -s -H "Authorization: Bearer ${GH_TOKEN}" "https://api.github.com/repos/${REPO}/pulls/$pr")
-            HEAD_REPO=$(echo "$DATA" | jq -r '.head.repo.full_name')
-            HEAD_REF=$(echo "$DATA" | jq -r '.head.ref')
+          node scripts/build.mjs --dist-only
+          git add -f data/dist
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "data/dist/ unchanged"
+          else
+            git commit -m "ci(build): flatten schemas into data/dist [skip ci]"
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
 
-            git fetch https://x-access-token:${GH_TOKEN}@github.com/$HEAD_REPO $HEAD_REF
-            git checkout $HEAD_REF
-
-            # Update branch with updated master
-            git pull origin master --no-edit
-
-            # Update — bumps meta.version in data/schemas/ only.
-            set -o pipefail
-            node scripts/update.mjs 2>&1 | tee /tmp/update-$pr.log
-            git add data/schemas
-            git commit -m "ci(update): Verify and bump needed files [skip ci]" || echo "No changes to commit"
-
-            # Build, phase 1: flatten schemas into data/dist/ and commit
-            # THAT FIRST. The manifest's CDN URLs are pinned to a commit
-            # SHA, so they need to reference a commit where data/dist/
-            # actually exists — which is only true starting from this
-            # commit, never before it.
-            set -o pipefail
-            node scripts/build.mjs --dist-only 2>&1 | tee /tmp/build-$pr.log
-            # -f: dist/ is in .gitignore so it's never committed from a
-            # contributor's machine; only CI is meant to commit it.
-            git add -f data/dist
-            git commit -m "ci(build): flatten schemas into data/dist [skip ci]" || echo "No changes to commit"
-
-            # Build, phase 2: NOW the ref is correct — dist/ genuinely
-            # exists at this commit — so the manifest's URLs will
-            # actually resolve on the CDN instead of 404ing.
-            REF=$(git rev-parse HEAD)
-            node scripts/build.mjs --manifest-only "$REF" 2>&1 | tee -a /tmp/build-$pr.log
-            git add data/manifest.json
-            git commit -m "ci(build): update manifest URLs [skip ci]" || echo "No changes to commit"
-
-            # Push
-            git push https://x-access-token:${GH_TOKEN}@github.com/$HEAD_REPO HEAD:$HEAD_REF
-          done
-
-      - name: Comment on PR with summary
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPO: ${{ github.repository }}
+      # Build, phase 2: the ref now contains data/dist/. Skipped when
+      # dist/ didn't change: the manifest would only get a new
+      # generatedAt, i.e. a pointless commit every day.
+      - name: Build manifest
+        if: steps.dist.outputs.changed == 'true'
         run: |
-          prsNumbers="${{ steps.prs.outputs.numbers }}"
-          for pr in $prsNumbers; do
-            PAYLOAD=$(jq -nc \
-              --arg update "$(cat /tmp/update-$pr.log)" \
-              --arg build "$(cat /tmp/build-$pr.log)" \
-              '{body: ("### ✅ Automated schema check completed\n\n**Update logs:**\n```bash\n" 
-                      + $update 
-                      + "\n```\n\n**Build logs:**\n```bash\n" 
-                      + $build 
-                      + "\n```")}')
+          node scripts/build.mjs --manifest-only "$(git rev-parse HEAD)"
+          git add data/manifest.json
+          git commit -m "ci(build): update manifest URLs [skip ci]" || echo "No changes to commit"
 
-            API="https://api.github.com/repos/${REPO}/issues/$pr/comments"
-
-            curl -sS -X POST \
-              -H "Authorization: Bearer ${GH_TOKEN}" \
-              -H "Accept: application/vnd.github+json" \
-              -d "$PAYLOAD" \
-              "$API"
-          done
-      
-      - name: Check mergeable state, flag conflicts, and label the rest ready
-        if: steps.prs.outputs.numbers != ''
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPO: ${{ github.repository }}
-        run: |
-          prsNumbers="${{ steps.prs.outputs.numbers }}"
-          for pr in $prsNumbers; do
-            state=$(gh api repos/$REPO/pulls/$pr --jq '.mergeable_state')
-            echo "PR $pr mergeable_state=$state"
-
-            if [ "$state" = "dirty" ]; then
-              echo "Conflict detected in PR $pr — leaving it out of this run"
-              gh pr edit $pr --add-label "conflict" --remove-label "ready" --repo "$REPO"
-
-              PAYLOAD=$(jq -n \
-                '{body: "### ⚠️ Conflict detected\n\nThis PR has merge conflicts with the base branch.\n\nThe automation workflow has paused and applied the `conflict` label.\n\nPlease resolve the conflicts manually and push the changes to resume automation."}')
-
-              curl -sS -X POST \
-                -H "Authorization: Bearer ${GH_TOKEN}" \
-                -H "Accept: application/vnd.github+json" \
-                -d "$PAYLOAD" \
-                "https://api.github.com/repos/${REPO}/issues/$pr/comments"
-            else
-              gh pr edit $pr --add-label "ready" --repo "$REPO"
-            fi
-          done
+      # Plain push, never rebase: rebasing would change the SHA the
+      # manifest URLs are pinned to. If master moved meanwhile, this run
+      # fails and the next one redoes everything on top of it.
+      - name: Push
+        run: git push origin HEAD:master

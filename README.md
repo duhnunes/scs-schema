@@ -22,11 +22,11 @@ This repo is a curated database describing the `class_name` blocks found in SCS 
 The field-by-field rules for writing a schema file are in <a href="./CONTRIBUTING.md">CONTRIBUTING.md</a>.
 
 ## Automation
-Every pull request goes through four workflows, in order:
-1. **`proxy.yml`**: PRs from forks are recreated as a branch inside this repository (keeping the original commit authorship), so the rest of the pipeline can run with write permissions. PRs opened from inside the repo skip this step.
-2. **`checker.yml`**: normalizes the JSON (`scripts/formatter.mjs`) and validates it (`scripts/validate.mjs`). The PR is labeled `validated`, or `invalid-schema` with a comment listing the errors.
-3. **`builder.yml`** (daily at 00:00 UTC, or manually): for each `validated` PR, bumps `meta.version` (`scripts/update.mjs`), regenerates `data/dist/` and then `data/manifest.json` (`scripts/build.mjs`), committing each step to the PR branch. The PR is labeled `ready`, or `conflict` if it conflicts with `master`.
-4. **`merger.yml`**: squash-merges every `ready` PR into `master`, crediting every real commit author as a co-author.
+Two workflows handle every pull request, from a fork or not:
+1. **`checker.yml`** (on every PR push): checks the PR's `data/schemas/` files against `master` with `scripts/validate.mjs`. PRs that edit `data/dist/` or `data/manifest.json` are rejected. The PR is labeled `validated` (schema-only and valid), `invalid-schema` (with a comment listing the errors), and `documentation`/`system` when it touches other files; those wait for the owner's review instead of being merged automatically.
+2. **`builder.yml`** (daily at 00:00 UTC, or manually): checks each `validated` PR again and squash-merges it, crediting every commit author as a co-author (a PR that conflicts with `master` gets `conflict`). Then, on `master`, it bumps `meta.version` (`scripts/update.mjs`), normalizes the JSON (`scripts/formatter.mjs`), regenerates `data/dist/` and then `data/manifest.json` (`scripts/build.mjs`), and pushes.
+
+Both workflows only run code from `master`: a PR's files are read as data and never executed, because the workflows hold a token that can write to this repository.
 
 Contributors only write files in `data/schemas/`; everything else is generated.
 
@@ -50,6 +50,7 @@ Contributors only write files in `data/schemas/`; everything else is generated.
 - `scripts/validate.mjs`: checks every file against `.vscode/db.schema.json` (Ajv), plus cross-file rules: `scope` equals the file name, `superclass` exists, no inheritance cycle, no duplicate `scope`.
 - `scripts/formatter.mjs`: normalizes field order and arrays. It never adds missing fields, so omissions are still caught by validation.
 - `scripts/log.mjs`: console summaries used by the scripts above.
+- `scripts/ci/`: used only by the workflows. `check-pr.mjs` (checker) and `merge-prs.mjs` (builder) check and merge PRs through the GitHub API; `pr.mjs` holds the shared logic. They need a clean checkout and must not be run on a working copy with uncommitted changes.
 
 ## Contributing
 

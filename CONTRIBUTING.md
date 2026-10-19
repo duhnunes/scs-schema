@@ -205,9 +205,8 @@ pnpm validate
 ```
 This checks your file's shape against `.vscode/db.schema.json`, and also cross-file rules a single file can't self-check: that `scope` matches the filename, that `superclass` actually refers to a class that exists (no typos), that there's no inheritance cycle, and that no two files claim the same `scope`.
 
-> Automated checks also run on every PR:
-> - JSON field order is normalized automatically.
-> - The same validation above runs and comments on the PR if anything fails.
+> The same validation runs automatically on every PR and comments on it if anything fails.
+> JSON field order is normalized automatically after the merge, so you don't need to worry about it.
 
 ## PR workflow
 1. **Fork the repository**
@@ -233,7 +232,8 @@ git checkout -b feat/add-<class_name>
 git add .
 git commit -m "feat(schemas): add <class_name>"
 ```
-> Use conventional commit style: `feat(schemas): add <class_name>` or `fix(schemas): fix <class_name>`
+> Use conventional commit style: `feat(schemas): add <class_name>` or `fix(schemas): fix <class_name>`.
+> The **PR title** matters most: PRs are squash-merged, so the title becomes the commit message that decides the version bump.
 6. Push to your fork
 ```bash
 git push origin feat/add-<class_name>
@@ -251,7 +251,7 @@ gh pr create --repo duhnunes/scs-schema \
 
 > [!IMPORTANT]
 > Always sync your fork with `upstream/master` before opening a PR.
-> The repository automatically updates `manifest.json` and bumps schema versions after PRs are merged.
+> The repository automatically bumps schema versions and updates `data/dist/` and `manifest.json` after PRs are merged. Never edit those files in a PR: it will be rejected.
 > Keeping your fork up to date avoids conflicts.
 
 ## Checklist before PR
@@ -265,25 +265,18 @@ gh pr create --repo duhnunes/scs-schema \
 
 ## Automated PR workflow
 
-Once you open a Pull Request, the repository's automation takes care of the full pipeline:
+Once you open a Pull Request, the repository's automation takes care of the full pipeline. Your PR stays your PR: it is checked and merged as it is, nothing is pushed to your branch.
 
-1. **Proxying**
-    - External (forked) PRs are mirrored into a local branch inside the main repository, preserving your original commit authorship.
-    - This is what lets the rest of the pipeline run with full permissions against your changes.
-    - From your perspective, you just open a PR normally — this happens automatically.
+1. **Checking** (every time you push to the PR)
+    - The same rules `pnpm validate` runs locally are checked against the current `master`.
+    - PRs that edit `data/dist/` or `data/manifest.json` are rejected: those files are generated.
+      - If everything is correct and the PR only touches `data/schemas/`, it is labeled `validated`.
+      - If the check fails, the PR is labeled `invalid-schema` and commented with the specific errors — fix and push again to re-trigger the check.
+      - If the PR also touches other files, it is labeled `documentation` or `system` and waits for the owner's review instead of being merged automatically.
 
-2. **Validation**
-    - JSON schemas are automatically reformatted (field order, array normalization).
-    - The same rules `pnpm validate` runs locally are checked again here.
-      - If everything is correct, the PR is labeled `validated`.
-      - If validation fails, the PR is labeled `invalid-schema` and commented with the specific errors — fix and push again to re-trigger the check.
-
-3. **Building**
+2. **Merging and building**
     - Runs daily at 00:00 UTC (or can be triggered manually).
-    - Bumps `meta.version` on any changed files, resolves inheritance, regenerates `data/dist/` (the flattened files the extension actually fetches), and updates `manifest.json` with fresh CDN URLs.
-    - If successful, the PR is labeled `ready`. If your branch has a merge conflict with `master`, it's labeled `conflict` instead and paused until you resolve it.
+    - Every `validated` PR is checked once more against the latest `master` and squash-merged, crediting every commit author as a co-author. If it conflicts with `master`, it's labeled `conflict` instead — update your branch and push again.
+    - Then, on `master`: bumps `meta.version` on changed files, normalizes the JSON (field order, array normalization), resolves inheritance, regenerates `data/dist/` (the flattened files the extension actually fetches), and updates `manifest.json` with fresh CDN URLs.
 
-4. **Merging**
-    - Every `ready` PR is automatically squash-merged into `master`, crediting every real commit author as a co-author on the merge commit.
-
-**In short**: Just focus on writing correct schemas under `data/schemas/`, following the field-by-field rules above. The automation takes care of everything else — formatting, validation, inheritance resolution, versioning, CDN generation, and merging.
+**In short**: Just focus on writing correct schemas under `data/schemas/`, following the field-by-field rules above. The automation takes care of everything else — validation, merging, formatting, inheritance resolution, versioning and CDN generation.
