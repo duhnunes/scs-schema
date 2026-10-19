@@ -1,14 +1,14 @@
 {
   "formatVersion": "2.0.0",
-  "generatedAt": "2026-10-19T17:24:10.121Z",
+  "generatedAt": "2026-10-19T18:06:01.346Z",
   "schemas": {
     "accessory_addon_data": {
       "name": "accessory_addon_data",
-      "description": "Used for vehicle accessories which add a visible component to a vehicle. Defines the paths to the visible models and their configuration (variant, look, excluded views), and the collision mesh path if applicable. <- final dot",
-      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@0f446dae69d2ae31889d0f0a05f7bd5b04719454/data/dist/accessory_addon_data.json",
-      "hash": "sha256:dea08f930dae55d5a46b1c3db17c29a23ef2986b60b6a60d6dd429b7030f100e",
+      "description": "Used for vehicle accessories which add a visible component to a vehicle. Defines the paths to the visible models and their configuration (variant, look, excluded views), and the collision mesh path if applicable.",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@0b0c3c12de4714f2f7b889deceb1315c42aa6bf9/data/dist/accessory_addon_data.json",
+      "hash": "sha256:f9e263f737565676e2e9cbf0c0c25f25dc86cbc7ca671bc1e6e58e2d89bec75f",
       "metaVersion": "0.1.1",
-      "size": 11547,
+      "size": 11534,
       "superclass": "accessory_data",
       "documentationStatus": "complete"
     },
