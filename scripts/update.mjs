@@ -207,7 +207,7 @@ async function main() {
     }
 
     parsed.meta = parsed.meta || {}
-
+// we test
     if (isNewFile) {
       parsed.meta.version = '0.1.0'
       stats.added++
