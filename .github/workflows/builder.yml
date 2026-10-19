@@ -73,7 +73,9 @@ jobs:
             # commit, never before it.
             set -o pipefail
             node scripts/build.mjs --dist-only 2>&1 | tee /tmp/build-$pr.log
-            git add data/dist
+            # -f: dist/ is in .gitignore so it's never committed from a
+            # contributor's machine; only CI is meant to commit it.
+            git add -f data/dist
             git commit -m "ci(build): flatten schemas into data/dist [skip ci]" || echo "No changes to commit"
 
             # Build, phase 2: NOW the ref is correct — dist/ genuinely
