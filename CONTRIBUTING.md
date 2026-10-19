@@ -271,6 +271,7 @@ Once you open a Pull Request, the repository's automation takes care of the full
     - The same rules `pnpm validate` runs locally are checked against the current `master`.
     - PRs that edit `data/dist/` or `data/manifest.json` are rejected: those files are generated.
       - If everything is correct and the PR only touches `data/schemas/`, it is labeled `validated`.
+      - If this is your **first contribution**, or the PR deletes a schema, it is also labeled `awaiting-approval`: it will be merged after the owner reviews and approves it. This can take a few days. Pushing new commits after the approval requires a new one. Once you've had a PR merged, your next ones go through automatically.
       - If the check fails, the PR is labeled `invalid-schema` and commented with the specific errors — fix and push again to re-trigger the check.
       - If the PR also touches other files, it is labeled `documentation` or `system` and waits for the owner's review instead of being merged automatically.
 

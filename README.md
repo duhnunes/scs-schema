@@ -26,6 +26,8 @@ Two workflows handle every pull request, from a fork or not:
 1. **`checker.yml`** (on every PR push): checks the PR's `data/schemas/` files against `master` with `scripts/validate.mjs`. PRs that edit `data/dist/` or `data/manifest.json` are rejected. The PR is labeled `validated` (schema-only and valid), `invalid-schema` (with a comment listing the errors), and `documentation`/`system` when it touches other files; those wait for the owner's review instead of being merged automatically.
 2. **`builder.yml`** (daily at 00:00 UTC, or manually): checks each `validated` PR again and squash-merges it, crediting every commit author as a co-author (a PR that conflicts with `master` gets `conflict`). Then, on `master`, it bumps `meta.version` (`scripts/update.mjs`), normalizes the JSON (`scripts/formatter.mjs`), regenerates `data/dist/` and then `data/manifest.json` (`scripts/build.mjs`), and pushes.
 
+**Approval gate:** a PR from a first-time contributor, or one that deletes a schema, is labeled `awaiting-approval` and merged only after the owner approves it with an *Approve* review on GitHub. The approval is tied to the reviewed commit, so new pushes need a new approval. PRs from collaborators and from people who already had a PR merged go through automatically.
+
 Both workflows only run code from `master`: a PR's files are read as data and never executed, because the workflows hold a token that can write to this repository.
 
 Contributors only write files in `data/schemas/`; everything else is generated.

@@ -184,10 +184,46 @@ const LABELS = {
   documentation: ['0075ca', 'Improvements or additions to documentation'],
   system: ['34495E', "Touches files outside data/schemas/; needs the owner's review"],
   conflict: ['B60205', 'PR conflicts with master; needs to be updated'],
+  'awaiting-approval': ['FBCA04', "Valid, but merged only after the owner approves it (an Approve review)"],
+}
+
+// ------------------------------------------------------------ Approval gate
+//
+// GitHub's `author_association` of the PR author. OWNER/MEMBER/COLLABORATOR
+// have access to the repo; CONTRIBUTOR has had a commit merged here before.
+// Anyone else (a first-time contributor) needs the owner's approval.
+const TRUSTED_AUTHORS = new Set(['OWNER', 'MEMBER', 'COLLABORATOR', 'CONTRIBUTOR'])
+// Whose "Approve" review counts.
+const APPROVERS = new Set(['OWNER', 'MEMBER', 'COLLABORATOR'])
+
+/** Why this PR can't be merged without approval; empty when it can. */
+export function approvalReasons(pr, changes) {
+  const reasons = []
+  if (!TRUSTED_AUTHORS.has(pr.author_association)) {
+    reasons.push('this is the author\'s first contribution')
+  }
+  const deleted = changes.schemas.filter((s) => s.deleted).map((s) => `\`${s.file}\``)
+  if (deleted.length > 0) reasons.push(`it deletes ${deleted.join(', ')}`)
+  return reasons
+}
+
+/** True when an approver's latest decisive review approves exactly
+ *  `headSha`. Pinning to the commit means a push after the approval
+ *  (new, unreviewed content) needs a new approval. */
+export async function isApproved(number, headSha) {
+  const reviews = await api('GET', `/pulls/${number}/reviews?per_page=100`)
+  const latest = new Map() // reviewer -> latest APPROVED / CHANGES_REQUESTED / DISMISSED
+  for (const review of reviews) {
+    if (!APPROVERS.has(review.author_association)) continue
+    if (!['APPROVED', 'CHANGES_REQUESTED', 'DISMISSED'].includes(review.state)) continue
+    latest.set(review.user.login, review)
+  }
+  return [...latest.values()].some((r) => r.state === 'APPROVED' && r.commit_id === headSha)
 }
 
 /** Sets exactly `wanted` among the labels this automation manages,
- *  leaving any other label (added by a human) untouched. */
+ *  leaving any other label (added by a human) untouched. Returns the
+ *  labels that were newly added. */
 export async function setManagedLabels(number, wanted) {
   const current = (await api('GET', `/issues/${number}/labels`)).map((l) => l.name)
   for (const name of current) {
@@ -198,6 +234,7 @@ export async function setManagedLabels(number, wanted) {
   const missing = wanted.filter((name) => !current.includes(name))
   for (const name of missing) await ensureLabel(name)
   if (missing.length > 0) await api('POST', `/issues/${number}/labels`, { labels: missing })
+  return missing
 }
 
 async function ensureLabel(name) {

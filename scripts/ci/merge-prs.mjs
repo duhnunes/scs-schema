@@ -9,9 +9,22 @@
 // exact commit that was checked, so a push that lands in between makes
 // GitHub refuse the merge instead of merging unchecked code.
 //
+// PRs from first-time contributors, or that delete a schema, are merged
+// only once an approver has approved that exact commit (see
+// approvalReasons/isApproved in pr.mjs); until then they're skipped.
+//
 // Env: GITHUB_TOKEN, GITHUB_REPOSITORY.
 
-import { api, checkPr, comment, fetchPrHead, git, setManagedLabels } from './pr.mjs'
+import {
+  api,
+  approvalReasons,
+  checkPr,
+  comment,
+  fetchPrHead,
+  git,
+  isApproved,
+  setManagedLabels,
+} from './pr.mjs'
 
 const open = await api('GET', '/pulls?state=open&per_page=100&sort=created&direction=asc')
 const candidates = open.filter((pr) => !pr.draft && pr.labels.some((l) => l.name === 'validated'))
@@ -43,6 +56,12 @@ for (const pr of candidates) {
           (result.problems.length ? ':\n\n' + result.problems.join('\n\n') : '.') +
           '\n\nUpdate the branch and push again.'
       )
+      continue
+    }
+
+    const reasons = approvalReasons(pr, result.changes)
+    if (reasons.length > 0 && !(await isApproved(number, headSha))) {
+      console.log(`PR #${number} waits for approval: ${reasons.join('; ')}`)
       continue
     }
 
