@@ -4,7 +4,7 @@
     "documentationStatus": "complete"
   },
   "scope": "accessory_addon_data",
-  "description": "Used for vehicle accessories which add a visible component to a vehicle. Defines the paths to the visible models and their configuration (variant, look, excluded views), and the collision mesh path if applicable.",
+  "description": "Used for vehicle accessories which add a visible component to a vehicle. Defines the paths to the visible models and their configuration (variant, look, excluded views), and the collision mesh path if applicable. <- final dot",
   "superclass": "accessory_data",
   "versionNote": null,
   "allowsSiiNunitRoot": true,
