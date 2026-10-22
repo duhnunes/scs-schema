@@ -73,11 +73,11 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
-      # Build, phase 2: the ref now contains data/dist/. Skipped when
-      # dist/ didn't change: the manifest would only get a new
-      # generatedAt, i.e. a pointless commit every day.
+      # Build, phase 2: the ref now contains data/dist/. Runs every time
+      # (data/game-usage.json can change without dist/ changing); when
+      # nothing changed, build.mjs keeps the old generatedAt, so the file
+      # stays identical and nothing is committed.
       - name: Build manifest
-        if: steps.dist.outputs.changed == 'true'
         run: |
           node scripts/build.mjs --manifest-only "$(git rev-parse HEAD)"
           git add data/manifest.v3.json

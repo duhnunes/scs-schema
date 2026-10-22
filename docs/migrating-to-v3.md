@@ -12,7 +12,7 @@ v2 was written from the SCS modding wiki alone, which turned out to be incomplet
 |---|---|---|
 | Manifest | `data/manifest.json` | `data/manifest.v3.json` |
 | Flattened class files | `data/dist/<class>.json` | `data/dist/v3/<class>.json` |
-| `formatVersion` | `2.0.0` | `3.0.0` |
+| `formatVersion` | `2.0.0` | `3.x` (currently `3.1.0`) |
 
 **v2 is frozen, not removed.** Its files are no longer updated, but they stay in place and their CDN URLs keep working, so an extension version that reads v2 doesn't break. New data only goes to v3.
 
@@ -26,6 +26,9 @@ Namespaced classes (`ui::text_common`) are stored with `::` written as `.`: `ui.
 - `description` can be `""`.
 - `dynamicAttributeGroups` is **removed**. It existed for attribute families the wiki didn't name; every attribute is now named individually in `key`.
 - Manifest entries keep the same fields; `documentationStatus` can be `"undocumented"`.
+- **3.1.0** adds `gameUnits` to each manifest entry: how many units of that class exist in SCS's own game files (`0` when never seen). Useful to rank class completion. The counts come from `data/game-usage.json`, which records the game version and the archives they were taken from; classes that live mostly in archives not counted there (e.g. truck DLCs) are undercounted. The field may be absent, so treat it as optional.
+
+Within 3.x, changes only add optional fields, so a consumer can accept any `3.*`.
 
 ### Attribute level
 

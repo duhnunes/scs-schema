@@ -19,7 +19,9 @@ const MANIFEST = path.join(DATA_DIR, 'manifest.v3.json')
 
 const REPO_USER = process.env.REPO_USER || 'duhnunes'
 const REPO_NAME = process.env.REPO_NAME || 'scs-schema'
-const FORMAT_VERSION = '3.0.0'
+// 3.1.0: manifest entries gained the optional `gameUnits`.
+const FORMAT_VERSION = '3.1.0'
+const GAME_USAGE = path.join(DATA_DIR, 'game-usage.json')
 
 /** ui::text_common -> ui.text_common.json (':' isn't allowed in Windows file names). */
 const fileNameOf = (scope) => scope.replace(/::/g, '.') + '.json'
@@ -99,6 +101,16 @@ function buildFlattenedSchema(scope, schemas) {
   }
 }
 
+/** scope -> number of units in SCS's game files, or null when
+ *  data/game-usage.json doesn't exist (then `gameUnits` is left out). */
+async function loadGameUsage() {
+  try {
+    return JSON.parse(await fs.readFile(GAME_USAGE, 'utf8')).classes
+  } catch {
+    return null
+  }
+}
+
 async function loadExistingManifest() {
   try {
     return JSON.parse(await fs.readFile(MANIFEST, 'utf8'))
@@ -151,6 +163,7 @@ async function buildManifest(ref, verbose) {
 
   const schemas = await loadSourceSchemas()
   const existingManifest = await loadExistingManifest()
+  const gameUsage = await loadGameUsage()
   const newManifest = {
     formatVersion: FORMAT_VERSION,
     generatedAt: new Date().toISOString(),
@@ -159,7 +172,8 @@ async function buildManifest(ref, verbose) {
 
   const stats = { added: 0, updated: 0, removed: 0, unchanged: 0 }
 
-  for (const scope of schemas.keys()) {
+  // Sorted, so the entry order doesn't depend on how the OS lists the files.
+  for (const scope of [...schemas.keys()].sort()) {
     const distPath = path.join(DIST_DIR, fileNameOf(scope))
     let distContent
     try {
@@ -189,6 +203,7 @@ async function buildManifest(ref, verbose) {
         own.superclass && own.superclass !== ROOT_SUPERCLASS ? own.superclass : null,
       documentationStatus: own.meta?.documentationStatus || 'wip',
     }
+    if (gameUsage) newManifest.schemas[scope].gameUnits = gameUsage[scope] ?? 0
 
     if (isNew) stats.added++
     else if (hashChanged) stats.updated++
@@ -197,6 +212,13 @@ async function buildManifest(ref, verbose) {
 
   for (const scope of Object.keys(existingManifest.schemas)) {
     if (!schemas.has(scope)) stats.removed++
+  }
+
+  // Keep the previous generatedAt when nothing else changed, so a run with
+  // nothing new leaves the file untouched (and CI makes no empty commit).
+  const withoutDate = (m) => JSON.stringify({ ...m, generatedAt: undefined })
+  if (existingManifest.generatedAt && withoutDate(existingManifest) === withoutDate(newManifest)) {
+    newManifest.generatedAt = existingManifest.generatedAt
   }
 
   await fs.writeFile(MANIFEST, JSON.stringify(newManifest, null, 2) + '\n', 'utf8')
