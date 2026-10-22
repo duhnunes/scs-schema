@@ -1,6 +1,6 @@
 {
   "formatVersion": "3.1.0",
-  "generatedAt": "2026-10-22T04:00:03.833Z",
+  "generatedAt": "2026-10-22T04:55:42.314Z",
   "schemas": {
     "academy_adjuster_tutorial_hdl": {
       "name": "academy_adjuster_tutorial_hdl",
@@ -34,6 +34,17 @@
       "superclass": null,
       "documentationStatus": "undocumented",
       "gameUnits": 3
+    },
+    "academy_book_intro_hdl": {
+      "name": "academy_book_intro_hdl",
+      "description": "",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@d29919fa32d8f0971c66084778a912997292ea8f/data/dist/v3/academy_book_intro_hdl.json",
+      "hash": "sha256:a5b3d5cef4cabbc59568eb803ff73e25906a40308bfb90dc07ac6d6fcc8479f9",
+      "metaVersion": "0.1.0",
+      "size": 670,
+      "superclass": null,
+      "documentationStatus": "undocumented",
+      "gameUnits": 1
     },
     "academy_book_menu_hdl": {
       "name": "academy_book_menu_hdl",
@@ -2125,6 +2136,17 @@
       "documentationStatus": "undocumented",
       "gameUnits": 76
     },
+    "car_dealer_online_hdl": {
+      "name": "car_dealer_online_hdl",
+      "description": "",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@d29919fa32d8f0971c66084778a912997292ea8f/data/dist/v3/car_dealer_online_hdl.json",
+      "hash": "sha256:4865ed96bd17b3e5b2f68ef752c8f9a1d0fa59583bf45f3ec86faf1f5f127967",
+      "metaVersion": "0.1.0",
+      "size": 669,
+      "superclass": null,
+      "documentationStatus": "undocumented",
+      "gameUnits": 1
+    },
     "car_delivery_hdl": {
       "name": "car_delivery_hdl",
       "description": "",
@@ -2531,6 +2553,17 @@
       "superclass": "screen_base_hdl",
       "documentationStatus": "undocumented",
       "gameUnits": 0
+    },
+    "cheat_trailer_alias": {
+      "name": "cheat_trailer_alias",
+      "description": "",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@d29919fa32d8f0971c66084778a912997292ea8f/data/dist/v3/cheat_trailer_alias.json",
+      "hash": "sha256:217855563f386407f935f7ae438b5a5136e00aea5d56837845776c4aadcfdb64",
+      "metaVersion": "0.1.0",
+      "size": 1066,
+      "superclass": null,
+      "documentationStatus": "undocumented",
+      "gameUnits": 1
     },
     "cinematic_camera": {
       "name": "cinematic_camera",
@@ -3335,6 +3368,17 @@
       "documentationStatus": "undocumented",
       "gameUnits": 1
     },
+    "desktop_menu_bar_hdl": {
+      "name": "desktop_menu_bar_hdl",
+      "description": "",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@d29919fa32d8f0971c66084778a912997292ea8f/data/dist/v3/desktop_menu_bar_hdl.json",
+      "hash": "sha256:0a9be5e19d276246662dc7c58d11c2f4a805b9439807c0b82d2a4fbd9e72d314",
+      "metaVersion": "0.1.0",
+      "size": 668,
+      "superclass": null,
+      "documentationStatus": "undocumented",
+      "gameUnits": 1
+    },
     "desktop_screen_config": {
       "name": "desktop_screen_config",
       "description": "",
@@ -3819,13 +3863,24 @@
       "documentationStatus": "undocumented",
       "gameUnits": 2
     },
+    "economy_rule": {
+      "name": "economy_rule",
+      "description": "",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@d29919fa32d8f0971c66084778a912997292ea8f/data/dist/v3/economy_rule.json",
+      "hash": "sha256:716955a7ed4e0592ad24e476c38ef70fd2c4fdc06aa0c48022c36e7b2c16f69f",
+      "metaVersion": "0.1.0",
+      "size": 1452,
+      "superclass": null,
+      "documentationStatus": "undocumented",
+      "gameUnits": 6
+    },
     "economy_trailer_data": {
       "name": "economy_trailer_data",
       "description": "",
-      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@e264e041ddb3499c53b1ddcd872b4dbbc1becf0e/data/dist/v3/economy_trailer_data.json",
-      "hash": "sha256:58770f32b2425df7abb810506e95f862897f799c03f71d77c75768907fbe2121",
-      "metaVersion": "0.1.0",
-      "size": 992,
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@d29919fa32d8f0971c66084778a912997292ea8f/data/dist/v3/economy_trailer_data.json",
+      "hash": "sha256:2650afa5dde8ec97cf3855cf00461bcb9b8c5e22dbf6ad12fa70f50004af9245",
+      "metaVersion": "0.2.0",
+      "size": 1425,
       "superclass": null,
       "documentationStatus": "undocumented",
       "gameUnits": 1
@@ -4005,6 +4060,28 @@
       "superclass": null,
       "documentationStatus": "undocumented",
       "gameUnits": 0
+    },
+    "engine_sound_data_hdl": {
+      "name": "engine_sound_data_hdl",
+      "description": "",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@d29919fa32d8f0971c66084778a912997292ea8f/data/dist/v3/engine_sound_data_hdl.json",
+      "hash": "sha256:e2264866b5f3fac5619f5e85f64c5c8c6d7bc3d66f608abd9d0a7d1a6d59c25b",
+      "metaVersion": "0.1.0",
+      "size": 669,
+      "superclass": null,
+      "documentationStatus": "undocumented",
+      "gameUnits": 1
+    },
+    "engine_sound_hdl": {
+      "name": "engine_sound_hdl",
+      "description": "",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@d29919fa32d8f0971c66084778a912997292ea8f/data/dist/v3/engine_sound_hdl.json",
+      "hash": "sha256:a8e7eebdacfc5b3fbe0ab5c1c5be67db721a2d9c69afc95c5a4d9ea92096d3b3",
+      "metaVersion": "0.1.0",
+      "size": 664,
+      "superclass": null,
+      "documentationStatus": "undocumented",
+      "gameUnits": 1
     },
     "env_area": {
       "name": "env_area",
@@ -4523,6 +4600,28 @@
       "documentationStatus": "undocumented",
       "gameUnits": 69
     },
+    "feat_data": {
+      "name": "feat_data",
+      "description": "",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@d29919fa32d8f0971c66084778a912997292ea8f/data/dist/v3/feat_data.json",
+      "hash": "sha256:738052fde8ba979bfdb5f4eb84207f5fec483e029e6e51384a2a46183cb7e0fa",
+      "metaVersion": "0.1.0",
+      "size": 1469,
+      "superclass": null,
+      "documentationStatus": "undocumented",
+      "gameUnits": 26
+    },
+    "feat_visitor_data": {
+      "name": "feat_visitor_data",
+      "description": "",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@d29919fa32d8f0971c66084778a912997292ea8f/data/dist/v3/feat_visitor_data.json",
+      "hash": "sha256:87cfc397c518e489155b1b99a2218b765663e1bc7d302376a8350aac247466ca",
+      "metaVersion": "0.1.0",
+      "size": 1064,
+      "superclass": null,
+      "documentationStatus": "undocumented",
+      "gameUnits": 4
+    },
     "ferry_connection": {
       "name": "ferry_connection",
       "description": "",
@@ -4621,6 +4720,17 @@
       "superclass": null,
       "documentationStatus": "undocumented",
       "gameUnits": 0
+    },
+    "find_dialog_non_visual_item": {
+      "name": "find_dialog_non_visual_item",
+      "description": "",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@d29919fa32d8f0971c66084778a912997292ea8f/data/dist/v3/find_dialog_non_visual_item.json",
+      "hash": "sha256:03f8098bbf4c0720aa05ad658e2e7468008dc9f19351dae4d9320b20b49e8d0d",
+      "metaVersion": "0.1.0",
+      "size": 3540,
+      "superclass": null,
+      "documentationStatus": "undocumented",
+      "gameUnits": 11
     },
     "find_references_column": {
       "name": "find_references_column",
@@ -5700,6 +5810,17 @@
       "documentationStatus": "undocumented",
       "gameUnits": 1
     },
+    "hdr_static_parameters": {
+      "name": "hdr_static_parameters",
+      "description": "",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@d29919fa32d8f0971c66084778a912997292ea8f/data/dist/v3/hdr_static_parameters.json",
+      "hash": "sha256:aa6376824e62f11c7eb3deba54ca0af2125373077b858e6e6d183ff1d0a22318",
+      "metaVersion": "0.1.0",
+      "size": 6494,
+      "superclass": null,
+      "documentationStatus": "undocumented",
+      "gameUnits": 6
+    },
     "hinge_model": {
       "name": "hinge_model",
       "description": "",
@@ -6579,6 +6700,17 @@
       "superclass": null,
       "documentationStatus": "undocumented",
       "gameUnits": 0
+    },
+    "mandatory_break_needed_hdl": {
+      "name": "mandatory_break_needed_hdl",
+      "description": "",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@d29919fa32d8f0971c66084778a912997292ea8f/data/dist/v3/mandatory_break_needed_hdl.json",
+      "hash": "sha256:4a1a416e5e22b57b305e0a5f93de51bc1b454ce61f9fed9600b7c6ffbae3b399",
+      "metaVersion": "0.1.0",
+      "size": 674,
+      "superclass": null,
+      "documentationStatus": "undocumented",
+      "gameUnits": 1
     },
     "map_action": {
       "name": "map_action",
@@ -9044,6 +9176,17 @@
       "documentationStatus": "undocumented",
       "gameUnits": 1
     },
+    "photo_mode_menu_hdl": {
+      "name": "photo_mode_menu_hdl",
+      "description": "",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@d29919fa32d8f0971c66084778a912997292ea8f/data/dist/v3/photo_mode_menu_hdl.json",
+      "hash": "sha256:6d1a453525ddf5999ef0b5c9d51a0f2c858e00c6aba41bc0d18622fb870f2edd",
+      "metaVersion": "0.1.0",
+      "size": 667,
+      "superclass": null,
+      "documentationStatus": "undocumented",
+      "gameUnits": 1
+    },
     "physics_data": {
       "name": "physics_data",
       "description": "",
@@ -10529,6 +10672,17 @@
       "documentationStatus": "undocumented",
       "gameUnits": 0
     },
+    "screenshot_preview_hdl": {
+      "name": "screenshot_preview_hdl",
+      "description": "",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@d29919fa32d8f0971c66084778a912997292ea8f/data/dist/v3/screenshot_preview_hdl.json",
+      "hash": "sha256:52405af8b3bd077806114e6c02a5e64ab45a223490876e68183893e5e1192761",
+      "metaVersion": "0.1.0",
+      "size": 670,
+      "superclass": null,
+      "documentationStatus": "undocumented",
+      "gameUnits": 1
+    },
     "sector_manager": {
       "name": "sector_manager",
       "description": "",
@@ -11287,6 +11441,17 @@
       "superclass": "color_effect",
       "documentationStatus": "undocumented",
       "gameUnits": 1
+    },
+    "stamp_data": {
+      "name": "stamp_data",
+      "description": "",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@d29919fa32d8f0971c66084778a912997292ea8f/data/dist/v3/stamp_data.json",
+      "hash": "sha256:153080a19e4ade4c4bc31ef6bdb4da5349cf1eae1164b734210260d808b69c9b",
+      "metaVersion": "0.1.0",
+      "size": 1083,
+      "superclass": null,
+      "documentationStatus": "undocumented",
+      "gameUnits": 80
     },
     "startup_screen_base_hdl": {
       "name": "startup_screen_base_hdl",
@@ -12432,6 +12597,28 @@
       "documentationStatus": "undocumented",
       "gameUnits": 0
     },
+    "ui::consolehdl": {
+      "name": "ui::consolehdl",
+      "description": "",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@d29919fa32d8f0971c66084778a912997292ea8f/data/dist/v3/ui.consolehdl.json",
+      "hash": "sha256:983c1613d410bf41abbdb0b152a27ec41cf5d02cba739c26fb5ecad6d36af320",
+      "metaVersion": "0.1.0",
+      "size": 663,
+      "superclass": null,
+      "documentationStatus": "undocumented",
+      "gameUnits": 1
+    },
+    "ui::controls_overlay_manager_hdl": {
+      "name": "ui::controls_overlay_manager_hdl",
+      "description": "",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@d29919fa32d8f0971c66084778a912997292ea8f/data/dist/v3/ui.controls_overlay_manager_hdl.json",
+      "hash": "sha256:6bdac9f445bd1c17646261996fca4a572f149d182d7ed7cfb079b9d8e3b8a490",
+      "metaVersion": "0.1.0",
+      "size": 680,
+      "superclass": null,
+      "documentationStatus": "undocumented",
+      "gameUnits": 1
+    },
     "ui::droplist": {
       "name": "ui::droplist",
       "description": "",
@@ -12728,6 +12915,17 @@
       "superclass": "ui::group",
       "documentationStatus": "undocumented",
       "gameUnits": 126
+    },
+    "ui::profilerhdl": {
+      "name": "ui::profilerhdl",
+      "description": "",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@d29919fa32d8f0971c66084778a912997292ea8f/data/dist/v3/ui.profilerhdl.json",
+      "hash": "sha256:d2903630679f11e6f1bc3ebe0be6f02513a677961e24e912665679f8463b97c9",
+      "metaVersion": "0.1.0",
+      "size": 663,
+      "superclass": null,
+      "documentationStatus": "undocumented",
+      "gameUnits": 1
     },
     "ui::property_set_tooltip": {
       "name": "ui::property_set_tooltip",
@@ -14200,6 +14398,17 @@
       "metaVersion": "0.1.0",
       "size": 735,
       "superclass": "screen_base_hdl",
+      "documentationStatus": "undocumented",
+      "gameUnits": 1
+    },
+    "weblinks_widget_hdl": {
+      "name": "weblinks_widget_hdl",
+      "description": "",
+      "url": "https://cdn.jsdelivr.net/gh/duhnunes/scs-schema@d29919fa32d8f0971c66084778a912997292ea8f/data/dist/v3/weblinks_widget_hdl.json",
+      "hash": "sha256:4112a5ebcbd8e71614b1d830c8076d6723e791be77d60eeb88afc6f2323c9110",
+      "metaVersion": "0.1.0",
+      "size": 667,
+      "superclass": null,
       "documentationStatus": "undocumented",
       "gameUnits": 1
     },
