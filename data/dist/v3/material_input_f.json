@@ -1,0 +1,95 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "material_input_f",
+  "description": "",
+  "superclass": "material_input",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "name": {
+      "description": "",
+      "type": "string",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "",
+      "inheritedFrom": "material_input"
+    },
+    "ui_name": {
+      "description": "",
+      "type": "string",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "",
+      "inheritedFrom": "material_input"
+    },
+    "vs_defines": {
+      "description": "",
+      "type": "string",
+      "isArray": true,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "",
+      "inheritedFrom": "material_input"
+    },
+    "fs_defines": {
+      "description": "",
+      "type": "string",
+      "isArray": true,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "",
+      "inheritedFrom": "material_input"
+    },
+    "default_value": {
+      "description": "",
+      "type": "float",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  },
+  "inheritsFrom": [
+    "material_input"
+  ]
+}

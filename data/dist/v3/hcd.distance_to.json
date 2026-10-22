@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "hcd::distance_to",
+  "description": "",
+  "superclass": "tutorial_hint_condition",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "duration": {
+      "description": "",
+      "type": "int",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "",
+      "inheritedFrom": "tutorial_hint_condition"
+    },
+    "negate": {
+      "description": "",
+      "type": "bool",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "",
+      "inheritedFrom": "tutorial_hint_condition"
+    },
+    "object": {
+      "description": "",
+      "type": "enum",
+      "isArray": false,
+      "values": [
+        "delivery_point",
+        "target_depot",
+        "service",
+        "city",
+        "vehicles_in_front",
+        "vehicles_behind",
+        "landmark",
+        "viewpoint",
+        "tourist_board",
+        "point_of_interest",
+        "resting_place",
+        "filling_station"
+      ],
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    },
+    "value": {
+      "description": "",
+      "type": "uint",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  },
+  "inheritsFrom": [
+    "tutorial_hint_condition"
+  ]
+}

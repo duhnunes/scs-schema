@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "special_job_save",
+  "description": "",
+  "superclass": "unit",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "offer": {
+      "description": "",
+      "type": "owner_ptr",
+      "isArray": false,
+      "values": null,
+      "pointsTo": [
+        "special_offer"
+      ],
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  },
+  "inheritsFrom": []
+}

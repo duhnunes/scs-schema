@@ -1,0 +1,111 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "vehicle_wheel_accessory",
+  "description": "",
+  "superclass": "vehicle_accessory",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "wear": {
+      "description": "",
+      "type": "float",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "legacy",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "",
+      "inheritedFrom": "vehicle_accessory"
+    },
+    "data_path": {
+      "description": "",
+      "type": "string",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": [
+        "sii"
+      ],
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "",
+      "inheritedFrom": "vehicle_accessory"
+    },
+    "refund": {
+      "description": "",
+      "type": "u32",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "",
+      "inheritedFrom": "vehicle_accessory"
+    },
+    "brakes_wear": {
+      "description": "",
+      "type": "float",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "legacy",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    },
+    "offset": {
+      "description": "",
+      "type": "u16",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    },
+    "paint_color": {
+      "description": "",
+      "type": "float3",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  },
+  "inheritsFrom": [
+    "vehicle_accessory"
+  ]
+}

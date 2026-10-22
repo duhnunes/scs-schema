@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "pane_dock_group",
+  "description": "",
+  "superclass": "unit",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "side": {
+      "description": "",
+      "type": "enum",
+      "isArray": false,
+      "values": [
+        "center",
+        "top",
+        "right",
+        "bottom",
+        "left"
+      ],
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    },
+    "layer": {
+      "description": "",
+      "type": "uint",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    },
+    "row": {
+      "description": "",
+      "type": "uint",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    },
+    "size": {
+      "description": "",
+      "type": "uint",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  },
+  "inheritsFrom": []
+}

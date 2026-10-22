@@ -1,0 +1,44 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "input_config",
+  "description": "",
+  "superclass": "unit",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "version": {
+      "description": "",
+      "type": "uint",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    },
+    "config_lines": {
+      "description": "",
+      "type": "string",
+      "isArray": true,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  },
+  "inheritsFrom": []
+}

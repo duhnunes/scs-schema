@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "relightable_cubemap_def",
+  "description": "",
+  "superclass": "unit",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "albedo_texture": {
+      "description": "",
+      "type": "string",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": [
+        "tobj"
+      ],
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    },
+    "normal_texture": {
+      "description": "",
+      "type": "string",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": [
+        "tobj"
+      ],
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    },
+    "lightmap_texture": {
+      "description": "",
+      "type": "string",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": [
+        "tobj"
+      ],
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    },
+    "always_lit": {
+      "description": "",
+      "type": "bool",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  },
+  "inheritsFrom": []
+}

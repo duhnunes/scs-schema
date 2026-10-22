@@ -1,0 +1,15 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "effect_data",
+  "description": "",
+  "superclass": "effect",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {},
+  "inheritsFrom": [
+    "effect"
+  ]
+}

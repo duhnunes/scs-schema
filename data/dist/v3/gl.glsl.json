@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "gl::glsl",
+  "description": "",
+  "superclass": "gl::resource",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {},
+  "inheritsFrom": [
+    "resource_unit",
+    "gl::resource"
+  ]
+}

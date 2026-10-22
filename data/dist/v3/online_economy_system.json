@@ -1,0 +1,15 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "online_economy_system",
+  "description": "",
+  "superclass": "gameplay_system_base",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {},
+  "inheritsFrom": [
+    "gameplay_system_base"
+  ]
+}

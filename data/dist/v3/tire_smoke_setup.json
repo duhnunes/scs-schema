@@ -1,0 +1,48 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "tire_smoke_setup",
+  "description": "",
+  "superclass": "unit",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "particle_set": {
+      "description": "",
+      "type": "link_ptr",
+      "isArray": false,
+      "values": null,
+      "pointsTo": [
+        "particle_set"
+      ],
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    },
+    "generator_configs": {
+      "description": "",
+      "type": "owner_ptr",
+      "isArray": true,
+      "values": null,
+      "pointsTo": [
+        "tire_smoke_generator_config"
+      ],
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  },
+  "inheritsFrom": []
+}

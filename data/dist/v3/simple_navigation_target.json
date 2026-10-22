@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "simple_navigation_target",
+  "description": "",
+  "superclass": "navigation_target",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {},
+  "inheritsFrom": [
+    "event_base_unit",
+    "navigation_target"
+  ]
+}

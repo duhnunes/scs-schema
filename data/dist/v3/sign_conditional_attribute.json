@@ -1,0 +1,93 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "sign_conditional_attribute",
+  "description": "",
+  "superclass": "sign_dynamic_attribute",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "item_id": {
+      "description": "",
+      "type": "uint",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "",
+      "inheritedFrom": "sign_dynamic_attribute"
+    },
+    "attr_name": {
+      "description": "",
+      "type": "string",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "",
+      "inheritedFrom": "sign_dynamic_attribute"
+    },
+    "conditions": {
+      "description": "",
+      "type": "string",
+      "isArray": true,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    },
+    "values": {
+      "description": "",
+      "type": "string",
+      "isArray": true,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    },
+    "traffic_rules": {
+      "description": "",
+      "type": "string",
+      "isArray": true,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  },
+  "inheritsFrom": [
+    "sign_dynamic_attribute"
+  ]
+}

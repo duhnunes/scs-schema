@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "gas_pumping_effect",
+  "description": "",
+  "superclass": "animated_effect",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "animation_duration": {
+      "description": "",
+      "type": "float",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "",
+      "inheritedFrom": "animated_effect"
+    },
+    "fade_out_duration": {
+      "description": "",
+      "type": "float",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "",
+      "inheritedFrom": "animated_effect"
+    },
+    "pumping_color": {
+      "description": "",
+      "type": "float3",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    },
+    "full_color": {
+      "description": "",
+      "type": "float3",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  },
+  "inheritsFrom": [
+    "color_effect",
+    "animated_effect"
+  ]
+}

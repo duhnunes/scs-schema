@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "academy_hud_system",
+  "description": "",
+  "superclass": "hud_system",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {},
+  "inheritsFrom": [
+    "gameplay_system_base",
+    "hud_system"
+  ]
+}

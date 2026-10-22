@@ -1,0 +1,15 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "online_garage",
+  "description": "",
+  "superclass": "garage_base",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {},
+  "inheritsFrom": [
+    "garage_base"
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "achievement_unique_delivery_points",
+  "description": "",
+  "superclass": "achievement_delivery_condition",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "condition": {
+      "description": "",
+      "type": "owner_ptr",
+      "isArray": false,
+      "values": null,
+      "pointsTo": [
+        "achievement_delivery_condition"
+      ],
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    },
+    "role": {
+      "description": "",
+      "type": "enum",
+      "isArray": false,
+      "values": [
+        "any",
+        "both",
+        "source",
+        "target"
+      ],
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    },
+    "unique": {
+      "description": "",
+      "type": "enum",
+      "isArray": false,
+      "values": [
+        "none",
+        "company",
+        "company_instance",
+        "city",
+        "country"
+      ],
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    },
+    "count": {
+      "description": "",
+      "type": "uint",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  },
+  "inheritsFrom": [
+    "achievement_condition",
+    "achievement_delivery_condition"
+  ]
+}

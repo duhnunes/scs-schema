@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "set_seat_hdl",
+  "description": "",
+  "superclass": "set_adjustment_base_hdl",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "window_link": {
+      "description": "",
+      "type": "link_ptr",
+      "isArray": false,
+      "values": null,
+      "pointsTo": [
+        "ui::window"
+      ],
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "",
+      "inheritedFrom": "ui::handler"
+    },
+    "idle_color_str": {
+      "description": "",
+      "type": "string",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "",
+      "inheritedFrom": "set_adjustment_base_hdl"
+    },
+    "press_color_str": {
+      "description": "",
+      "type": "string",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "",
+      "inheritedFrom": "set_adjustment_base_hdl"
+    }
+  },
+  "inheritsFrom": [
+    "ui::handler",
+    "set_ingame_hdl",
+    "set_adjustment_base_hdl"
+  ]
+}

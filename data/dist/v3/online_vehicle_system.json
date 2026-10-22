@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "online_vehicle_system",
+  "description": "",
+  "superclass": "vehicle_system",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {},
+  "inheritsFrom": [
+    "gameplay_system_base",
+    "vehicle_system"
+  ]
+}

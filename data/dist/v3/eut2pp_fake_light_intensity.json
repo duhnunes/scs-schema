@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "eut2pp_fake_light_intensity",
+  "description": "",
+  "superclass": "parameter_packet",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "intensity": {
+      "description": "",
+      "type": "float",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  },
+  "inheritsFrom": [
+    "parameter_packet"
+  ]
+}

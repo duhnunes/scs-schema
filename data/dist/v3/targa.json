@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "targa",
+  "description": "",
+  "superclass": "r_texmap",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {},
+  "inheritsFrom": [
+    "resource_unit",
+    "r_texmap"
+  ]
+}

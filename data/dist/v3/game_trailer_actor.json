@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "game_trailer_actor",
+  "description": "",
+  "superclass": "physics_trailer_actor",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {},
+  "inheritsFrom": [
+    "vehicle_shared",
+    "physics_trailer",
+    "physics_trailer_actor"
+  ]
+}

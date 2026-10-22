@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "oversize_route_offers",
+  "description": "",
+  "superclass": "event_base_unit",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "offers": {
+      "description": "",
+      "type": "owner_ptr",
+      "isArray": true,
+      "values": null,
+      "pointsTo": [
+        "oversize_offer"
+      ],
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    },
+    "route": {
+      "description": "",
+      "type": "volatile_link_ptr",
+      "isArray": false,
+      "values": null,
+      "pointsTo": [
+        "route_data"
+      ],
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  },
+  "inheritsFrom": [
+    "event_base_unit"
+  ]
+}

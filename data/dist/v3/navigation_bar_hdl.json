@@ -1,0 +1,65 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "navigation_bar_hdl",
+  "description": "",
+  "superclass": "screen_base_hdl",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "window_link": {
+      "description": "",
+      "type": "link_ptr",
+      "isArray": false,
+      "values": null,
+      "pointsTo": [
+        "ui::window"
+      ],
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "",
+      "inheritedFrom": "ui::handler"
+    },
+    "button_row_id": {
+      "description": "",
+      "type": "uint",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    },
+    "button_row_limit": {
+      "description": "",
+      "type": "uint",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  },
+  "inheritsFrom": [
+    "ui::handler",
+    "screen_base_hdl"
+  ]
+}

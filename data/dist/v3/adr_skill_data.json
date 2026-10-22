@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "adr_skill_data",
+  "description": "",
+  "superclass": "skill_additional_data",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "rank_classes": {
+      "description": "",
+      "type": "u32",
+      "isArray": true,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  },
+  "inheritsFrom": [
+    "skill_additional_data"
+  ]
+}

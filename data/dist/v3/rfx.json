@@ -1,0 +1,15 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "rfx",
+  "description": "",
+  "superclass": "resource_unit",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {},
+  "inheritsFrom": [
+    "resource_unit"
+  ]
+}

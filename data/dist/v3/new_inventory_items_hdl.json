@@ -1,0 +1,35 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "new_inventory_items_hdl",
+  "description": "",
+  "superclass": "screen_base_hdl",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "window_link": {
+      "description": "",
+      "type": "link_ptr",
+      "isArray": false,
+      "values": null,
+      "pointsTo": [
+        "ui::window"
+      ],
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "",
+      "inheritedFrom": "ui::handler"
+    }
+  },
+  "inheritsFrom": [
+    "ui::handler",
+    "screen_base_hdl"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "physics_vehicle",
+  "description": "",
+  "superclass": "vehicle_shared",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {},
+  "inheritsFrom": [
+    "vehicle_shared"
+  ]
+}

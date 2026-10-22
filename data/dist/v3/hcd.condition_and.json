@@ -1,0 +1,65 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "hcd::condition_and",
+  "description": "",
+  "superclass": "tutorial_hint_condition",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "duration": {
+      "description": "",
+      "type": "int",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "",
+      "inheritedFrom": "tutorial_hint_condition"
+    },
+    "negate": {
+      "description": "",
+      "type": "bool",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "",
+      "inheritedFrom": "tutorial_hint_condition"
+    },
+    "conditions": {
+      "description": "",
+      "type": "link_ptr",
+      "isArray": true,
+      "values": null,
+      "pointsTo": [
+        "tutorial_hint_condition"
+      ],
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  },
+  "inheritsFrom": [
+    "tutorial_hint_condition"
+  ]
+}

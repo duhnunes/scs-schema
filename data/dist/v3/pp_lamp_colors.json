@@ -1,0 +1,33 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "pp_lamp_colors",
+  "description": "",
+  "superclass": "eut2pp_lamp_color_array",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "color": {
+      "description": "",
+      "type": "float4",
+      "isArray": true,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "",
+      "inheritedFrom": "eut2pp_lamp_color_array"
+    }
+  },
+  "inheritsFrom": [
+    "parameter_packet",
+    "eut2pp_lamp_color_array"
+  ]
+}

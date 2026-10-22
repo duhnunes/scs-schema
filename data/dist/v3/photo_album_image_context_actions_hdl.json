@@ -1,0 +1,36 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "photo_album_image_context_actions_hdl",
+  "description": "",
+  "superclass": "context_actions_hdl",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "window_link": {
+      "description": "",
+      "type": "link_ptr",
+      "isArray": false,
+      "values": null,
+      "pointsTo": [
+        "ui::window"
+      ],
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "",
+      "inheritedFrom": "ui::handler"
+    }
+  },
+  "inheritsFrom": [
+    "ui::handler",
+    "screen_base_hdl",
+    "context_actions_hdl"
+  ]
+}

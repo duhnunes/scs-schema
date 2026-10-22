@@ -1,0 +1,33 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "car_job_generator",
+  "description": "",
+  "superclass": "event_base_unit",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "car_offers": {
+      "description": "",
+      "type": "owner_ptr",
+      "isArray": true,
+      "values": null,
+      "pointsTo": [
+        "car_offer_data"
+      ],
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  },
+  "inheritsFrom": [
+    "event_base_unit"
+  ]
+}

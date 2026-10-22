@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "online_player_action_system",
+  "description": "",
+  "superclass": "player_action_system",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {},
+  "inheritsFrom": [
+    "gameplay_system_base",
+    "player_action_system"
+  ]
+}

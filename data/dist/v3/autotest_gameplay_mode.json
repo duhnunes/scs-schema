@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "autotest_gameplay_mode",
+  "description": "",
+  "superclass": "local_gameplay_mode",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {},
+  "inheritsFrom": [
+    "gameplay_mode",
+    "local_gameplay_mode"
+  ]
+}

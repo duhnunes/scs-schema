@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "hcd::on_trigger",
+  "description": "",
+  "superclass": "tutorial_hint_condition",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "duration": {
+      "description": "",
+      "type": "int",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "",
+      "inheritedFrom": "tutorial_hint_condition"
+    },
+    "negate": {
+      "description": "",
+      "type": "bool",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": "",
+      "inheritedFrom": "tutorial_hint_condition"
+    },
+    "types": {
+      "description": "",
+      "type": "enum",
+      "isArray": true,
+      "values": [
+        "none",
+        "service",
+        "job_offer",
+        "parking",
+        "hq",
+        "scales",
+        "truck_dealer",
+        "ferry",
+        "garage",
+        "buy_garage",
+        "recruitment",
+        "gate_trigger",
+        "autopark",
+        "job_delivery",
+        "cat_scales",
+        "bus_stop",
+        "special_job_offer",
+        "special_job_sleep",
+        "job_load",
+        "job_unload",
+        "job_dynamic_cargo_load",
+        "job_dynamic_cargo_unload",
+        "filling_station",
+        "viewpoint",
+        "tourist_board",
+        "point_of_interest"
+      ],
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  },
+  "inheritsFrom": [
+    "tutorial_hint_condition"
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "achievement_delivery_unload_difficulty",
+  "description": "",
+  "superclass": "achievement_delivery_condition",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "difficulty": {
+      "description": "",
+      "type": "enum",
+      "isArray": false,
+      "values": [
+        "undefined",
+        "autopark",
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  },
+  "inheritsFrom": [
+    "achievement_condition",
+    "achievement_delivery_condition"
+  ]
+}

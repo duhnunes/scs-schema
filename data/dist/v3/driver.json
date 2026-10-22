@@ -1,0 +1,33 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "driver",
+  "description": "",
+  "superclass": "event_base_unit",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "profit_log": {
+      "description": "",
+      "type": "owner_ptr",
+      "isArray": false,
+      "values": null,
+      "pointsTo": [
+        "profit_log"
+      ],
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  },
+  "inheritsFrom": [
+    "event_base_unit"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "eutpp_texprojection",
+  "description": "",
+  "superclass": "drypp_texprojection",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {},
+  "inheritsFrom": [
+    "parameter_packet",
+    "drypp_texprojection"
+  ]
+}
