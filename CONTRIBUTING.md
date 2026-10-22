@@ -24,7 +24,7 @@ Thanks for helping improve the schema database used by the <a href="https://gith
 
 ## Quick rules (must follow)
 - **Every class already has a file.** All unit classes of the game are in `data/schemas/`, most of them with names and types only (`documentationStatus: "undocumented"`). Contributions are mostly about **describing** them.
-- **Don't edit the generated fields** (`type`, `isArray`, enum `values`, `pointsTo`, `status`, `superclass`, and adding or removing attributes): they're generated from the game and refreshed on every game update, so a manual change would be overwritten. If one looks wrong, open an issue.
+- **Don't edit the generated fields** (`type`, `isArray`, enum `values`, `pointsTo`, `status`, `superclass`, and adding or removing attributes): they're generated from the game and refreshed on every game update, so a manual change would be overwritten. If one looks wrong, open an issue. Attributes whose `notes` say *"Type inferred from values in SCS game files."* are the least certain ones: an issue with evidence is especially welcome there.
 - **Only write what a source confirms** (see [Where information comes from](#where-information-comes-from)). If you're not sure, leave the field empty (`""` / `null` / `false`).
 - **Never copy in inherited attributes.** `key` only lists the attributes this class adds itself; `scripts/build.mjs` merges in the inherited ones.
 - **Don't touch `meta.version`**: the automation bumps it.

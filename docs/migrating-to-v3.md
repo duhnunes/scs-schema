@@ -4,7 +4,7 @@ Format v3 changes the shape of the generated data. This guide is for **consumers
 
 ## Why
 
-v2 was written from the SCS modding wiki alone, which turned out to be incomplete: attributes missing, some types guessed (the wiki only says "uint"), and families of attributes described without names. v3 takes the list of classes, attributes and types from the game itself, so every unit class of the game is covered (1,308 in ATS 1.61, against 8 in v2) and every type is the one the game uses.
+v2 was written from the SCS modding wiki alone, which turned out to be incomplete: attributes missing, some types guessed (the wiki only says "uint"), and families of attributes described without names. v3 takes the list of classes, attributes and types from the game itself, so every unit class of the game is covered (1,327 in ATS 1.61, against 8 in v2) and every type is the one the game uses. A few classes and attributes (19 classes, 1 attribute) appear in SCS's game files but not in the game's own class list; they are included too, with the type inferred from the values in those files and a note saying so.
 
 ## Where the files are
 
