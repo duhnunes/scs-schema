@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "anim_idle",
+  "description": "",
+  "superclass": "base_anim_param",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "time_offset": {
+      "description": "",
+      "type": "float",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  }
+}

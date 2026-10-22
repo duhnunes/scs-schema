@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "multiplayer_adviser_chat_hdl",
+  "description": "",
+  "superclass": "adviser_chat_base_hdl",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

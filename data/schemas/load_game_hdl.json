@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "load_game_hdl",
+  "description": "",
+  "superclass": "load_save_base_hdl",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

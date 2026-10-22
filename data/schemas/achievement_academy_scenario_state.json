@@ -1,0 +1,32 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "achievement_academy_scenario_state",
+  "description": "",
+  "superclass": "achievement_academy_condition",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "result": {
+      "description": "",
+      "type": "enum",
+      "isArray": false,
+      "values": [
+        "any",
+        "completed",
+        "failed"
+      ],
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  }
+}

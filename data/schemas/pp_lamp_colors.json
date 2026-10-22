@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "pp_lamp_colors",
+  "description": "",
+  "superclass": "eut2pp_lamp_color_array",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

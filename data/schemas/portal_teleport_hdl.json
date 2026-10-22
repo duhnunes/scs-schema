@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "portal_teleport_hdl",
+  "description": "",
+  "superclass": "ui::handler",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

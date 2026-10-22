@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "car_desktop_bcg_hdl",
+  "description": "",
+  "superclass": "desktop_bcg_hdl",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

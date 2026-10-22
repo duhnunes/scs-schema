@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "model_inst",
+  "description": "",
+  "superclass": "model_template",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

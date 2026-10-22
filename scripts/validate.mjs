@@ -43,7 +43,8 @@ function main() {
       continue
     }
 
-    const expectedScope = path.basename(file, '.json')
+    // ui::text_common lives in ui.text_common.json (':' isn't allowed in Windows file names).
+    const expectedScope = path.basename(file, '.json').replace(/\./g, '::')
     if (parsed.scope !== expectedScope) {
       errors.push(
         `${file}: "scope" is "${parsed.scope}", but the file name implies "${expectedScope}" — they must match`
@@ -68,6 +69,13 @@ function main() {
       resolveAncestorChain(scope, schemas)
     } catch (err) {
       errors.push(`${scopeOwners.get(scope)}: ${err.message}`)
+    }
+    for (const [attrName, attr] of Object.entries(schemas.get(scope).key)) {
+      for (const target of attr.pointsTo || []) {
+        if (target !== 'unit' && !schemas.has(target)) {
+          errors.push(`${scopeOwners.get(scope)}: "${attrName}" points to "${target}", but no schema file defines that scope`)
+        }
+      }
     }
   }
 

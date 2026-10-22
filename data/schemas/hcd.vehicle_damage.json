@@ -1,0 +1,73 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "hcd::vehicle_damage",
+  "description": "",
+  "superclass": "tutorial_hint_condition",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "part": {
+      "description": "",
+      "type": "enum",
+      "isArray": false,
+      "values": [
+        "kph",
+        "transmission",
+        "cabin",
+        "chassis",
+        "wheels",
+        "core",
+        "all",
+        "all_temporary",
+        "all_unfixable"
+      ],
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    },
+    "value": {
+      "description": "",
+      "type": "uint",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    },
+    "comparison_type": {
+      "description": "",
+      "type": "enum",
+      "isArray": false,
+      "values": [
+        "equal",
+        "not_equal",
+        "at_most",
+        "at_least"
+      ],
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  }
+}

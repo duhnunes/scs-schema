@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "wheel_particles",
+  "description": "",
+  "superclass": "model_hookup",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

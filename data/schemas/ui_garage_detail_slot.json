@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "ui_garage_detail_slot",
+  "description": "",
+  "superclass": "ui::dynamic_group",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

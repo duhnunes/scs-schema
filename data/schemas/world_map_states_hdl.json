@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "world_map_states_hdl",
+  "description": "",
+  "superclass": "states_base_hdl",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

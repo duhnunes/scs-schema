@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "vehicle_sound_accessory",
+  "description": "",
+  "superclass": "vehicle_accessory",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

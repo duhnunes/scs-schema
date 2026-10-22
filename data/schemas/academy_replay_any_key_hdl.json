@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "academy_replay_any_key_hdl",
+  "description": "",
+  "superclass": "cutscene_any_key_hdl",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

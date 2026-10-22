@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "vehicle_behind_replay_camera",
+  "description": "",
+  "superclass": "vehicle_behind_rotation_camera",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

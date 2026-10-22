@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "ui::tooltip_dynamic_base",
+  "description": "",
+  "superclass": "ui::tooltip",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

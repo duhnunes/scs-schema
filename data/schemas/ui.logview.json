@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "ui::logview",
+  "description": "",
+  "superclass": "ui::view",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

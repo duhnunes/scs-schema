@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "physics_gearbox_direct",
+  "description": "",
+  "superclass": "physics_gearbox",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

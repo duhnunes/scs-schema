@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "tr_semaphore_profile",
+  "description": "",
+  "superclass": "semaphore_profile",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

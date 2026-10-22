@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "ui_keyframe_alpha",
+  "description": "",
+  "superclass": "ui_keyframe_base",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "target_alpha": {
+      "description": "",
+      "type": "float",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  }
+}

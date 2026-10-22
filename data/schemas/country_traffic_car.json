@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "country_traffic_car",
+  "description": "",
+  "superclass": "country_traffic_vehicle",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

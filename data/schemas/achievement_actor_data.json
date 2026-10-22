@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "achievement_actor_data",
+  "description": "",
+  "superclass": "achievement_gameplay_data",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "min_vehicle_mass": {
+      "description": "",
+      "type": "float",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "ui_company_garage_widget",
+  "description": "",
+  "superclass": "ui_company_base_widget",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

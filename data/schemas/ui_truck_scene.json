@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "ui_truck_scene",
+  "description": "",
+  "superclass": "ui_truck_scene_base",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

@@ -1,0 +1,35 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "hcd::delivery_difficulty",
+  "description": "",
+  "superclass": "tutorial_hint_condition",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "type": {
+      "description": "",
+      "type": "enum",
+      "isArray": false,
+      "values": [
+        "none",
+        "any",
+        "easy",
+        "medium",
+        "hard",
+        "medium_or_hard"
+      ],
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  }
+}

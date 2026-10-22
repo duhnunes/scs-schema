@@ -17,53 +17,30 @@ const ROOT_ORDER = [
   'versionNote',
   'allowsSiiNunitRoot',
   'key',
-  'dynamicAttributeGroups',
 ]
 const META_FIELD_ORDER = ['version', 'documentationStatus']
 const KEY_FIELD_ORDER = [
   'description',
   'type',
   'isArray',
-  'arrayElementType',
-  'required',
-  'versionNote',
   'values',
   'pointsTo',
+  'status',
+  'default',
   'expectedExtensions',
+  'required',
+  'versionNote',
   'supportsLocalization',
   'internalOnly',
   'notes',
 ]
-const DYNAMIC_GROUP_FIELD_ORDER = ['pattern', 'description', 'type', 'notes']
 
-// Only `type`/`arrayElementType` (attribute-level and inside
-// dynamicAttributeGroups) get sorted into this canonical order — it's
-// the fixed enum from the SCS docs' Attribute types table. `values`,
-// `pointsTo`, and `expectedExtensions` are free-form lists (token
-// literals, class names, file extensions) with no such canonical order,
-// so they're left exactly as written — only wrapped into an array if
-// someone typed a bare string instead of a one-item array.
-const TYPE_PRIORITY = [
-  'string', 'float', 'float2', 'float3', 'float4', 'placement',
-  'fixed', 'fixed2', 'fixed3', 'fixed4', 'int2', 'quaternion',
-  's16', 's32', 's64', 'u16', 'u32', 'u64', 'bool', 'token',
-  'owner_ptr', 'link_ptr', 'resource_tie',
-]
-const TYPE_PRIORITY_MAP = new Map(TYPE_PRIORITY.map((v, i) => [v, i]))
-
-// Fields that should be a one-item array instead of a bare value when a
-// contributor typed it that way by hand — normalized for consistency,
-// but never invented when the field is legitimately null/missing (that
-// stays a validate.mjs concern, not something formatter.mjs should mask).
-const ARRAY_NORMALIZED_FIELDS = new Set([
-  'type',
-  'arrayElementType',
-  'values',
-  'pointsTo',
-  'expectedExtensions',
-])
-// Of those, only these two get sorted into TYPE_PRIORITY order.
-const TYPE_SORTED_FIELDS = new Set(['type', 'arrayElementType'])
+// List fields that should be a one-item array instead of a bare value when
+// a contributor typed it that way by hand — normalized for consistency, but
+// never invented when the field is legitimately null/missing (that stays a
+// validate.mjs concern, not something formatter.mjs should mask). Their
+// order is kept as written: enum values follow the engine's order.
+const ARRAY_NORMALIZED_FIELDS = new Set(['values', 'pointsTo', 'expectedExtensions'])
 
 function orderObject(obj, desiredOrder) {
   if (obj === null || typeof obj !== 'object' || Array.isArray(obj)) return obj
@@ -83,29 +60,14 @@ function normalizeToArray(val) {
   return [String(val)]
 }
 
-function sortTypeArray(arr) {
-  if (!Array.isArray(arr)) return arr
-  return arr
-    .map((v, idx) => ({ v, idx }))
-    .sort((a, b) => {
-      const pa = TYPE_PRIORITY_MAP.has(a.v) ? TYPE_PRIORITY_MAP.get(a.v) : Infinity
-      const pb = TYPE_PRIORITY_MAP.has(b.v) ? TYPE_PRIORITY_MAP.get(b.v) : Infinity
-      return pa !== pb ? pa - pb : a.idx - b.idx
-    })
-    .map((x) => x.v)
-}
-
-/** Applies the array-normalization + optional type-sorting rules above
- *  to whichever of ARRAY_NORMALIZED_FIELDS are present on `obj`. Used
- *  for both an attribute object and a dynamicAttributeGroups entry. */
+/** Applies the array-normalization rule above to whichever of
+ *  ARRAY_NORMALIZED_FIELDS are present on an attribute object. */
 function normalizeArrayFields(obj) {
   for (const field of ARRAY_NORMALIZED_FIELDS) {
     if (!Object.prototype.hasOwnProperty.call(obj, field)) continue
     if (obj[field] === null || obj[field] === undefined) continue
 
-    let value = normalizeToArray(obj[field])
-    if (TYPE_SORTED_FIELDS.has(field)) value = sortTypeArray(value)
-    obj[field] = value
+    obj[field] = normalizeToArray(obj[field])
   }
 }
 
@@ -129,15 +91,6 @@ function reorderSchema(schema) {
       newKey[attrName] = orderedAttr
     }
     ordered.key = newKey
-  }
-
-  if (Array.isArray(ordered.dynamicAttributeGroups)) {
-    ordered.dynamicAttributeGroups = ordered.dynamicAttributeGroups.map((group) => {
-      if (!group || typeof group !== 'object' || Array.isArray(group)) return group
-      const orderedGroup = orderObject(group, DYNAMIC_GROUP_FIELD_ORDER)
-      normalizeArrayFields(orderedGroup)
-      return orderedGroup
-    })
   }
 
   return ordered

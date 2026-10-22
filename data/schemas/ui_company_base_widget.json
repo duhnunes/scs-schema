@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "ui_company_base_widget",
+  "description": "",
+  "superclass": "ui::dynamic_group",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "company_widget_size": {
+      "description": "",
+      "type": "enum",
+      "isArray": false,
+      "values": [
+        "default",
+        "small"
+      ],
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  }
+}

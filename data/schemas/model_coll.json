@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "model_coll",
+  "description": "",
+  "superclass": "resource_unit",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

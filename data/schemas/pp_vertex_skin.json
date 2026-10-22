@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "pp_vertex_skin",
+  "description": "",
+  "superclass": "parameter_packet",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "vertex_skin_offset": {
+      "description": "",
+      "type": "uint",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  }
+}

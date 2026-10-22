@@ -1,0 +1,43 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "hcd::vehicle_component",
+  "description": "",
+  "superclass": "tutorial_hint_condition",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "component": {
+      "description": "",
+      "type": "enum",
+      "isArray": false,
+      "values": [
+        "engine",
+        "engine_electricity",
+        "wipers",
+        "lights",
+        "low_beam_lights",
+        "high_beam_lights",
+        "beam_lights",
+        "aux_lights",
+        "parking_lights",
+        "hazard_lights",
+        "blinkers",
+        "parking_brake",
+        "cruise_control",
+        "diff_lock"
+      ],
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  }
+}

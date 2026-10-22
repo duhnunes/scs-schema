@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "pp_model_identity",
+  "description": "",
+  "superclass": "pp_model",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

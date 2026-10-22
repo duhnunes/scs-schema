@@ -1,0 +1,43 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "wip"
+  },
+  "scope": "accessory_addon_tank_data",
+  "description": "The accessory_addon_tank_data unit class is used for adding accessory based tank data container. For player trucks, units of this type are usually defined in \"/def/vehicle/truck/<brand.model>/accessory/tank/*.sii\" and valid unit names end in \"tank\".",
+  "superclass": "accessory_addon_data",
+  "versionNote": "This unit type was added in 1.41.\nThis accessory type is expected at most once on any given truck. While it is technically possible to have more than one tank type accessory (eg under different locator/accessory type name) only the first found is used for value override. Multiple occurence has undefined behavior.",
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "fuel_tank_size": {
+      "description": "Fuel tank size in liters. Overrides chassis info about fuel tank size, if positive.",
+      "type": "float",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    },
+    "adblue_tank_size": {
+      "description": "AdBlue/DEF tank size in liters. Overrides chassis info about adblue tank size, if positive.",
+      "type": "float",
+      "isArray": false,
+      "values": null,
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  }
+}

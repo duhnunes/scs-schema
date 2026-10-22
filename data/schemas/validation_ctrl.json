@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "validation_ctrl",
+  "description": "",
+  "superclass": "base_ctrl",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

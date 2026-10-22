@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "navigation_target",
+  "description": "",
+  "superclass": "event_base_unit",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "condition_data_weather",
+  "description": "",
+  "superclass": "condition_data",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "weather": {
+      "description": "",
+      "type": "enum",
+      "isArray": false,
+      "values": [
+        "nice",
+        "bad"
+      ],
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  }
+}

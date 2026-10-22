@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "free_camera",
+  "description": "",
+  "superclass": "edit_camera",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

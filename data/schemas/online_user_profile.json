@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "online_user_profile",
+  "description": "",
+  "superclass": "user_profile_base",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

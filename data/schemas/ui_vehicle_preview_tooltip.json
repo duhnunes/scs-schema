@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "ui_vehicle_preview_tooltip",
+  "description": "",
+  "superclass": "ui::property_set_tooltip",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

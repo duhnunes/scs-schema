@@ -1,0 +1,32 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "sign_speed_attribute",
+  "description": "",
+  "superclass": "sign_dynamic_attribute",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "unit": {
+      "description": "",
+      "type": "enum",
+      "isArray": false,
+      "values": [
+        "mps",
+        "kph",
+        "mph"
+      ],
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  }
+}

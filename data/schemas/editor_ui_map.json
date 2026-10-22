@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "editor_ui_map",
+  "description": "",
+  "superclass": "ui_map",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

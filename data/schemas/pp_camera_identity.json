@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "pp_camera_identity",
+  "description": "",
+  "superclass": "pp_camera",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

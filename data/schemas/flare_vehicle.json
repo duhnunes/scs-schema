@@ -1,0 +1,43 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "flare_vehicle",
+  "description": "",
+  "superclass": "light_source",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "light_type": {
+      "description": "",
+      "type": "enum",
+      "isArray": false,
+      "values": [
+        "parking",
+        "low_beam",
+        "high_beam",
+        "aux",
+        "brake",
+        "left_blinker",
+        "right_blinker",
+        "reverse",
+        "beacon",
+        "dim_aux",
+        "police_hooter",
+        "electrics",
+        "cabin_light",
+        "electrics_ncl"
+      ],
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "ui::overlay_point",
+  "description": "",
+  "superclass": "ui::text_common",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "overlay_anchor_type": {
+      "description": "",
+      "type": "enum",
+      "isArray": false,
+      "values": [
+        "bottomleft",
+        "bottomright",
+        "bottomcenter",
+        "topleft",
+        "topright",
+        "topcenter"
+      ],
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  }
+}

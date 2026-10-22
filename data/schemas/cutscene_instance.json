@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "cutscene_instance",
+  "description": "",
+  "superclass": "cutscene_hookup",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "flare_lamp",
+  "description": "",
+  "superclass": "flare",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

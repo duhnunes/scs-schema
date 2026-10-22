@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "passenger_hookup",
+  "description": "",
+  "superclass": "lod_model_hookup",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "game_physics_vehicle",
+  "description": "",
+  "superclass": "physics_vehicle",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

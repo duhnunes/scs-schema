@@ -17,8 +17,9 @@ import { fileURLToPath } from 'node:url'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 export const ROOT_DIR = path.resolve(__dirname, '..', '..')
 
-const SCHEMA_PATH = /^data\/schemas\/[a-z0-9_]+\.json$/
-const GENERATED_PATH = /^data\/(dist\/|manifest\.json$)/
+// <class_name>.json; namespaced classes write "::" as "." (ui.text_common.json).
+const SCHEMA_PATH = /^data\/schemas\/[a-z0-9_]+(\.[a-z0-9_]+)*\.json$/
+const GENERATED_PATH = /^data\/(dist\/|manifest(\.v3)?\.json$)/
 const DOC_PATH = /^(README\.md|CHANGELOG\.md|CONTRIBUTING\.md|CODE_OF_CONDUCT\.md|LICENSE(\.md)?|docs\/)/
 
 export function git(args, options = {}) {
@@ -128,7 +129,7 @@ export function checkPr(baseRef, headSha) {
   if (changes.invalid.length > 0) {
     problems.push(
       'Files in `data/schemas/` must be regular files named `<class_name>.json` ' +
-        '(lowercase letters, digits and `_`), with no subfolders:\n' +
+        '(lowercase letters, digits and `_`; `::` written as `.`), with no subfolders:\n' +
         changes.invalid.map((f) => `- \`${f}\``).join('\n')
     )
   }

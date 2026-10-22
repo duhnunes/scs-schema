@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "local_vehicle_system",
+  "description": "",
+  "superclass": "vehicle_system",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

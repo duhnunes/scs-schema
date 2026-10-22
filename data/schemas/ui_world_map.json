@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "ui_world_map",
+  "description": "",
+  "superclass": "ui_job_map",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

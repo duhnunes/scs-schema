@@ -1,0 +1,30 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "achievement_position_data",
+  "description": "",
+  "superclass": "achievement_gameplay_data",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "target": {
+      "description": "",
+      "type": "enum",
+      "isArray": false,
+      "values": [
+        "hq_garage"
+      ],
+      "pointsTo": null,
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  }
+}

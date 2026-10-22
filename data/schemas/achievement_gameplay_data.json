@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "achievement_gameplay_data",
+  "description": "",
+  "superclass": "achievement_data",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

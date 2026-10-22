@@ -1,0 +1,30 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "wip"
+  },
+  "scope": "accessory_addon_trailer_cables_data",
+  "description": "The \"accessory_addon_trailer_cables_data\" unit class is used for adding dynamic trailer cables between a vehicle and its trailer. For player trucks, units of this type are usually defined in \"/def/vehicle/truck/<brand.model>/accessory/trlr_cables/*.sii\" and valid unit names end in \".trlr_cables\". For player trailers, units of this type are usually defined in \"/def/vehicle/trailer/<trailer_name>/accessory/trlr_cables/*.sii\" and valid unit names end in \".trlr_cables\".",
+  "superclass": "accessory_addon_data",
+  "versionNote": "This unit type was added in 1.31.",
+  "allowsSiiNunitRoot": true,
+  "key": {
+    "cables": {
+      "description": "Each member points to a trailer_cable_data unit",
+      "type": "owner_ptr",
+      "isArray": true,
+      "values": null,
+      "pointsTo": [
+        "trailer_cable_data"
+      ],
+      "status": "active",
+      "default": null,
+      "expectedExtensions": null,
+      "required": false,
+      "versionNote": null,
+      "supportsLocalization": false,
+      "internalOnly": false,
+      "notes": ""
+    }
+  }
+}

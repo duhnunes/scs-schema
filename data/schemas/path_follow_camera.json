@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "path_follow_camera",
+  "description": "",
+  "superclass": "core_camera",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}

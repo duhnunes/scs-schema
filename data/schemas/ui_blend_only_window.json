@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "documentationStatus": "undocumented"
+  },
+  "scope": "ui_blend_only_window",
+  "description": "",
+  "superclass": "ui_blend_window",
+  "versionNote": null,
+  "allowsSiiNunitRoot": true,
+  "key": {}
+}
